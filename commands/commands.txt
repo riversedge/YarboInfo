@@ -1,145 +1,101 @@
-#1
-Topic:   snowbot/25070102ATHDG219/app/push_rod_cmd
+Topic: snowbot/25070102ATHDG219/app/push_rod_cmd
 Message: 7801ab562a2e492c4955b232a8050017be03c8
-Decoded: {"state": 0}
-------------------------------------------------------------
-#2
-Topic:   snowbot/25070102ATHDG219/app/cmd_roller
+
+Topic: snowbot/25070102ATHDG219/app/cmd_roller
 Message: 7801ab562a4bcd51b232343030a80500183b037f
-Decoded: {"vel": 1000}
-------------------------------------------------------------
-#3
-Topic:   snowbot/25070102ATHDG219/app/cmd_vel
+
+Topic: snowbot/25070102ATHDG219/app/cmd_vel
 Message: 7801ab562a4bcd51b232d033d0512a4a2d03b36a01424905d1
-Decoded: {"vel": 0.0, "rev": 0.0}
-------------------------------------------------------------
-#4
-Topic:   snowbot/25070102ATHDG219/app/set_working_state
+
+Topic: snowbot/25070102ATHDG219/app/set_working_state
 Message: 7801ab562a2e492c4955b232ac050017c003c9
-Decoded: {"state": 1}
-------------------------------------------------------------
-#5
-Topic:   snowbot/25070102ATHDG219/app/resume
+
+Topic: snowbot/25070102ATHDG219/app/resume
 Message: 7801abae0500017500f9
-Decoded: {}
-------------------------------------------------------------
-#6
-Topic:   snowbot/25070102ATHDG219/app/cmd_vel
+
+Topic: snowbot/25070102ATHDG219/app/cmd_vel
 Message: 7801ab562a4bcd51b2d235d0333035b1303432b73436313235b334373730d5512a4a2d53b2024ad50200c02d0982
-Decoded: {"vel": -0.054812793425697705, "rev": 0.0}
-------------------------------------------------------------
-#7
-Topic:   snowbot/25070102ATHDG219/app/cmd_vel
+
+Topic: snowbot/25070102ATHDG219/app/cmd_vel
 Message: 7801ab562a4bcd51b2d235d03332b0b4b0343630323737b2b0b0343433d5512a4a2d53b232d033a80500b7fa0954
-Decoded: {"vel": -0.20989302772889165, "rev": 0.0}
-------------------------------------------------------------
-#8
-Topic:   snowbot/25070102ATHDG219/app/cmd_vel
+
+Topic: snowbot/25070102ATHDG219/app/cmd_vel
 Message: 7801ab562a4bcd51b2d235d03332373531303430b23037b4b430343536d7512a4a2d53b232d033a80500b6a90944
-Decoded: {"vel": -0.27540102871981537, "rev": 0.0}
-------------------------------------------------------------
-#9
-Topic:   snowbot/25070102ATHDG219/app/cmd_vel
+
+Topic: snowbot/25070102ATHDG219/app/cmd_vel
 Message: 7801ab562a4bcd51b2d235d033b2b0303737303035363137b53436b5d4512a4a2d53b232d033a80500af820920
-Decoded: {"vel": -0.2887700534759359, "rev": 0.0}
-------------------------------------------------------------
-#10
-Topic:   snowbot/25070102ATHDG219/app/cmd_vel
+
+Topic: snowbot/25070102ATHDG219/app/cmd_vel
 Message: 7801ab562a4bcd51b2d235d033b2343134343733323333b5343637b234d7512a4a2d53b232d033a80500b7db0954
-Decoded: {"vel": -0.29411762665937297, "rev": 0.0}
-------------------------------------------------------------
-#11
-Topic:   snowbot/25070102ATHDG219/app/read_all_plan
+
+Topic: snowbot/25070102ATHDG219/app/read_all_plan
 Message: 7801abae0500017500f9
-Decoded: {}
-------------------------------------------------------------
-#12
-Topic:   snowbot/25070102ATHDG219/app/get_map
+
+Topic: snowbot/25070102ATHDG219/app/get_map
 Message: 7801abae0500017500f9
-Decoded: {}
-------------------------------------------------------------
-#13
-Topic:   snowbot/25070102ATHDG219/app/cmd_recharge
+
+Topic: snowbot/25070102ATHDG219/app/cmd_recharge
 Message: 7801ab564ace4d51b232aa05000eba02dd
-Decoded: {"cmd": 2}
-------------------------------------------------------------
-#14
-Topic:   snowbot/25070102ATHDG219/app/set_working_state
+
+Topic: snowbot/25070102ATHDG219/app/set_working_state
 Message: 7801ab562a2e492c4955b232ac050017c003c9
-Decoded: {"state": 1}
-------------------------------------------------------------
-#15
-Topic:   snowbot/25070102ATHDG219/app/get_connect_wifi_name
+
+Topic: snowbot/25070102ATHDG219/app/get_connect_wifi_name
 Message: 7801abae0500017500f9
-Decoded: {}
-------------------------------------------------------------
-#16
-Topic:   snowbot/25070102ATHDG219/app/set_working_state
+
+Topic: snowbot/25070102ATHDG219/app/set_working_state
 Message: 7801ab562a2e492c4955b232ac050017c003c9
-Decoded: {"state": 1}
-------------------------------------------------------------
-#17
-Topic:   snowbot/25070102ATHDG219/app/restart_container
+
+Topic: snowbot/25070102ATHDG219/app/restart_container
 Message: 7801abae0500017500f9
-Decoded: {}
-------------------------------------------------------------
-#18
-Topic:   snowbot/25070102ATHDG219/app/shutdown
+
+Topic: snowbot/25070102ATHDG219/app/shutdown
 Message: 7801abae0500017500f9
-Decoded: {}
-------------------------------------------------------------
-#19
-Topic:   snowbot/25070102ATHDG219/app/resume
+
+Topic: snowbot/25070102ATHDG219/app/resume
 Message: 7801abae0500017500f9
-Decoded: {}
-------------------------------------------------------------
-#20
-Topic:   snowbot/25070102ATHDG219/app/pause
+
+Topic: snowbot/25070102ATHDG219/app/pause
 Message: 7801abae0500017500f9
-Decoded: {}
-------------------------------------------------------------
-#21
-Topic:   snowbot/25070102ATHDG219/app/light_ctrl
+
+Topic: snowbot/25070102ATHDG219/app/light_ctrl
 Message: 7801ab564aca4fa98ccf494d2b892f52b2323235d581881465a6672084725253e23352135390b8602de54802101d309192c4cc1c5463c122c8c6d6020009d3287c
-Decoded: {"body_left_r": 255, "body_right_r": 255, "led_head": 255, "led_left_w": 255, "led_right_w": 255, "tail_left_r": 255, "tail_right_r": 255}
-------------------------------------------------------------
-#22
-Topic:   snowbot/25070102ATHDG219/app/light_ctrl
+
+Topic: snowbot/25070102ATHDG219/app/light_ctrl
 Message: 7801ab564aca4fa98ccf494d2b892f52b232d081f08b32d333600239a929f119a98929700e5871399c0b510be1972466e6201b06e6230cab05003ce82588
-Decoded: {"body_left_r": 0, "body_right_r": 0, "led_head": 0, "led_left_w": 0, "led_right_w": 0, "tail_left_r": 0, "tail_right_r": 0}
-------------------------------------------------------------
-#23
-Topic:   snowbot/25070102ATHDG219/app/light_ctrl
+
+Topic: snowbot/25070102ATHDG219/app/light_ctrl
 Message: 7801ab56ca494d89cf484d4c51b2323235ad05002f290539
-Decoded: {"led_head": 255}
-------------------------------------------------------------
-#24
-Topic:   snowbot/25070102ATHDG219/app/light_ctrl
+
+Topic: snowbot/25070102ATHDG219/app/light_ctrl
 Message: 7801ab56ca494d89cf484d4c51b232a80500257804cd
-Decoded: {"led_head": 0}
-------------------------------------------------------------
-#25
-Topic:   snowbot/25070102ATHDG219/app/light_ctrl
+
+Topic: snowbot/25070102ATHDG219/app/light_ctrl
 Message: 7801ab56ca494d89cf494d2b892f57b2323235ad05003ddc0628
-Decoded: {"led_left_w": 255}
-------------------------------------------------------------
-#26
-Topic:   snowbot/25070102ATHDG219/app/light_ctrl
+
+Topic: snowbot/25070102ATHDG219/app/light_ctrl
 Message: 7801ab56ca494d892fca4ccf28892f57b2323235ad050045de069b
-Decoded: {"led_right_w": 255}
-------------------------------------------------------------
-#27
-Topic:   snowbot/25070102ATHDG219/app/light_ctrl
+
+Topic: snowbot/25070102ATHDG219/app/light_ctrl
 Message: 7801ab56ca494d89cf494d2b892f57b232a80500324d05bc
-Decoded: {"led_left_w": 0}
-------------------------------------------------------------
-#28
-Topic:   snowbot/25070102ATHDG219/app/light_ctrl
+
+Topic: snowbot/25070102ATHDG219/app/light_ctrl
 Message: 7801ab56ca494d892fca4ccf28892f57b232a805003969062f
-Decoded: {"led_right_w": 0}
-------------------------------------------------------------
-#29
-Topic:   snowbot/25070102ATHDG219/app/cmd_motor_protect
+
+Topic: snowbot/25070102ATHDG219/app/cmd_motor_protect
 Message: 7801ab562a2e492c4955b23234ad05001b7603fe
-Decoded: {"state": 15}
-------------------------------------------------------------
+Note: Clear error
+
+Topic: snowbot/25070102ATHDG219/app/mower_speed_cmd
+Message: 7801ab562a2e492c4955b2b230a805001b810400
+
+Topic: snowbot/25070102ATHDG219/app/mower_speed_cmd
+Message: 7801ab562a2e492c4955b232a8050017be03c8
+
+Topic: snowbot/25070102ATHDG219/app/mower_target_cmd
+Message: 7801ab562a492c4a4f2d51b232a805001c4d042e
+Note: 4.0"
+
+Topic: snowbot/25070102ATHDG219/app/mower_target_cmd
+Message: 7801ab562a492c4a4f2d51b2323430a8050024a3048f
+Note: 0.8"
