@@ -1,0 +1,1 @@
+python yarbo2MQTT.py --host 192.168.50.85 --haHost 10.20.30.14 --haUser yarbo_mqtt --haPass F#4258asDFjnsdjf

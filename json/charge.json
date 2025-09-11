@@ -1,0 +1,5095 @@
+Connected rc= Success
+SUBACK mid= 1 granted= [ReasonCode(Suback, 'Granted QoS 0')]
+SUBACK mid= 2 granted= [ReasonCode(Suback, 'Granted QoS 0')]
+
+snowbot/25070102ATHDG219/device/heart_beat
+{
+  "working_state": 1
+}
+
+snowbot/25070102ATHDG219/device/DeviceMSG
+{
+  "BatteryMSG": {
+    "capacity": 44,
+    "status": 3,
+    "temp_err": 0,
+    "timestamp": 1757195146.828859,
+    "voltage": 39900
+  },
+  "BodyMsg": {
+    "recharge_state": 2
+  },
+  "CombinedOdom": {
+    "phi": -0.29,
+    "x": 8.804,
+    "y": -14.731
+  },
+  "EletricMSG": {
+    "push_pod_current": 0.0012890625512227416
+  },
+  "HeadMsg": {
+    "head_type": 5
+  },
+  "HeadSerialMsg": {
+    "head_sn": "25290503GNEVI277"
+  },
+  "RTKMSG": {
+    "gga_atn_dis": 0.394,
+    "heading": 343.784,
+    "heading_atn_dis": 0.3955,
+    "heading_dop": 1.631,
+    "heading_obs": 17,
+    "heading_status": 1,
+    "pre4_timestamp": 1757195147.0776954,
+    "rtk_version": "",
+    "status": "4",
+    "timestamp": 1757195147.0795534
+  },
+  "RunningStatusMSG": {
+    "chute_angle": 0,
+    "chute_steering_engine_info": 0,
+    "elec_navigation_front_right_sensor": 3888,
+    "elec_navigation_rear_right_sensor": 3898,
+    "head_gyro_pitch": 8.88431167602539,
+    "head_gyro_roll": 1.385022759437561,
+    "rain_sensor_data": 4
+  },
+  "StateMSG": {
+    "adjustangle_status": 0,
+    "auto_draw_waiting_state": 0,
+    "car_controller": false,
+    "charging_status": 2,
+    "en_state_led": true,
+    "en_warn_led": true,
+    "error_code": 0,
+    "machine_controller": 1,
+    "on_going_planning": 0,
+    "on_going_recharging": 0,
+    "on_going_to_start_point": 0,
+    "on_mul_points": 0,
+    "planning_paused": 3,
+    "robot_follow_state": false,
+    "schedule_cancel": 0,
+    "vision_auto_draw_state": 0,
+    "working_state": 1
+  },
+  "base_status": 7,
+  "bds": "4432406252545",
+  "bs": "0",
+  "combined_odom_confidence": 0.9150000214576721,
+  "green_grass_update_switch": 1,
+  "ipcamera_ota_switch": 0,
+  "led": "69666",
+  "ms": "0",
+  "route_priority": {
+    "hg0": 10,
+    "wlan0": -1,
+    "wwan0": 20000
+  },
+  "rtcm_age": 2.0,
+  "rtcm_info": {
+    "current_source_type": 3
+  },
+  "s": "67108896",
+  "sbs": "0",
+  "timestamp": 1757195147.0,
+  "tms": "0",
+  "ultrasonic_msg": {
+    "lf_dis": -3,
+    "mt_dis": 9999,
+    "rf_dis": 200
+  },
+  "wireless_recharge": {
+    "error_code": 0,
+    "output_current": 1489,
+    "output_voltage": 4073,
+    "state": 2
+  }
+}
+
+snowbot/25070102ATHDG219/device/DeviceMSG
+{
+  "BatteryMSG": {
+    "capacity": 44,
+    "status": 3,
+    "temp_err": 0,
+    "timestamp": 1757195147.974073,
+    "voltage": 39800
+  },
+  "BodyMsg": {
+    "recharge_state": 2
+  },
+  "CombinedOdom": {
+    "phi": -0.29,
+    "x": 8.799,
+    "y": -14.724
+  },
+  "HeadMsg": {
+    "head_type": 5
+  },
+  "HeadSerialMsg": {
+    "head_sn": "25290503GNEVI277"
+  },
+  "RTKMSG": {
+    "gga_atn_dis": 0.3921,
+    "heading": 343.9312,
+    "heading_atn_dis": 0.3952,
+    "heading_dop": 1.5676,
+    "heading_obs": 18,
+    "heading_status": 1,
+    "pre4_timestamp": 1757195148.0774784,
+    "rtk_version": "",
+    "sat_num": 21,
+    "status": "4",
+    "timestamp": 1757195148.0794408
+  },
+  "RunningStatusMSG": {
+    "chute_angle": 0,
+    "chute_steering_engine_info": 0,
+    "elec_navigation_front_right_sensor": 3875,
+    "elec_navigation_rear_right_sensor": 3894,
+    "head_gyro_pitch": 8.886381149291992,
+    "head_gyro_roll": 1.423386812210083,
+    "rain_sensor_data": 4
+  },
+  "StateMSG": {
+    "adjustangle_status": 0,
+    "auto_draw_waiting_state": 0,
+    "car_controller": false,
+    "charging_status": 2,
+    "en_state_led": true,
+    "en_warn_led": true,
+    "error_code": 0,
+    "machine_controller": 1,
+    "on_going_planning": 0,
+    "on_going_recharging": 0,
+    "on_going_to_start_point": 0,
+    "on_mul_points": 0,
+    "planning_paused": 3,
+    "robot_follow_state": false,
+    "schedule_cancel": 0,
+    "vision_auto_draw_state": 0,
+    "working_state": 1
+  },
+  "base_status": 7,
+  "bds": "4432406252545",
+  "bs": "0",
+  "combined_odom_confidence": 0.9150000214576721,
+  "green_grass_update_switch": 1,
+  "ipcamera_ota_switch": 0,
+  "led": "69666",
+  "ms": "0",
+  "route_priority": {
+    "hg0": 10,
+    "wlan0": -1,
+    "wwan0": 20000
+  },
+  "rtcm_age": 2.0,
+  "rtcm_info": {
+    "current_source_type": 3
+  },
+  "s": "67108896",
+  "sbs": "0",
+  "timestamp": 1757195148.0,
+  "tms": "0",
+  "ultrasonic_msg": {
+    "lf_dis": -3,
+    "mt_dis": 9999,
+    "rf_dis": 200
+  },
+  "wireless_recharge": {
+    "error_code": 0,
+    "output_current": 1509,
+    "output_voltage": 4079,
+    "state": 2
+  }
+}
+
+snowbot/25070102ATHDG219/device/heart_beat
+{
+  "working_state": 1
+}
+
+snowbot/25070102ATHDG219/device/DeviceMSG
+{
+  "BatteryMSG": {
+    "capacity": 44,
+    "status": 3,
+    "temp_err": 0,
+    "timestamp": 1757195149.113922,
+    "voltage": 39900
+  },
+  "BodyMsg": {
+    "recharge_state": 2
+  },
+  "CombinedOdom": {
+    "phi": -0.29,
+    "x": 8.808,
+    "y": -14.728
+  },
+  "EletricMSG": {
+    "push_pod_current": 0.0019335937686264515
+  },
+  "HeadMsg": {
+    "head_type": 5
+  },
+  "HeadSerialMsg": {
+    "head_sn": "25290503GNEVI277"
+  },
+  "RTKMSG": {
+    "gga_atn_dis": 0.3925,
+    "heading": 344.0246,
+    "heading_atn_dis": 0.3999,
+    "heading_dop": 1.5538,
+    "heading_status": 1,
+    "pre4_timestamp": 1757195149.078699,
+    "rtk_version": "",
+    "sat_num": 22,
+    "status": "4",
+    "timestamp": 1757195149.0796807
+  },
+  "RunningStatusMSG": {
+    "chute_angle": 0,
+    "chute_steering_engine_info": 0,
+    "elec_navigation_front_right_sensor": 3867,
+    "elec_navigation_rear_right_sensor": 3881,
+    "head_gyro_pitch": 8.939940452575684,
+    "head_gyro_roll": 1.4041987657546997,
+    "rain_sensor_data": 4
+  },
+  "StateMSG": {
+    "adjustangle_status": 0,
+    "auto_draw_waiting_state": 0,
+    "car_controller": false,
+    "charging_status": 2,
+    "en_state_led": true,
+    "en_warn_led": true,
+    "error_code": 0,
+    "machine_controller": 1,
+    "on_going_planning": 0,
+    "on_going_recharging": 0,
+    "on_going_to_start_point": 0,
+    "on_mul_points": 0,
+    "planning_paused": 3,
+    "robot_follow_state": false,
+    "schedule_cancel": 0,
+    "vision_auto_draw_state": 0,
+    "working_state": 1
+  },
+  "base_status": 7,
+  "bds": "4432406252545",
+  "bs": "0",
+  "combined_odom_confidence": 0.9150000214576721,
+  "green_grass_update_switch": 1,
+  "ipcamera_ota_switch": 0,
+  "led": "69666",
+  "ms": "0",
+  "route_priority": {
+    "hg0": 10,
+    "wlan0": -1,
+    "wwan0": 20000
+  },
+  "rtcm_age": 2.0,
+  "rtcm_info": {
+    "current_source_type": 3
+  },
+  "s": "67108896",
+  "sbs": "0",
+  "timestamp": 1757195149.0,
+  "tms": "0",
+  "ultrasonic_msg": {
+    "lf_dis": -3,
+    "mt_dis": 9999,
+    "rf_dis": 200
+  },
+  "wireless_recharge": {
+    "error_code": 0,
+    "output_current": 1493,
+    "output_voltage": 4073,
+    "state": 2
+  }
+}
+
+snowbot/25070102ATHDG219/device/DeviceMSG
+{
+  "BatteryMSG": {
+    "capacity": 44,
+    "status": 3,
+    "temp_err": 0,
+    "temperature5": 44,
+    "timestamp": 1757195149.900284
+  },
+  "BodyMsg": {
+    "recharge_state": 2
+  },
+  "CombinedOdom": {
+    "phi": -0.29,
+    "x": 8.812,
+    "y": -14.727
+  },
+  "HeadMsg": {
+    "head_type": 5
+  },
+  "HeadSerialMsg": {
+    "head_sn": "25290503GNEVI277"
+  },
+  "RTKMSG": {
+    "gga_atn_dis": 0.3915,
+    "heading": 344.0371,
+    "heading_atn_dis": 0.3934,
+    "heading_dop": 1.5841,
+    "heading_status": 1,
+    "pre4_timestamp": 1757195150.1802647,
+    "rtk_version": "",
+    "sat_num": 23,
+    "status": "4",
+    "timestamp": 1757195150.1825337
+  },
+  "RunningStatusMSG": {
+    "chute_angle": 0,
+    "chute_steering_engine_info": 0,
+    "elec_navigation_front_right_sensor": 3886,
+    "elec_navigation_rear_right_sensor": 3870,
+    "head_gyro_pitch": 8.892620086669922,
+    "head_gyro_roll": 1.3949321508407593,
+    "rain_sensor_data": 3
+  },
+  "StateMSG": {
+    "adjustangle_status": 0,
+    "auto_draw_waiting_state": 0,
+    "car_controller": false,
+    "charging_status": 2,
+    "en_state_led": true,
+    "en_warn_led": true,
+    "error_code": 0,
+    "machine_controller": 1,
+    "on_going_planning": 0,
+    "on_going_recharging": 0,
+    "on_going_to_start_point": 0,
+    "on_mul_points": 0,
+    "planning_paused": 3,
+    "robot_follow_state": false,
+    "schedule_cancel": 0,
+    "vision_auto_draw_state": 0,
+    "working_state": 1
+  },
+  "base_status": 7,
+  "bds": "4432406252545",
+  "bs": "0",
+  "combined_odom_confidence": 0.9150000214576721,
+  "green_grass_update_switch": 1,
+  "ipcamera_ota_switch": 0,
+  "led": "69666",
+  "ms": "0",
+  "route_priority": {
+    "hg0": 10,
+    "wlan0": -1,
+    "wwan0": 20000
+  },
+  "rtcm_age": 1.0,
+  "rtcm_info": {
+    "current_source_type": 3
+  },
+  "s": "67108896",
+  "sbs": "0",
+  "timestamp": 1757195150.0,
+  "tms": "0",
+  "ultrasonic_msg": {
+    "lf_dis": 200,
+    "mt_dis": 9999,
+    "rf_dis": 200
+  },
+  "wireless_recharge": {
+    "error_code": 0,
+    "output_current": 1479,
+    "output_voltage": 4068,
+    "state": 2
+  }
+}
+
+snowbot/25070102ATHDG219/device/heart_beat
+{
+  "working_state": 1
+}
+
+snowbot/25070102ATHDG219/device/DeviceMSG
+{
+  "BatteryMSG": {
+    "capacity": 44,
+    "status": 3,
+    "temp_err": 0,
+    "temperature5": 45,
+    "timestamp": 1757195151.058223,
+    "voltage": 39800
+  },
+  "BodyMsg": {
+    "recharge_state": 2
+  },
+  "CombinedOdom": {
+    "phi": -0.29,
+    "x": 8.805,
+    "y": -14.729
+  },
+  "HeadMsg": {
+    "head_type": 5
+  },
+  "HeadSerialMsg": {
+    "head_sn": "25290503GNEVI277"
+  },
+  "RTKMSG": {
+    "gga_atn_dis": 0.3948,
+    "heading": 344.8982,
+    "heading_atn_dis": 0.3958,
+    "heading_dop": 1.6379,
+    "heading_obs": 17,
+    "heading_status": 1,
+    "pre4_timestamp": 1757195151.0780625,
+    "rtk_version": "",
+    "sat_num": 22,
+    "status": "4",
+    "timestamp": 1757195151.0794988
+  },
+  "RunningStatusMSG": {
+    "chute_angle": 0,
+    "chute_steering_engine_info": 0,
+    "elec_navigation_front_right_sensor": 3875,
+    "elec_navigation_rear_right_sensor": 3875,
+    "head_gyro_pitch": 8.903549194335938,
+    "head_gyro_roll": 1.3996518850326538,
+    "rain_sensor_data": 4
+  },
+  "StateMSG": {
+    "adjustangle_status": 0,
+    "auto_draw_waiting_state": 0,
+    "car_controller": false,
+    "charging_status": 2,
+    "en_state_led": true,
+    "en_warn_led": true,
+    "error_code": 0,
+    "machine_controller": 1,
+    "on_going_planning": 0,
+    "on_going_recharging": 0,
+    "on_going_to_start_point": 0,
+    "on_mul_points": 0,
+    "planning_paused": 3,
+    "robot_follow_state": false,
+    "schedule_cancel": 0,
+    "vision_auto_draw_state": 0,
+    "working_state": 1
+  },
+  "base_status": 7,
+  "bds": "4432406252545",
+  "bs": "0",
+  "combined_odom_confidence": 0.9150000214576721,
+  "green_grass_update_switch": 1,
+  "ipcamera_ota_switch": 0,
+  "led": "69666",
+  "ms": "0",
+  "route_priority": {
+    "hg0": 10,
+    "wlan0": -1,
+    "wwan0": 20000
+  },
+  "rtcm_age": 2.0,
+  "rtcm_info": {
+    "current_source_type": 3
+  },
+  "s": "67108896",
+  "sbs": "0",
+  "timestamp": 1757195151.0,
+  "tms": "0",
+  "ultrasonic_msg": {
+    "lf_dis": -3,
+    "mt_dis": 9999,
+    "rf_dis": 200
+  },
+  "wireless_recharge": {
+    "error_code": 0,
+    "output_current": 1464,
+    "output_voltage": 4063,
+    "state": 2
+  }
+}
+
+snowbot/25070102ATHDG219/device/DeviceMSG
+{
+  "BatteryMSG": {
+    "capacity": 44,
+    "status": 3,
+    "temp_err": 0,
+    "temperature3": 44,
+    "timestamp": 1757195151.815392,
+    "voltage": 39900
+  },
+  "BodyMsg": {
+    "recharge_state": 2
+  },
+  "CombinedOdom": {
+    "phi": -0.262,
+    "x": 8.826,
+    "y": -14.736
+  },
+  "EletricMSG": {
+    "push_pod_current": 0.0012890625512227416,
+    "rwheel_current": 0.01600000075995922
+  },
+  "HeadMsg": {
+    "head_type": 5
+  },
+  "HeadSerialMsg": {
+    "head_sn": "25290503GNEVI277"
+  },
+  "RTKMSG": {
+    "gga_atn_dis": 0.3978,
+    "heading": 344.2064,
+    "heading_atn_dis": 0.3981,
+    "heading_dop": 1.602,
+    "heading_status": 1,
+    "pre4_timestamp": 1757195152.179757,
+    "rtk_version": "",
+    "sat_num": 23,
+    "status": "4",
+    "timestamp": 1757195152.1826422
+  },
+  "RunningStatusMSG": {
+    "chute_angle": 0,
+    "chute_steering_engine_info": 0,
+    "elec_navigation_front_right_sensor": 3868,
+    "elec_navigation_rear_right_sensor": 3883,
+    "head_gyro_pitch": 8.911336898803711,
+    "head_gyro_roll": 1.405328631401062,
+    "rain_sensor_data": 3
+  },
+  "StateMSG": {
+    "adjustangle_status": 0,
+    "auto_draw_waiting_state": 0,
+    "car_controller": false,
+    "charging_status": 2,
+    "en_state_led": true,
+    "en_warn_led": true,
+    "error_code": 0,
+    "machine_controller": 1,
+    "on_going_planning": 0,
+    "on_going_recharging": 0,
+    "on_going_to_start_point": 0,
+    "on_mul_points": 0,
+    "planning_paused": 3,
+    "robot_follow_state": false,
+    "schedule_cancel": 0,
+    "vision_auto_draw_state": 0,
+    "working_state": 1
+  },
+  "base_status": 7,
+  "bds": "4432406252545",
+  "bs": "0",
+  "combined_odom_confidence": 0.9150000214576721,
+  "green_grass_update_switch": 1,
+  "ipcamera_ota_switch": 0,
+  "led": "69666",
+  "ms": "0",
+  "route_priority": {
+    "hg0": 10,
+    "wlan0": -1,
+    "wwan0": 20000
+  },
+  "rtcm_age": 1.0,
+  "rtcm_info": {
+    "current_source_type": 3
+  },
+  "s": "67108896",
+  "sbs": "0",
+  "system_info": {
+    "cpu.Usage": 32.1,
+    "mem.Buffers": 103144,
+    "mem.Cached": 2140956,
+    "mem.MemAvailable": 4724968,
+    "mem.MemFree": 2934364,
+    "topProc": [
+      {
+        "command": "edge_sm+",
+        "cpuUsage": 118.8,
+        "pid": 20314
+      },
+      {
+        "command": "yarbo_p+",
+        "cpuUsage": 112.5,
+        "pid": 20309
+      },
+      {
+        "command": "data_re+",
+        "cpuUsage": 25.0,
+        "pid": 24925
+      },
+      {
+        "command": "state_m+",
+        "cpuUsage": 18.8,
+        "pid": 20307
+      },
+      {
+        "command": "beam.smp",
+        "cpuUsage": 12.5,
+        "pid": 17193
+      }
+    ],
+    "userdata.disk.availableSize": 23330916352,
+    "userdata.disk.usedSize": 16460431360
+  },
+  "timestamp": 1757195152.0,
+  "tms": "0",
+  "ultrasonic_msg": {
+    "lf_dis": -3,
+    "mt_dis": 9999,
+    "rf_dis": 200
+  },
+  "wireless_recharge": {
+    "error_code": 0,
+    "output_current": 1496,
+    "output_voltage": 4073,
+    "state": 2
+  }
+}
+
+snowbot/25070102ATHDG219/device/heart_beat
+{
+  "working_state": 1
+}
+
+snowbot/25070102ATHDG219/device/DeviceMSG
+{
+  "BatteryMSG": {
+    "capacity": 44,
+    "status": 3,
+    "temp_err": 0,
+    "temperature3": 45,
+    "timestamp": 1757195152.9755287
+  },
+  "BodyMsg": {
+    "recharge_state": 2
+  },
+  "CombinedOdom": {
+    "phi": -0.262,
+    "x": 8.825,
+    "y": -14.741
+  },
+  "EletricMSG": {
+    "push_pod_current": 0.0019335937686264515
+  },
+  "HeadMsg": {
+    "head_type": 5
+  },
+  "HeadSerialMsg": {
+    "head_sn": "25290503GNEVI277"
+  },
+  "RTKMSG": {
+    "gga_atn_dis": 0.4,
+    "heading": 343.5726,
+    "heading_atn_dis": 0.3973,
+    "heading_dop": 1.6061,
+    "heading_status": 1,
+    "pre4_timestamp": 1757195153.081013,
+    "rtk_version": "",
+    "status": "4",
+    "timestamp": 1757195153.0818381
+  },
+  "RunningStatusMSG": {
+    "chute_angle": 0,
+    "chute_steering_engine_info": 0,
+    "elec_navigation_front_right_sensor": 3893,
+    "elec_navigation_rear_right_sensor": 3880,
+    "head_gyro_pitch": 8.894269943237305,
+    "head_gyro_roll": 1.3988198041915894,
+    "rain_sensor_data": 4
+  },
+  "StateMSG": {
+    "adjustangle_status": 0,
+    "auto_draw_waiting_state": 0,
+    "car_controller": false,
+    "charging_status": 2,
+    "en_state_led": true,
+    "en_warn_led": true,
+    "error_code": 0,
+    "machine_controller": 1,
+    "on_going_planning": 0,
+    "on_going_recharging": 0,
+    "on_going_to_start_point": 0,
+    "on_mul_points": 0,
+    "planning_paused": 3,
+    "robot_follow_state": false,
+    "schedule_cancel": 0,
+    "vision_auto_draw_state": 0,
+    "working_state": 1
+  },
+  "base_status": 7,
+  "bds": "4432406252545",
+  "bs": "0",
+  "combined_odom_confidence": 0.9150000214576721,
+  "green_grass_update_switch": 1,
+  "ipcamera_ota_switch": 0,
+  "led": "69666",
+  "ms": "0",
+  "route_priority": {
+    "hg0": 10,
+    "wlan0": -1,
+    "wwan0": 20000
+  },
+  "rtcm_age": 2.0,
+  "rtcm_info": {
+    "current_source_type": 3
+  },
+  "s": "67108896",
+  "sbs": "0",
+  "timestamp": 1757195153.0,
+  "tms": "0",
+  "ultrasonic_msg": {
+    "lf_dis": -3,
+    "mt_dis": 9999,
+    "rf_dis": 200
+  },
+  "wireless_recharge": {
+    "error_code": 0,
+    "output_current": 1500,
+    "output_voltage": 4068,
+    "state": 2
+  }
+}
+
+snowbot/25070102ATHDG219/device/DeviceMSG
+{
+  "BatteryMSG": {
+    "capacity": 44,
+    "status": 3,
+    "temp_err": 0,
+    "timestamp": 1757195154.1351237
+  },
+  "BodyMsg": {
+    "recharge_state": 2
+  },
+  "CombinedOdom": {
+    "phi": -0.262,
+    "x": 8.825,
+    "y": -14.738
+  },
+  "HeadMsg": {
+    "head_type": 5
+  },
+  "HeadSerialMsg": {
+    "head_sn": "25290503GNEVI277"
+  },
+  "RTKMSG": {
+    "gga_atn_dis": 0.3966,
+    "heading": 344.3566,
+    "heading_atn_dis": 0.3976,
+    "heading_dop": 1.6058,
+    "heading_status": 1,
+    "pre4_timestamp": 1757195154.1791635,
+    "rtk_version": "",
+    "sat_num": 22,
+    "status": "4",
+    "timestamp": 1757195154.182322
+  },
+  "RunningStatusMSG": {
+    "chute_angle": 0,
+    "chute_steering_engine_info": 0,
+    "elec_navigation_front_right_sensor": 3884,
+    "elec_navigation_rear_right_sensor": 3861,
+    "head_gyro_pitch": 8.900627136230469,
+    "head_gyro_roll": 1.3862695693969727,
+    "rain_sensor_data": 4
+  },
+  "StateMSG": {
+    "adjustangle_status": 0,
+    "auto_draw_waiting_state": 0,
+    "car_controller": false,
+    "charging_status": 2,
+    "en_state_led": true,
+    "en_warn_led": true,
+    "error_code": 0,
+    "machine_controller": 1,
+    "on_going_planning": 0,
+    "on_going_recharging": 0,
+    "on_going_to_start_point": 0,
+    "on_mul_points": 0,
+    "planning_paused": 3,
+    "robot_follow_state": false,
+    "schedule_cancel": 0,
+    "vision_auto_draw_state": 0,
+    "working_state": 1
+  },
+  "base_status": 7,
+  "bds": "4432406252545",
+  "bs": "0",
+  "combined_odom_confidence": 0.9150000214576721,
+  "green_grass_update_switch": 1,
+  "ipcamera_ota_switch": 0,
+  "led": "69666",
+  "ms": "0",
+  "route_priority": {
+    "hg0": 10,
+    "wlan0": -1,
+    "wwan0": 20000
+  },
+  "rtcm_age": 1.0,
+  "rtcm_info": {
+    "current_source_type": 3
+  },
+  "s": "67108896",
+  "sbs": "0",
+  "timestamp": 1757195154.0,
+  "tms": "0",
+  "ultrasonic_msg": {
+    "lf_dis": 200,
+    "mt_dis": 9999,
+    "rf_dis": 200
+  },
+  "wireless_recharge": {
+    "error_code": 0,
+    "output_current": 1477,
+    "state": 2
+  }
+}
+
+snowbot/25070102ATHDG219/device/heart_beat
+{
+  "working_state": 1
+}
+
+snowbot/25070102ATHDG219/device/DeviceMSG
+{
+  "BatteryMSG": {
+    "capacity": 44,
+    "status": 3,
+    "temp_err": 0,
+    "timestamp": 1757195154.895826
+  },
+  "BodyMsg": {
+    "recharge_state": 2
+  },
+  "CombinedOdom": {
+    "phi": -0.262,
+    "x": 8.82,
+    "y": -14.736
+  },
+  "EletricMSG": {
+    "push_pod_current": 0.0012890625512227416
+  },
+  "HeadMsg": {
+    "head_type": 5
+  },
+  "HeadSerialMsg": {
+    "head_sn": "25290503GNEVI277"
+  },
+  "RTKMSG": {
+    "gga_atn_dis": 0.3978,
+    "heading": 343.6573,
+    "heading_atn_dis": 0.3956,
+    "heading_dop": 1.5719,
+    "heading_obs": 18,
+    "heading_status": 1,
+    "pre4_timestamp": 1757195155.179257,
+    "rtk_version": "",
+    "sat_num": 21,
+    "status": "4",
+    "timestamp": 1757195155.1813173
+  },
+  "RunningStatusMSG": {
+    "chute_angle": 0,
+    "chute_steering_engine_info": 0,
+    "elec_navigation_front_right_sensor": 3892,
+    "elec_navigation_rear_right_sensor": 3873,
+    "head_gyro_pitch": 8.88868236541748,
+    "head_gyro_roll": 1.4031744003295898,
+    "rain_sensor_data": 4
+  },
+  "StateMSG": {
+    "adjustangle_status": 0,
+    "auto_draw_waiting_state": 0,
+    "car_controller": false,
+    "charging_status": 2,
+    "en_state_led": true,
+    "en_warn_led": true,
+    "error_code": 0,
+    "machine_controller": 1,
+    "on_going_planning": 0,
+    "on_going_recharging": 0,
+    "on_going_to_start_point": 0,
+    "on_mul_points": 0,
+    "planning_paused": 3,
+    "robot_follow_state": false,
+    "schedule_cancel": 0,
+    "vision_auto_draw_state": 0,
+    "working_state": 1
+  },
+  "base_status": 7,
+  "bds": "4432406252545",
+  "bs": "0",
+  "combined_odom_confidence": 0.9150000214576721,
+  "green_grass_update_switch": 1,
+  "ipcamera_ota_switch": 0,
+  "led": "69666",
+  "ms": "0",
+  "route_priority": {
+    "hg0": 10,
+    "wlan0": -1,
+    "wwan0": 20000
+  },
+  "rtcm_age": 1.0,
+  "rtcm_info": {
+    "current_source_type": 3
+  },
+  "s": "67108896",
+  "sbs": "0",
+  "timestamp": 1757195155.0,
+  "tms": "0",
+  "ultrasonic_msg": {
+    "lf_dis": -3,
+    "mt_dis": 9999,
+    "rf_dis": 200
+  },
+  "wireless_recharge": {
+    "error_code": 0,
+    "state": 2
+  }
+}
+
+snowbot/25070102ATHDG219/device/DeviceMSG
+{
+  "BatteryMSG": {
+    "capacity": 44,
+    "status": 3,
+    "temp_err": 0,
+    "timestamp": 1757195156.0556357
+  },
+  "BodyMsg": {
+    "recharge_state": 2
+  },
+  "CombinedOdom": {
+    "phi": -0.262,
+    "x": 8.818,
+    "y": -14.732
+  },
+  "EletricMSG": {
+    "push_pod_current": 0.0019335937686264515
+  },
+  "HeadMsg": {
+    "head_type": 5
+  },
+  "HeadSerialMsg": {
+    "head_sn": "25290503GNEVI277"
+  },
+  "RTKMSG": {
+    "gga_atn_dis": 0.4006,
+    "heading": 345.7221,
+    "heading_atn_dis": 0.4001,
+    "heading_dop": 1.8269,
+    "heading_multi": 14,
+    "heading_status": 1,
+    "pre4_timestamp": 1757195156.0774808,
+    "rtk_version": "",
+    "sat_num": 20,
+    "status": "4",
+    "timestamp": 1757195156.0794342
+  },
+  "RunningStatusMSG": {
+    "chute_angle": 0,
+    "chute_steering_engine_info": 0,
+    "elec_navigation_front_right_sensor": 3854,
+    "elec_navigation_rear_right_sensor": 3867,
+    "head_gyro_pitch": 8.899269104003906,
+    "head_gyro_roll": 1.3937389850616455,
+    "rain_sensor_data": 4
+  },
+  "StateMSG": {
+    "adjustangle_status": 0,
+    "auto_draw_waiting_state": 0,
+    "car_controller": false,
+    "charging_status": 2,
+    "en_state_led": true,
+    "en_warn_led": true,
+    "error_code": 0,
+    "machine_controller": 1,
+    "on_going_planning": 0,
+    "on_going_recharging": 0,
+    "on_going_to_start_point": 0,
+    "on_mul_points": 0,
+    "planning_paused": 3,
+    "robot_follow_state": false,
+    "schedule_cancel": 0,
+    "vision_auto_draw_state": 0,
+    "working_state": 1
+  },
+  "base_status": 7,
+  "bds": "4432406252545",
+  "bs": "0",
+  "combined_odom_confidence": 0.9150000214576721,
+  "green_grass_update_switch": 1,
+  "ipcamera_ota_switch": 0,
+  "led": "69666",
+  "ms": "0",
+  "route_priority": {
+    "hg0": 10,
+    "wlan0": -1,
+    "wwan0": 20000
+  },
+  "rtcm_age": 1.0,
+  "rtcm_info": {
+    "current_source_type": 3
+  },
+  "s": "67108896",
+  "sbs": "0",
+  "timestamp": 1757195156.0,
+  "tms": "0",
+  "ultrasonic_msg": {
+    "lf_dis": 200,
+    "mt_dis": 9999,
+    "rf_dis": 200
+  },
+  "wireless_recharge": {
+    "error_code": 0,
+    "output_current": 1495,
+    "output_voltage": 4073,
+    "state": 2
+  }
+}
+
+snowbot/25070102ATHDG219/device/heart_beat
+{
+  "working_state": 1
+}
+
+snowbot/25070102ATHDG219/device/DeviceMSG
+{
+  "BatteryMSG": {
+    "capacity": 44,
+    "status": 3,
+    "temp_err": 0,
+    "timestamp": 1757195156.8147097
+  },
+  "BodyMsg": {
+    "recharge_state": 2
+  },
+  "CombinedOdom": {
+    "phi": -0.261,
+    "x": 8.823,
+    "y": -14.735
+  },
+  "EletricMSG": {
+    "push_pod_current": 0.0012890625512227416
+  },
+  "HeadMsg": {
+    "head_type": 5
+  },
+  "HeadSerialMsg": {
+    "head_sn": "25290503GNEVI277"
+  },
+  "RTKMSG": {
+    "gga_atn_dis": 0.4003,
+    "heading": 345.2905,
+    "heading_atn_dis": 0.4016,
+    "heading_dop": 1.9671,
+    "heading_obs": 17,
+    "heading_status": 1,
+    "pre4_timestamp": 1757195157.179981,
+    "rtk_version": "",
+    "status": "4",
+    "timestamp": 1757195157.1817148
+  },
+  "RunningStatusMSG": {
+    "chute_angle": 0,
+    "chute_steering_engine_info": 0,
+    "elec_navigation_front_right_sensor": 3915,
+    "elec_navigation_rear_right_sensor": 3890,
+    "head_gyro_pitch": 8.927545547485352,
+    "head_gyro_roll": 1.3971413373947144,
+    "rain_sensor_data": 4
+  },
+  "StateMSG": {
+    "adjustangle_status": 0,
+    "auto_draw_waiting_state": 0,
+    "car_controller": false,
+    "charging_status": 2,
+    "en_state_led": true,
+    "en_warn_led": true,
+    "error_code": 0,
+    "machine_controller": 1,
+    "on_going_planning": 0,
+    "on_going_recharging": 0,
+    "on_going_to_start_point": 0,
+    "on_mul_points": 0,
+    "planning_paused": 3,
+    "robot_follow_state": false,
+    "schedule_cancel": 0,
+    "vision_auto_draw_state": 0,
+    "working_state": 1
+  },
+  "base_status": 7,
+  "bds": "4432406252545",
+  "bs": "0",
+  "combined_odom_confidence": 0.9150000214576721,
+  "green_grass_update_switch": 1,
+  "ipcamera_ota_switch": 0,
+  "led": "69666",
+  "ms": "0",
+  "route_priority": {
+    "hg0": 10,
+    "wlan0": -1,
+    "wwan0": 20000
+  },
+  "rtcm_age": 1.0,
+  "rtcm_info": {
+    "current_source_type": 3
+  },
+  "s": "67108896",
+  "sbs": "0",
+  "timestamp": 1757195157.0,
+  "tms": "0",
+  "ultrasonic_msg": {
+    "lf_dis": -3,
+    "mt_dis": 9999,
+    "rf_dis": 200
+  },
+  "wireless_recharge": {
+    "error_code": 0,
+    "output_current": 1496,
+    "output_voltage": 4079,
+    "state": 2
+  }
+}
+
+snowbot/25070102ATHDG219/device/DeviceMSG
+{
+  "BatteryMSG": {
+    "capacity": 44,
+    "status": 3,
+    "temp_err": 0,
+    "timestamp": 1757195157.975803
+  },
+  "BodyMsg": {
+    "recharge_state": 2
+  },
+  "CombinedOdom": {
+    "phi": -0.262,
+    "x": 8.818,
+    "y": -14.732
+  },
+  "EletricMSG": {
+    "rwheel_current": 0.024000000208616257
+  },
+  "HeadMsg": {
+    "head_type": 5
+  },
+  "HeadSerialMsg": {
+    "head_sn": "25290503GNEVI277"
+  },
+  "RTKMSG": {
+    "gga_atn_dis": 0.3986,
+    "heading": 346.3764,
+    "heading_atn_dis": 0.4064,
+    "heading_dop": 1.7386,
+    "heading_obs": 18,
+    "heading_status": 1,
+    "pre4_timestamp": 1757195158.1806364,
+    "rtk_version": "",
+    "status": "4",
+    "timestamp": 1757195158.1815474
+  },
+  "RunningStatusMSG": {
+    "chute_angle": 0,
+    "chute_steering_engine_info": 0,
+    "elec_navigation_front_right_sensor": 3906,
+    "elec_navigation_rear_right_sensor": 3877,
+    "head_gyro_pitch": 8.876791954040527,
+    "head_gyro_roll": 1.3953887224197388,
+    "rain_sensor_data": 4
+  },
+  "StateMSG": {
+    "adjustangle_status": 0,
+    "auto_draw_waiting_state": 0,
+    "car_controller": false,
+    "charging_status": 2,
+    "en_state_led": true,
+    "en_warn_led": true,
+    "error_code": 0,
+    "machine_controller": 1,
+    "on_going_planning": 0,
+    "on_going_recharging": 0,
+    "on_going_to_start_point": 0,
+    "on_mul_points": 0,
+    "planning_paused": 3,
+    "robot_follow_state": false,
+    "schedule_cancel": 0,
+    "vision_auto_draw_state": 0,
+    "working_state": 1
+  },
+  "base_status": 7,
+  "bds": "4432406252545",
+  "bs": "0",
+  "combined_odom_confidence": 0.9150000214576721,
+  "green_grass_update_switch": 1,
+  "ipcamera_ota_switch": 0,
+  "led": "69666",
+  "ms": "0",
+  "route_priority": {
+    "hg0": 10,
+    "wlan0": -1,
+    "wwan0": 20000
+  },
+  "rtcm_age": 1.0,
+  "rtcm_info": {
+    "current_source_type": 3
+  },
+  "s": "67108896",
+  "sbs": "0",
+  "system_info": {
+    "cpu.Frequency": "1608000",
+    "cpu.Temperature": "58.230000 °C",
+    "cpu.Usage": 28.5,
+    "mem.Buffers": 103160,
+    "mem.Cached": 2141256,
+    "mem.MemAvailable": 4722440,
+    "mem.MemFree": 2931516,
+    "topProc": [
+      {
+        "command": "edge_sm+",
+        "cpuUsage": 100.0,
+        "pid": 20314
+      },
+      {
+        "command": "yarbo_p+",
+        "cpuUsage": 93.8,
+        "pid": 20309
+      },
+      {
+        "command": "data_re+",
+        "cpuUsage": 25.0,
+        "pid": 24925
+      },
+      {
+        "command": "state_m+",
+        "cpuUsage": 18.8,
+        "pid": 20307
+      },
+      {
+        "command": "advance+",
+        "cpuUsage": 12.5,
+        "pid": 20321
+      }
+    ],
+    "userdata.disk.availableSize": 23330621440,
+    "userdata.disk.usedSize": 16460726272
+  },
+  "timestamp": 1757195158.0,
+  "tms": "0",
+  "ultrasonic_msg": {
+    "lf_dis": 200,
+    "mt_dis": 9999,
+    "rf_dis": 200
+  },
+  "wireless_recharge": {
+    "error_code": 0,
+    "output_current": 1488,
+    "output_voltage": 4068,
+    "state": 2
+  }
+}
+
+snowbot/25070102ATHDG219/device/heart_beat
+{
+  "working_state": 1
+}
+
+snowbot/25070102ATHDG219/device/DeviceMSG
+{
+  "BatteryMSG": {
+    "capacity": 44,
+    "status": 3,
+    "temp_err": 0,
+    "timestamp": 1757195159.1359026
+  },
+  "BodyMsg": {
+    "recharge_state": 2
+  },
+  "CombinedOdom": {
+    "phi": -0.235,
+    "x": 8.811,
+    "y": -14.732
+  },
+  "EletricMSG": {
+    "push_pod_current": 0.0019335937686264515,
+    "rwheel_current": 0.01600000075995922
+  },
+  "HeadMsg": {
+    "head_type": 5
+  },
+  "HeadSerialMsg": {
+    "head_sn": "25290503GNEVI277"
+  },
+  "RTKMSG": {
+    "gga_atn_dis": 0.3988,
+    "heading": 344.6399,
+    "heading_atn_dis": 0.4033,
+    "heading_dop": 1.7495,
+    "heading_status": 1,
+    "pre4_timestamp": 1757195159.1793625,
+    "rtk_version": "",
+    "status": "4",
+    "timestamp": 1757195159.1871054
+  },
+  "RunningStatusMSG": {
+    "chute_angle": 0,
+    "chute_steering_engine_info": 0,
+    "elec_navigation_front_right_sensor": 3858,
+    "elec_navigation_rear_right_sensor": 3865,
+    "head_gyro_pitch": 8.879425048828125,
+    "head_gyro_roll": 1.392815113067627,
+    "rain_sensor_data": 4
+  },
+  "StateMSG": {
+    "adjustangle_status": 0,
+    "auto_draw_waiting_state": 0,
+    "car_controller": false,
+    "charging_status": 2,
+    "en_state_led": true,
+    "en_warn_led": true,
+    "error_code": 0,
+    "machine_controller": 1,
+    "on_going_planning": 0,
+    "on_going_recharging": 0,
+    "on_going_to_start_point": 0,
+    "on_mul_points": 0,
+    "planning_paused": 3,
+    "robot_follow_state": false,
+    "schedule_cancel": 0,
+    "vision_auto_draw_state": 0,
+    "working_state": 1
+  },
+  "base_status": 7,
+  "bds": "4432406252545",
+  "bs": "0",
+  "combined_odom_confidence": 0.9150000214576721,
+  "green_grass_update_switch": 1,
+  "ipcamera_ota_switch": 0,
+  "led": "69666",
+  "ms": "0",
+  "route_priority": {
+    "hg0": 10,
+    "wlan0": -1,
+    "wwan0": 20000
+  },
+  "rtcm_age": 1.0,
+  "rtcm_info": {
+    "current_source_type": 3
+  },
+  "s": "67108896",
+  "sbs": "0",
+  "timestamp": 1757195159.0,
+  "tms": "0",
+  "ultrasonic_msg": {
+    "lf_dis": 200,
+    "mt_dis": 9999,
+    "rf_dis": 200
+  },
+  "wireless_recharge": {
+    "error_code": 0,
+    "output_current": 1496,
+    "state": 2
+  }
+}
+
+snowbot/25070102ATHDG219/device/DeviceMSG
+{
+  "BatteryMSG": {
+    "capacity": 44,
+    "status": 3,
+    "temp_err": 0,
+    "timestamp": 1757195159.9097688
+  },
+  "BodyMsg": {
+    "recharge_state": 2
+  },
+  "CombinedOdom": {
+    "phi": -0.234,
+    "x": 8.824,
+    "y": -14.734
+  },
+  "EletricMSG": {
+    "rwheel_current": 0.024000000208616257
+  },
+  "HeadMsg": {
+    "head_type": 5
+  },
+  "HeadSerialMsg": {
+    "head_sn": "25290503GNEVI277"
+  },
+  "RTKMSG": {
+    "gga_atn_dis": 0.3803,
+    "heading": 345.0768,
+    "heading_atn_dis": 0.3991,
+    "heading_dop": 1.7793,
+    "heading_multi": 15,
+    "heading_status": 1,
+    "pre4_timestamp": 1757195160.1794283,
+    "rtk_version": "",
+    "status": "4",
+    "timestamp": 1757195160.1835384
+  },
+  "RunningStatusMSG": {
+    "chute_angle": 0,
+    "chute_steering_engine_info": 0,
+    "elec_navigation_front_right_sensor": 3887,
+    "elec_navigation_rear_right_sensor": 3878,
+    "head_gyro_pitch": 8.89883804321289,
+    "head_gyro_roll": 1.3942557573318481,
+    "rain_sensor_data": 4
+  },
+  "StateMSG": {
+    "adjustangle_status": 0,
+    "auto_draw_waiting_state": 0,
+    "car_controller": false,
+    "charging_status": 2,
+    "en_state_led": true,
+    "en_warn_led": true,
+    "error_code": 0,
+    "machine_controller": 1,
+    "on_going_planning": 0,
+    "on_going_recharging": 0,
+    "on_going_to_start_point": 0,
+    "on_mul_points": 0,
+    "planning_paused": 3,
+    "robot_follow_state": false,
+    "schedule_cancel": 0,
+    "vision_auto_draw_state": 0,
+    "working_state": 1
+  },
+  "base_status": 7,
+  "bds": "4432406252545",
+  "bs": "0",
+  "combined_odom_confidence": 0.9150000214576721,
+  "green_grass_update_switch": 1,
+  "ipcamera_ota_switch": 0,
+  "led": "69666",
+  "ms": "0",
+  "route_priority": {
+    "hg0": 10,
+    "wlan0": -1,
+    "wwan0": 20000
+  },
+  "rtcm_age": 1.0,
+  "rtcm_info": {
+    "current_source_type": 3
+  },
+  "s": "67108896",
+  "sbs": "0",
+  "timestamp": 1757195160.0,
+  "tms": "0",
+  "ultrasonic_msg": {
+    "lf_dis": 200,
+    "mt_dis": 9999,
+    "rf_dis": 200
+  },
+  "wireless_recharge": {
+    "error_code": 0,
+    "output_current": 1488,
+    "state": 2
+  }
+}
+
+snowbot/25070102ATHDG219/device/heart_beat
+{
+  "working_state": 1
+}
+
+snowbot/25070102ATHDG219/device/DeviceMSG
+{
+  "BatteryMSG": {
+    "capacity": 44,
+    "status": 3,
+    "temp_err": 0,
+    "timestamp": 1757195161.0587633
+  },
+  "BodyMsg": {
+    "recharge_state": 2
+  },
+  "CombinedOdom": {
+    "phi": -0.234,
+    "x": 8.822,
+    "y": -14.735
+  },
+  "HeadMsg": {
+    "head_type": 5
+  },
+  "HeadSerialMsg": {
+    "head_sn": "25290503GNEVI277"
+  },
+  "RTKMSG": {
+    "gga_atn_dis": 0.3858,
+    "heading": 344.636,
+    "heading_atn_dis": 0.3946,
+    "heading_dop": 1.7691,
+    "heading_status": 1,
+    "pre4_timestamp": 1757195161.1793509,
+    "rtk_version": "",
+    "status": "4",
+    "timestamp": 1757195161.181682
+  },
+  "RunningStatusMSG": {
+    "chute_angle": 0,
+    "chute_steering_engine_info": 0,
+    "elec_navigation_front_right_sensor": 3856,
+    "elec_navigation_rear_right_sensor": 3899,
+    "head_gyro_pitch": 8.874480247497559,
+    "head_gyro_roll": 1.4015016555786133,
+    "rain_sensor_data": 4
+  },
+  "StateMSG": {
+    "adjustangle_status": 0,
+    "auto_draw_waiting_state": 0,
+    "car_controller": false,
+    "charging_status": 2,
+    "en_state_led": true,
+    "en_warn_led": true,
+    "error_code": 0,
+    "machine_controller": 1,
+    "on_going_planning": 0,
+    "on_going_recharging": 0,
+    "on_going_to_start_point": 0,
+    "on_mul_points": 0,
+    "planning_paused": 3,
+    "robot_follow_state": false,
+    "schedule_cancel": 0,
+    "vision_auto_draw_state": 0,
+    "working_state": 1
+  },
+  "base_status": 7,
+  "bds": "4432406252545",
+  "bs": "0",
+  "combined_odom_confidence": 0.9150000214576721,
+  "green_grass_update_switch": 1,
+  "ipcamera_ota_switch": 0,
+  "led": "69666",
+  "ms": "0",
+  "route_priority": {
+    "hg0": 10,
+    "wlan0": -1,
+    "wwan0": 20000
+  },
+  "rtcm_age": 1.0,
+  "rtcm_info": {
+    "current_source_type": 3
+  },
+  "s": "67108896",
+  "sbs": "0",
+  "timestamp": 1757195161.0,
+  "tms": "0",
+  "ultrasonic_msg": {
+    "lf_dis": 200,
+    "mt_dis": 9999,
+    "rf_dis": 200
+  },
+  "wireless_recharge": {
+    "error_code": 0,
+    "output_current": 1473,
+    "output_voltage": 4073,
+    "state": 2
+  }
+}
+
+snowbot/25070102ATHDG219/device/DeviceMSG
+{
+  "BatteryMSG": {
+    "capacity": 44,
+    "status": 3,
+    "temp_err": 0,
+    "timestamp": 1757195162.216136
+  },
+  "BodyMsg": {
+    "recharge_state": 2
+  },
+  "CombinedOdom": {
+    "phi": -0.261,
+    "x": 8.825,
+    "y": -14.734
+  },
+  "HeadMsg": {
+    "head_type": 5
+  },
+  "HeadSerialMsg": {
+    "head_sn": "25290503GNEVI277"
+  },
+  "RTKMSG": {
+    "gga_atn_dis": 0.3888,
+    "heading": 344.7667,
+    "heading_atn_dis": 0.4011,
+    "heading_dop": 1.7471,
+    "heading_status": 1,
+    "pre4_timestamp": 1757195162.179679,
+    "rtk_version": "",
+    "sat_num": 21,
+    "status": "4",
+    "timestamp": 1757195162.1825886
+  },
+  "RunningStatusMSG": {
+    "chute_angle": 0,
+    "chute_steering_engine_info": 0,
+    "elec_navigation_front_right_sensor": 3907,
+    "elec_navigation_rear_right_sensor": 3882,
+    "head_gyro_pitch": 8.879862785339355,
+    "head_gyro_roll": 1.3925106525421143,
+    "rain_sensor_data": 4
+  },
+  "StateMSG": {
+    "adjustangle_status": 0,
+    "auto_draw_waiting_state": 0,
+    "car_controller": false,
+    "charging_status": 2,
+    "en_state_led": true,
+    "en_warn_led": true,
+    "error_code": 0,
+    "machine_controller": 1,
+    "on_going_planning": 0,
+    "on_going_recharging": 0,
+    "on_going_to_start_point": 0,
+    "on_mul_points": 0,
+    "planning_paused": 3,
+    "robot_follow_state": false,
+    "schedule_cancel": 0,
+    "vision_auto_draw_state": 0,
+    "working_state": 1
+  },
+  "base_status": 7,
+  "bds": "4432406252545",
+  "bs": "0",
+  "combined_odom_confidence": 0.9150000214576721,
+  "green_grass_update_switch": 1,
+  "ipcamera_ota_switch": 0,
+  "led": "69666",
+  "ms": "0",
+  "route_priority": {
+    "hg0": 10,
+    "wlan0": -1,
+    "wwan0": 20000
+  },
+  "rtcm_age": 1.0,
+  "rtcm_info": {
+    "current_source_type": 3
+  },
+  "s": "67108896",
+  "sbs": "0",
+  "timestamp": 1757195162.0,
+  "tms": "0",
+  "ultrasonic_msg": {
+    "lf_dis": -3,
+    "mt_dis": 9999,
+    "rf_dis": 200
+  },
+  "wireless_recharge": {
+    "error_code": 0,
+    "output_current": 1496,
+    "state": 2
+  }
+}
+
+snowbot/25070102ATHDG219/device/heart_beat
+{
+  "working_state": 1
+}
+
+snowbot/25070102ATHDG219/device/DeviceMSG
+{
+  "BatteryMSG": {
+    "capacity": 44,
+    "status": 3,
+    "temp_err": 0,
+    "timestamp": 1757195162.9750266
+  },
+  "BodyMsg": {
+    "recharge_state": 2
+  },
+  "CombinedOdom": {
+    "phi": -0.261,
+    "x": 8.821,
+    "y": -14.73
+  },
+  "HeadMsg": {
+    "head_type": 5
+  },
+  "HeadSerialMsg": {
+    "head_sn": "25290503GNEVI277"
+  },
+  "RTKMSG": {
+    "gga_atn_dis": 0.3793,
+    "heading": 345.9923,
+    "heading_atn_dis": 0.4017,
+    "heading_dop": 1.6277,
+    "heading_multi": 14,
+    "heading_obs": 17,
+    "heading_status": 1,
+    "pre4_timestamp": 1757195163.17938,
+    "rtk_version": "",
+    "status": "4",
+    "timestamp": 1757195163.1817727
+  },
+  "RunningStatusMSG": {
+    "chute_angle": 0,
+    "chute_steering_engine_info": 0,
+    "elec_navigation_front_right_sensor": 3916,
+    "elec_navigation_rear_right_sensor": 3881,
+    "head_gyro_pitch": 8.890195846557617,
+    "head_gyro_roll": 1.4056384563446045,
+    "rain_sensor_data": 4
+  },
+  "StateMSG": {
+    "adjustangle_status": 0,
+    "auto_draw_waiting_state": 0,
+    "car_controller": false,
+    "charging_status": 2,
+    "en_state_led": true,
+    "en_warn_led": true,
+    "error_code": 0,
+    "machine_controller": 1,
+    "on_going_planning": 0,
+    "on_going_recharging": 0,
+    "on_going_to_start_point": 0,
+    "on_mul_points": 0,
+    "planning_paused": 3,
+    "robot_follow_state": false,
+    "schedule_cancel": 0,
+    "vision_auto_draw_state": 0,
+    "working_state": 1
+  },
+  "base_status": 7,
+  "bds": "4432406252545",
+  "bs": "0",
+  "combined_odom_confidence": 0.9150000214576721,
+  "green_grass_update_switch": 1,
+  "ipcamera_ota_switch": 0,
+  "led": "69666",
+  "ms": "0",
+  "route_priority": {
+    "hg0": 10,
+    "wlan0": -1,
+    "wwan0": 20000
+  },
+  "rtcm_age": 1.0,
+  "rtcm_info": {
+    "current_source_type": 2
+  },
+  "s": "67108896",
+  "sbs": "0",
+  "timestamp": 1757195163.0,
+  "tms": "0",
+  "ultrasonic_msg": {
+    "lf_dis": 200,
+    "mt_dis": 9999,
+    "rf_dis": 200
+  },
+  "wireless_recharge": {
+    "error_code": 0,
+    "output_current": 1471,
+    "output_voltage": 4068,
+    "state": 2
+  }
+}
+
+snowbot/25070102ATHDG219/device/DeviceMSG
+{
+  "BatteryMSG": {
+    "capacity": 44,
+    "status": 3,
+    "temp_err": 0,
+    "timestamp": 1757195164.144606
+  },
+  "BodyMsg": {
+    "recharge_state": 2
+  },
+  "CombinedOdom": {
+    "phi": -0.261,
+    "x": 8.819,
+    "y": -14.731
+  },
+  "HeadMsg": {
+    "head_type": 5
+  },
+  "HeadSerialMsg": {
+    "head_sn": "25290503GNEVI277"
+  },
+  "RTKMSG": {
+    "gga_atn_dis": 0.389,
+    "heading": 346.4343,
+    "heading_atn_dis": 0.4011,
+    "heading_dop": 1.6271,
+    "heading_multi": 15,
+    "heading_obs": 19,
+    "heading_status": 1,
+    "pre4_timestamp": 1757195164.1796834,
+    "rtk_version": "",
+    "sat_num": 22,
+    "status": "4",
+    "timestamp": 1757195164.1817682
+  },
+  "RunningStatusMSG": {
+    "chute_angle": 0,
+    "chute_steering_engine_info": 0,
+    "elec_navigation_front_right_sensor": 3852,
+    "elec_navigation_rear_right_sensor": 3878,
+    "head_gyro_pitch": 8.887316703796387,
+    "head_gyro_roll": 1.416207194328308,
+    "rain_sensor_data": 4
+  },
+  "StateMSG": {
+    "adjustangle_status": 0,
+    "auto_draw_waiting_state": 0,
+    "car_controller": false,
+    "charging_status": 2,
+    "en_state_led": true,
+    "en_warn_led": true,
+    "error_code": 0,
+    "machine_controller": 1,
+    "on_going_planning": 0,
+    "on_going_recharging": 0,
+    "on_going_to_start_point": 0,
+    "on_mul_points": 0,
+    "planning_paused": 3,
+    "robot_follow_state": false,
+    "schedule_cancel": 0,
+    "vision_auto_draw_state": 0,
+    "working_state": 1
+  },
+  "base_status": 7,
+  "bds": "4432406252545",
+  "bs": "0",
+  "combined_odom_confidence": 0.9150000214576721,
+  "green_grass_update_switch": 1,
+  "ipcamera_ota_switch": 0,
+  "led": "69666",
+  "ms": "0",
+  "route_priority": {
+    "hg0": 10,
+    "wlan0": -1,
+    "wwan0": 20000
+  },
+  "rtcm_age": 1.0,
+  "rtcm_info": {
+    "current_source_type": 3
+  },
+  "s": "67108896",
+  "sbs": "0",
+  "timestamp": 1757195164.0,
+  "tms": "0",
+  "ultrasonic_msg": {
+    "lf_dis": 200,
+    "mt_dis": 9999,
+    "rf_dis": 200
+  },
+  "wireless_recharge": {
+    "error_code": 0,
+    "output_current": 1475,
+    "state": 2
+  }
+}
+
+snowbot/25070102ATHDG219/device/heart_beat
+{
+  "working_state": 1
+}
+
+snowbot/25070102ATHDG219/device/DeviceMSG
+{
+  "BatteryMSG": {
+    "capacity": 44,
+    "status": 3,
+    "temp_err": 0,
+    "timestamp": 1757195164.915392
+  },
+  "BodyMsg": {
+    "recharge_state": 2
+  },
+  "CombinedOdom": {
+    "phi": -0.261,
+    "x": 8.822,
+    "y": -14.731
+  },
+  "EletricMSG": {
+    "rwheel_current": 0.01600000075995922
+  },
+  "HeadMsg": {
+    "head_type": 5
+  },
+  "HeadSerialMsg": {
+    "head_sn": "25290503GNEVI277"
+  },
+  "RTKMSG": {
+    "gga_atn_dis": 0.3928,
+    "heading": 346.4766,
+    "heading_atn_dis": 0.404,
+    "heading_dop": 1.5694,
+    "heading_obs": 20,
+    "heading_status": 1,
+    "pre4_timestamp": 1757195165.0782967,
+    "rtk_version": "",
+    "status": "4",
+    "timestamp": 1757195165.080051
+  },
+  "RunningStatusMSG": {
+    "chute_angle": 0,
+    "chute_steering_engine_info": 0,
+    "elec_navigation_front_right_sensor": 3900,
+    "elec_navigation_rear_right_sensor": 3876,
+    "head_gyro_pitch": 8.87331485748291,
+    "head_gyro_roll": 1.4109123945236206,
+    "rain_sensor_data": 4
+  },
+  "StateMSG": {
+    "adjustangle_status": 0,
+    "auto_draw_waiting_state": 0,
+    "car_controller": false,
+    "charging_status": 2,
+    "en_state_led": true,
+    "en_warn_led": true,
+    "error_code": 0,
+    "machine_controller": 1,
+    "on_going_planning": 0,
+    "on_going_recharging": 0,
+    "on_going_to_start_point": 0,
+    "on_mul_points": 0,
+    "planning_paused": 3,
+    "robot_follow_state": false,
+    "schedule_cancel": 0,
+    "vision_auto_draw_state": 0,
+    "working_state": 1
+  },
+  "base_status": 7,
+  "bds": "4432406252545",
+  "bs": "0",
+  "combined_odom_confidence": 0.9150000214576721,
+  "green_grass_update_switch": 1,
+  "ipcamera_ota_switch": 0,
+  "led": "69666",
+  "ms": "0",
+  "route_priority": {
+    "hg0": 10,
+    "wlan0": -1,
+    "wwan0": 20000
+  },
+  "rtcm_age": 1.0,
+  "rtcm_info": {
+    "current_source_type": 3
+  },
+  "s": "67108896",
+  "sbs": "0",
+  "system_info": {
+    "cpu.Frequency": "1800000",
+    "cpu.Temperature": "59.153000 °C",
+    "cpu.Usage": 31.6,
+    "mem.Buffers": 103184,
+    "mem.Cached": 2141580,
+    "mem.MemAvailable": 4722836,
+    "mem.MemFree": 2931564,
+    "topProc": [
+      {
+        "command": "yarbo_p+",
+        "cpuUsage": 105.9,
+        "pid": 20309
+      },
+      {
+        "command": "edge_sm+",
+        "cpuUsage": 76.5,
+        "pid": 20314
+      },
+      {
+        "command": "state_m+",
+        "cpuUsage": 17.6,
+        "pid": 20307
+      },
+      {
+        "command": "data_re+",
+        "cpuUsage": 17.6,
+        "pid": 24925
+      },
+      {
+        "command": "top",
+        "cpuUsage": 11.8,
+        "pid": 174211
+      }
+    ],
+    "userdata.disk.availableSize": 23330281472,
+    "userdata.disk.usedSize": 16461066240
+  },
+  "timestamp": 1757195165.0,
+  "tms": "0",
+  "ultrasonic_msg": {
+    "lf_dis": 200,
+    "mt_dis": 9999,
+    "rf_dis": 200
+  },
+  "wireless_recharge": {
+    "error_code": 0,
+    "output_current": 1489,
+    "output_voltage": 4073,
+    "state": 2
+  }
+}
+
+snowbot/25070102ATHDG219/device/DeviceMSG
+{
+  "BatteryMSG": {
+    "capacity": 44,
+    "current": 13600,
+    "status": 3,
+    "temp_err": 0,
+    "timestamp": 1757195166.057928
+  },
+  "BodyMsg": {
+    "recharge_state": 2
+  },
+  "CombinedOdom": {
+    "phi": -0.234,
+    "x": 8.822,
+    "y": -14.728
+  },
+  "EletricMSG": {
+    "push_pod_current": 0.0012890625512227416,
+    "rwheel_current": 0.024000000208616257
+  },
+  "HeadMsg": {
+    "head_type": 5
+  },
+  "HeadSerialMsg": {
+    "head_sn": "25290503GNEVI277"
+  },
+  "RTKMSG": {
+    "gga_atn_dis": 0.3893,
+    "heading": 346.2946,
+    "heading_atn_dis": 0.401,
+    "heading_dop": 1.5697,
+    "heading_obs": 21,
+    "heading_status": 1,
+    "pre4_timestamp": 1757195166.1795259,
+    "rtk_version": "",
+    "status": "4",
+    "timestamp": 1757195166.1818316
+  },
+  "RunningStatusMSG": {
+    "chute_angle": 0,
+    "chute_steering_engine_info": 0,
+    "elec_navigation_front_right_sensor": 3886,
+    "elec_navigation_rear_right_sensor": 3877,
+    "head_gyro_pitch": 8.87241268157959,
+    "head_gyro_roll": 1.4299442768096924,
+    "rain_sensor_data": 4
+  },
+  "StateMSG": {
+    "adjustangle_status": 0,
+    "auto_draw_waiting_state": 0,
+    "car_controller": false,
+    "charging_status": 2,
+    "en_state_led": true,
+    "en_warn_led": true,
+    "error_code": 0,
+    "machine_controller": 1,
+    "on_going_planning": 0,
+    "on_going_recharging": 0,
+    "on_going_to_start_point": 0,
+    "on_mul_points": 0,
+    "planning_paused": 3,
+    "robot_follow_state": false,
+    "schedule_cancel": 0,
+    "vision_auto_draw_state": 0,
+    "working_state": 1
+  },
+  "base_status": 7,
+  "bds": "4432406252545",
+  "bs": "0",
+  "combined_odom_confidence": 0.9150000214576721,
+  "green_grass_update_switch": 1,
+  "ipcamera_ota_switch": 0,
+  "led": "69666",
+  "ms": "0",
+  "route_priority": {
+    "hg0": 10,
+    "wlan0": -1,
+    "wwan0": 20000
+  },
+  "rtcm_age": 1.0,
+  "rtcm_info": {
+    "current_source_type": 3
+  },
+  "s": "67108896",
+  "sbs": "0",
+  "timestamp": 1757195166.0,
+  "tms": "0",
+  "ultrasonic_msg": {
+    "lf_dis": -3,
+    "mt_dis": 9999,
+    "rf_dis": 200
+  },
+  "wireless_recharge": {
+    "error_code": 0,
+    "output_current": 1479,
+    "state": 2
+  }
+}
+
+snowbot/25070102ATHDG219/device/heart_beat
+{
+  "working_state": 1
+}
+
+snowbot/25070102ATHDG219/device/DeviceMSG
+{
+  "BatteryMSG": {
+    "capacity": 44,
+    "current": 13500,
+    "status": 3,
+    "temp_err": 0,
+    "timestamp": 1757195167.2297602
+  },
+  "BodyMsg": {
+    "recharge_state": 2
+  },
+  "CombinedOdom": {
+    "phi": -0.234,
+    "x": 8.82,
+    "y": -14.729
+  },
+  "EletricMSG": {
+    "push_pod_current": 0.0019335937686264515,
+    "rwheel_current": 0.01600000075995922
+  },
+  "HeadMsg": {
+    "head_type": 5
+  },
+  "HeadSerialMsg": {
+    "head_sn": "25290503GNEVI277"
+  },
+  "RTKMSG": {
+    "gga_atn_dis": 0.386,
+    "heading": 346.0229,
+    "heading_atn_dis": 0.4019,
+    "heading_dop": 1.5672,
+    "heading_obs": 20,
+    "heading_status": 1,
+    "pre4_timestamp": 1757195167.18242,
+    "rtk_version": "",
+    "status": "4",
+    "timestamp": 1757195167.1826227
+  },
+  "RunningStatusMSG": {
+    "chute_angle": 0,
+    "chute_steering_engine_info": 0,
+    "elec_navigation_front_right_sensor": 3879,
+    "elec_navigation_rear_right_sensor": 3863,
+    "head_gyro_pitch": 8.926220893859863,
+    "head_gyro_roll": 1.4207805395126343,
+    "rain_sensor_data": 4
+  },
+  "StateMSG": {
+    "adjustangle_status": 0,
+    "auto_draw_waiting_state": 0,
+    "car_controller": false,
+    "charging_status": 2,
+    "en_state_led": true,
+    "en_warn_led": true,
+    "error_code": 0,
+    "machine_controller": 1,
+    "on_going_planning": 0,
+    "on_going_recharging": 0,
+    "on_going_to_start_point": 0,
+    "on_mul_points": 0,
+    "planning_paused": 3,
+    "robot_follow_state": false,
+    "schedule_cancel": 0,
+    "vision_auto_draw_state": 0,
+    "working_state": 1
+  },
+  "base_status": 7,
+  "bds": "4432406252545",
+  "bs": "0",
+  "combined_odom_confidence": 0.9150000214576721,
+  "green_grass_update_switch": 1,
+  "halow_status": {
+    "strength": -37
+  },
+  "ipcamera_ota_switch": 0,
+  "led": "69666",
+  "ms": "0",
+  "route_priority": {
+    "hg0": 10,
+    "wlan0": -1,
+    "wwan0": 20000
+  },
+  "rtcm_age": 1.0,
+  "rtcm_info": {
+    "current_source_type": 3
+  },
+  "s": "67108896",
+  "sbs": "0",
+  "timestamp": 1757195167.0,
+  "tms": "0",
+  "ultrasonic_msg": {
+    "lf_dis": -3,
+    "mt_dis": 9999,
+    "rf_dis": 200
+  },
+  "wireless_recharge": {
+    "error_code": 0,
+    "output_current": 1516,
+    "state": 2
+  }
+}
+
+snowbot/25070102ATHDG219/device/DeviceMSG
+{
+  "BatteryMSG": {
+    "capacity": 44,
+    "status": 3,
+    "temp_err": 0,
+    "timestamp": 1757195167.999465
+  },
+  "BodyMsg": {
+    "recharge_state": 2
+  },
+  "CombinedOdom": {
+    "phi": -0.205,
+    "x": 8.804,
+    "y": -14.715
+  },
+  "HeadMsg": {
+    "head_type": 5
+  },
+  "HeadSerialMsg": {
+    "head_sn": "25290503GNEVI277"
+  },
+  "RTKMSG": {
+    "gga_atn_dis": 0.3881,
+    "heading": 349.2985,
+    "heading_atn_dis": 0.4079,
+    "heading_dop": 1.2868,
+    "heading_obs": 21,
+    "heading_status": 1,
+    "pre4_timestamp": 1757195168.0847888,
+    "rtk_version": "",
+    "status": "4",
+    "timestamp": 1757195168.0868204
+  },
+  "RunningStatusMSG": {
+    "chute_angle": 0,
+    "chute_steering_engine_info": 0,
+    "elec_navigation_front_right_sensor": 3877,
+    "elec_navigation_rear_right_sensor": 3887,
+    "head_gyro_pitch": 8.8843355178833,
+    "head_gyro_roll": 1.3932894468307495,
+    "rain_sensor_data": 4
+  },
+  "StateMSG": {
+    "adjustangle_status": 0,
+    "auto_draw_waiting_state": 0,
+    "car_controller": false,
+    "charging_status": 2,
+    "en_state_led": true,
+    "en_warn_led": true,
+    "error_code": 0,
+    "machine_controller": 1,
+    "on_going_planning": 0,
+    "on_going_recharging": 0,
+    "on_going_to_start_point": 0,
+    "on_mul_points": 0,
+    "planning_paused": 3,
+    "robot_follow_state": false,
+    "schedule_cancel": 0,
+    "vision_auto_draw_state": 0,
+    "working_state": 1
+  },
+  "base_status": 7,
+  "bds": "4432406252545",
+  "bs": "0",
+  "combined_odom_confidence": 0.9150000214576721,
+  "green_grass_update_switch": 1,
+  "ipcamera_ota_switch": 0,
+  "led": "69666",
+  "ms": "0",
+  "route_priority": {
+    "hg0": 10,
+    "wlan0": -1,
+    "wwan0": 20000
+  },
+  "rtcm_age": 1.0,
+  "rtcm_info": {
+    "current_source_type": 3
+  },
+  "s": "67108896",
+  "sbs": "0",
+  "timestamp": 1757195168.0,
+  "tms": "0",
+  "ultrasonic_msg": {
+    "lf_dis": -3,
+    "mt_dis": 9999,
+    "rf_dis": 200
+  },
+  "wireless_recharge": {
+    "error_code": 0,
+    "output_current": 1482,
+    "output_voltage": 4068,
+    "state": 2
+  }
+}
+
+snowbot/25070102ATHDG219/device/heart_beat
+{
+  "working_state": 1
+}
+
+snowbot/25070102ATHDG219/device/DeviceMSG
+{
+  "BatteryMSG": {
+    "capacity": 44,
+    "status": 3,
+    "temp_err": 0,
+    "timestamp": 1757195169.1354523
+  },
+  "BodyMsg": {
+    "recharge_state": 2
+  },
+  "CombinedOdom": {
+    "phi": -0.205,
+    "x": 8.806,
+    "y": -14.719
+  },
+  "HeadMsg": {
+    "head_type": 5
+  },
+  "HeadSerialMsg": {
+    "head_sn": "25290503GNEVI277"
+  },
+  "RTKMSG": {
+    "gga_atn_dis": 0.3867,
+    "heading": 349.3158,
+    "heading_atn_dis": 0.4088,
+    "heading_dop": 1.289,
+    "heading_multi": 14,
+    "heading_obs": 20,
+    "heading_status": 1,
+    "pre4_timestamp": 1757195169.2817273,
+    "rtk_version": "",
+    "status": "4",
+    "timestamp": 1757195169.2864583
+  },
+  "RunningStatusMSG": {
+    "chute_angle": 0,
+    "chute_steering_engine_info": 0,
+    "elec_navigation_front_right_sensor": 3857,
+    "elec_navigation_rear_right_sensor": 3865,
+    "head_gyro_pitch": 8.877386093139648,
+    "head_gyro_roll": 1.416854977607727,
+    "rain_sensor_data": 4
+  },
+  "StateMSG": {
+    "adjustangle_status": 0,
+    "auto_draw_waiting_state": 0,
+    "car_controller": false,
+    "charging_status": 2,
+    "en_state_led": true,
+    "en_warn_led": true,
+    "error_code": 0,
+    "machine_controller": 1,
+    "on_going_planning": 0,
+    "on_going_recharging": 0,
+    "on_going_to_start_point": 0,
+    "on_mul_points": 0,
+    "planning_paused": 3,
+    "robot_follow_state": false,
+    "schedule_cancel": 0,
+    "vision_auto_draw_state": 0,
+    "working_state": 1
+  },
+  "base_status": 7,
+  "bds": "4432406252545",
+  "bs": "0",
+  "combined_odom_confidence": 0.9150000214576721,
+  "green_grass_update_switch": 1,
+  "ipcamera_ota_switch": 0,
+  "led": "69666",
+  "ms": "0",
+  "route_priority": {
+    "hg0": 10,
+    "wlan0": -1,
+    "wwan0": 20000
+  },
+  "rtcm_age": 1.0,
+  "rtcm_info": {
+    "current_source_type": 3
+  },
+  "s": "67108896",
+  "sbs": "0",
+  "timestamp": 1757195169.0,
+  "tms": "0",
+  "ultrasonic_msg": {
+    "lf_dis": 200,
+    "mt_dis": 9999,
+    "rf_dis": 200
+  },
+  "wireless_recharge": {
+    "error_code": 0,
+    "output_current": 1466,
+    "state": 2
+  }
+}
+
+snowbot/25070102ATHDG219/device/DeviceMSG
+{
+  "BatteryMSG": {
+    "capacity": 44,
+    "status": 3,
+    "temp_err": 0,
+    "temperature3": 44,
+    "timestamp": 1757195169.9212773
+  },
+  "BodyMsg": {
+    "recharge_state": 2
+  },
+  "CombinedOdom": {
+    "phi": -0.205,
+    "x": 8.806,
+    "y": -14.717
+  },
+  "HeadMsg": {
+    "head_type": 5
+  },
+  "HeadSerialMsg": {
+    "head_sn": "25290503GNEVI277"
+  },
+  "RTKMSG": {
+    "gga_atn_dis": 0.3822,
+    "heading": 348.2179,
+    "heading_atn_dis": 0.4032,
+    "heading_dop": 1.2969,
+    "heading_obs": 19,
+    "heading_status": 1,
+    "pre4_timestamp": 1757195170.1800768,
+    "rtk_version": "",
+    "sat_num": 21,
+    "status": "4",
+    "timestamp": 1757195170.1833115
+  },
+  "RunningStatusMSG": {
+    "chute_angle": 0,
+    "chute_steering_engine_info": 0,
+    "elec_navigation_front_right_sensor": 3881,
+    "elec_navigation_rear_right_sensor": 3881,
+    "head_gyro_pitch": 8.895408630371094,
+    "head_gyro_roll": 1.3988622426986694,
+    "rain_sensor_data": 4
+  },
+  "StateMSG": {
+    "adjustangle_status": 0,
+    "auto_draw_waiting_state": 0,
+    "car_controller": false,
+    "charging_status": 2,
+    "en_state_led": true,
+    "en_warn_led": true,
+    "error_code": 0,
+    "machine_controller": 1,
+    "on_going_planning": 0,
+    "on_going_recharging": 0,
+    "on_going_to_start_point": 0,
+    "on_mul_points": 0,
+    "planning_paused": 3,
+    "robot_follow_state": false,
+    "schedule_cancel": 0,
+    "vision_auto_draw_state": 0,
+    "working_state": 1
+  },
+  "base_status": 7,
+  "bds": "4432406252545",
+  "bs": "0",
+  "combined_odom_confidence": 0.9150000214576721,
+  "green_grass_update_switch": 1,
+  "ipcamera_ota_switch": 0,
+  "led": "69666",
+  "ms": "0",
+  "route_priority": {
+    "hg0": 10,
+    "wlan0": -1,
+    "wwan0": 20000
+  },
+  "rtcm_age": 1.0,
+  "rtcm_info": {
+    "current_source_type": 3
+  },
+  "s": "67108896",
+  "sbs": "0",
+  "timestamp": 1757195170.0,
+  "tms": "0",
+  "ultrasonic_msg": {
+    "lf_dis": 200,
+    "mt_dis": 9999,
+    "rf_dis": 200
+  },
+  "wireless_recharge": {
+    "error_code": 0,
+    "output_current": 1498,
+    "output_voltage": 4079,
+    "state": 2
+  }
+}
+
+snowbot/25070102ATHDG219/device/heart_beat
+{
+  "working_state": 1
+}
+
+snowbot/25070102ATHDG219/device/DeviceMSG
+{
+  "BatteryMSG": {
+    "capacity": 44,
+    "current": 13600,
+    "status": 3,
+    "temp_err": 0,
+    "temperature3": 45,
+    "temperature4": 44,
+    "timestamp": 1757195171.0758579
+  },
+  "BodyMsg": {
+    "recharge_state": 2
+  },
+  "CombinedOdom": {
+    "phi": -0.204,
+    "x": 8.814,
+    "y": -14.731
+  },
+  "HeadMsg": {
+    "head_type": 5
+  },
+  "HeadSerialMsg": {
+    "head_sn": "25290503GNEVI277"
+  },
+  "RTKMSG": {
+    "gga_atn_dis": 0.3823,
+    "heading": 346.6094,
+    "heading_atn_dis": 0.3978,
+    "heading_dop": 1.5729,
+    "heading_obs": 18,
+    "heading_status": 1,
+    "pre4_timestamp": 1757195171.281189,
+    "rtk_version": "",
+    "status": "4",
+    "timestamp": 1757195171.2834427
+  },
+  "RunningStatusMSG": {
+    "chute_angle": 0,
+    "chute_steering_engine_info": 0,
+    "elec_navigation_front_right_sensor": 3887,
+    "elec_navigation_rear_right_sensor": 3884,
+    "head_gyro_pitch": 8.882411003112793,
+    "head_gyro_roll": 1.414361596107483,
+    "rain_sensor_data": 4
+  },
+  "StateMSG": {
+    "adjustangle_status": 0,
+    "auto_draw_waiting_state": 0,
+    "car_controller": false,
+    "charging_status": 2,
+    "en_state_led": true,
+    "en_warn_led": true,
+    "error_code": 0,
+    "machine_controller": 1,
+    "on_going_planning": 0,
+    "on_going_recharging": 0,
+    "on_going_to_start_point": 0,
+    "on_mul_points": 0,
+    "planning_paused": 3,
+    "robot_follow_state": false,
+    "schedule_cancel": 0,
+    "vision_auto_draw_state": 0,
+    "working_state": 1
+  },
+  "base_status": 7,
+  "bds": "4432406252545",
+  "bs": "0",
+  "combined_odom_confidence": 0.9150000214576721,
+  "green_grass_update_switch": 1,
+  "ipcamera_ota_switch": 0,
+  "led": "69666",
+  "ms": "0",
+  "route_priority": {
+    "hg0": 10,
+    "wlan0": -1,
+    "wwan0": 20000
+  },
+  "rtcm_age": 1.0,
+  "rtcm_info": {
+    "current_source_type": 3
+  },
+  "s": "67108896",
+  "sbs": "0",
+  "system_info": {
+    "cpu.Usage": 30.3,
+    "mem.Buffers": 103188,
+    "mem.Cached": 2142000,
+    "mem.MemAvailable": 4722884,
+    "mem.MemFree": 2931160,
+    "topProc": [
+      {
+        "command": "yarbo_p+",
+        "cpuUsage": 112.5,
+        "pid": 20309
+      },
+      {
+        "command": "edge_sm+",
+        "cpuUsage": 112.5,
+        "pid": 20314
+      },
+      {
+        "command": "data_re+",
+        "cpuUsage": 31.2,
+        "pid": 24925
+      },
+      {
+        "command": "state_m+",
+        "cpuUsage": 18.8,
+        "pid": 20307
+      },
+      {
+        "command": "timing_+",
+        "cpuUsage": 12.5,
+        "pid": 20896
+      }
+    ],
+    "userdata.disk.availableSize": 23329941504,
+    "userdata.disk.usedSize": 16461406208
+  },
+  "timestamp": 1757195171.0,
+  "tms": "0",
+  "ultrasonic_msg": {
+    "lf_dis": -3,
+    "mt_dis": 9999,
+    "rf_dis": 200
+  },
+  "wireless_recharge": {
+    "error_code": 0,
+    "output_current": 1489,
+    "output_voltage": 4073,
+    "state": 2
+  }
+}
+
+snowbot/25070102ATHDG219/device/DeviceMSG
+{
+  "BatteryMSG": {
+    "capacity": 44,
+    "current": 13500,
+    "status": 3,
+    "temp_err": 0,
+    "temperature4": 45,
+    "timestamp": 1757195172.2156475
+  },
+  "BodyMsg": {
+    "recharge_state": 2
+  },
+  "CombinedOdom": {
+    "phi": -0.233,
+    "x": 8.812,
+    "y": -14.733
+  },
+  "EletricMSG": {
+    "rwheel_current": 0.024000000208616257
+  },
+  "HeadMsg": {
+    "head_type": 5
+  },
+  "HeadSerialMsg": {
+    "head_sn": "25290503GNEVI277"
+  },
+  "RTKMSG": {
+    "gga_atn_dis": 0.3838,
+    "heading": 345.1014,
+    "heading_atn_dis": 0.3941,
+    "heading_dop": 1.5426,
+    "heading_obs": 19,
+    "heading_status": 1,
+    "pre4_timestamp": 1757195172.2817473,
+    "rtk_version": "",
+    "status": "4",
+    "timestamp": 1757195172.2837996
+  },
+  "RunningStatusMSG": {
+    "chute_angle": 0,
+    "chute_steering_engine_info": 0,
+    "elec_navigation_front_right_sensor": 3883,
+    "elec_navigation_rear_right_sensor": 3889,
+    "head_gyro_pitch": 8.897444725036621,
+    "head_gyro_roll": 1.4004507064819336,
+    "rain_sensor_data": 4
+  },
+  "StateMSG": {
+    "adjustangle_status": 0,
+    "auto_draw_waiting_state": 0,
+    "car_controller": false,
+    "charging_status": 2,
+    "en_state_led": true,
+    "en_warn_led": true,
+    "error_code": 0,
+    "machine_controller": 1,
+    "on_going_planning": 0,
+    "on_going_recharging": 0,
+    "on_going_to_start_point": 0,
+    "on_mul_points": 0,
+    "planning_paused": 3,
+    "robot_follow_state": false,
+    "schedule_cancel": 0,
+    "vision_auto_draw_state": 0,
+    "working_state": 1
+  },
+  "base_status": 7,
+  "bds": "4432406252545",
+  "bs": "0",
+  "combined_odom_confidence": 0.9150000214576721,
+  "green_grass_update_switch": 1,
+  "ipcamera_ota_switch": 0,
+  "led": "69666",
+  "ms": "0",
+  "route_priority": {
+    "hg0": 10,
+    "wlan0": -1,
+    "wwan0": 20000
+  },
+  "rtcm_age": 1.0,
+  "rtcm_info": {
+    "current_source_type": 3
+  },
+  "s": "67108896",
+  "sbs": "0",
+  "timestamp": 1757195172.0,
+  "tms": "0",
+  "ultrasonic_msg": {
+    "lf_dis": -3,
+    "mt_dis": 9999,
+    "rf_dis": 200
+  },
+  "wireless_recharge": {
+    "error_code": 0,
+    "output_voltage": 4068,
+    "state": 2
+  }
+}
+
+snowbot/25070102ATHDG219/device/heart_beat
+{
+  "working_state": 1
+}
+
+snowbot/25070102ATHDG219/device/DeviceMSG
+{
+  "BatteryMSG": {
+    "capacity": 44,
+    "status": 3,
+    "temp_err": 0,
+    "timestamp": 1757195172.9968793
+  },
+  "BodyMsg": {
+    "recharge_state": 2
+  },
+  "CombinedOdom": {
+    "phi": -0.259,
+    "x": 8.815,
+    "y": -14.735
+  },
+  "HeadMsg": {
+    "head_type": 5
+  },
+  "HeadSerialMsg": {
+    "head_sn": "25290503GNEVI277"
+  },
+  "RTKMSG": {
+    "gga_atn_dis": 0.3897,
+    "heading": 344.948,
+    "heading_atn_dis": 0.3978,
+    "heading_dop": 1.5305,
+    "heading_status": 1,
+    "pre4_timestamp": 1757195173.2819393,
+    "rtk_version": "",
+    "status": "4",
+    "timestamp": 1757195173.2842057
+  },
+  "RunningStatusMSG": {
+    "chute_angle": 0,
+    "chute_steering_engine_info": 0,
+    "elec_navigation_front_right_sensor": 3876,
+    "elec_navigation_rear_right_sensor": 3872,
+    "head_gyro_pitch": 8.874878883361816,
+    "head_gyro_roll": 1.411293864250183,
+    "rain_sensor_data": 4
+  },
+  "StateMSG": {
+    "adjustangle_status": 0,
+    "auto_draw_waiting_state": 0,
+    "car_controller": false,
+    "charging_status": 2,
+    "en_state_led": true,
+    "en_warn_led": true,
+    "error_code": 0,
+    "machine_controller": 1,
+    "on_going_planning": 0,
+    "on_going_recharging": 0,
+    "on_going_to_start_point": 0,
+    "on_mul_points": 0,
+    "planning_paused": 3,
+    "robot_follow_state": false,
+    "schedule_cancel": 0,
+    "vision_auto_draw_state": 0,
+    "working_state": 1
+  },
+  "base_status": 7,
+  "bds": "4432406252545",
+  "bs": "0",
+  "combined_odom_confidence": 0.9150000214576721,
+  "green_grass_update_switch": 1,
+  "ipcamera_ota_switch": 0,
+  "led": "69666",
+  "ms": "0",
+  "route_priority": {
+    "hg0": 10,
+    "wlan0": -1,
+    "wwan0": 20000
+  },
+  "rtcm_age": 1.0,
+  "rtcm_info": {
+    "current_source_type": 3
+  },
+  "s": "67108896",
+  "sbs": "0",
+  "timestamp": 1757195173.0,
+  "tms": "0",
+  "ultrasonic_msg": {
+    "lf_dis": -3,
+    "mt_dis": 9999,
+    "rf_dis": 200
+  },
+  "wireless_recharge": {
+    "error_code": 0,
+    "output_current": 1482,
+    "state": 2
+  }
+}
+
+snowbot/25070102ATHDG219/device/DeviceMSG
+{
+  "BatteryMSG": {
+    "capacity": 44,
+    "status": 3,
+    "temp_err": 0,
+    "timestamp": 1757195174.1561317
+  },
+  "BodyMsg": {
+    "recharge_state": 2
+  },
+  "CombinedOdom": {
+    "phi": -0.26,
+    "x": 8.814,
+    "y": -14.732
+  },
+  "EletricMSG": {
+    "rwheel_current": 0.01600000075995922
+  },
+  "HeadMsg": {
+    "head_type": 5
+  },
+  "HeadSerialMsg": {
+    "head_sn": "25290503GNEVI277"
+  },
+  "RTKMSG": {
+    "gga_atn_dis": 0.3892,
+    "heading": 346.0067,
+    "heading_atn_dis": 0.3998,
+    "heading_dop": 1.5181,
+    "heading_status": 1,
+    "pre4_timestamp": 1757195174.2817626,
+    "rtk_version": "",
+    "status": "4",
+    "timestamp": 1757195174.2844498
+  },
+  "RunningStatusMSG": {
+    "chute_angle": 0,
+    "chute_steering_engine_info": 0,
+    "elec_navigation_front_right_sensor": 3877,
+    "elec_navigation_rear_right_sensor": 3856,
+    "head_gyro_pitch": 8.87338638305664,
+    "head_gyro_roll": 1.4017120599746704,
+    "rain_sensor_data": 4
+  },
+  "StateMSG": {
+    "adjustangle_status": 0,
+    "auto_draw_waiting_state": 0,
+    "car_controller": false,
+    "charging_status": 2,
+    "en_state_led": true,
+    "en_warn_led": true,
+    "error_code": 0,
+    "machine_controller": 1,
+    "on_going_planning": 0,
+    "on_going_recharging": 0,
+    "on_going_to_start_point": 0,
+    "on_mul_points": 0,
+    "planning_paused": 3,
+    "robot_follow_state": false,
+    "schedule_cancel": 0,
+    "vision_auto_draw_state": 0,
+    "working_state": 1
+  },
+  "base_status": 7,
+  "bds": "4432406252545",
+  "bs": "0",
+  "combined_odom_confidence": 0.9150000214576721,
+  "green_grass_update_switch": 1,
+  "ipcamera_ota_switch": 0,
+  "led": "69666",
+  "ms": "0",
+  "route_priority": {
+    "hg0": 10,
+    "wlan0": -1,
+    "wwan0": 20000
+  },
+  "rtcm_age": 1.0,
+  "rtcm_info": {
+    "current_source_type": 3
+  },
+  "s": "67108896",
+  "sbs": "0",
+  "timestamp": 1757195174.0,
+  "tms": "0",
+  "ultrasonic_msg": {
+    "lf_dis": 200,
+    "mt_dis": 9999,
+    "rf_dis": 200
+  },
+  "wireless_recharge": {
+    "error_code": 0,
+    "output_current": 1477,
+    "state": 2
+  }
+}
+
+snowbot/25070102ATHDG219/device/heart_beat
+{
+  "working_state": 1
+}
+
+snowbot/25070102ATHDG219/device/DeviceMSG
+{
+  "BatteryMSG": {
+    "capacity": 44,
+    "status": 3,
+    "temp_err": 0,
+    "timestamp": 1757195175.3009658
+  },
+  "BodyMsg": {
+    "recharge_state": 2
+  },
+  "CombinedOdom": {
+    "phi": -0.26,
+    "x": 8.813,
+    "y": -14.729
+  },
+  "EletricMSG": {
+    "push_pod_current": 0.0012890625512227416,
+    "rwheel_current": 0.024000000208616257
+  },
+  "HeadMsg": {
+    "head_type": 5
+  },
+  "HeadSerialMsg": {
+    "head_sn": "25290503GNEVI277"
+  },
+  "RTKMSG": {
+    "gga_atn_dis": 0.3843,
+    "heading": 345.3186,
+    "heading_atn_dis": 0.3923,
+    "heading_dop": 1.5925,
+    "heading_obs": 18,
+    "heading_status": 1,
+    "pre4_timestamp": 1757195175.2816489,
+    "rtk_version": "",
+    "status": "4",
+    "timestamp": 1757195175.2839756
+  },
+  "RunningStatusMSG": {
+    "chute_angle": 0,
+    "chute_steering_engine_info": 0,
+    "elec_navigation_front_right_sensor": 3888,
+    "elec_navigation_rear_right_sensor": 3862,
+    "head_gyro_pitch": 8.873927116394043,
+    "head_gyro_roll": 1.3931714296340942,
+    "rain_sensor_data": 4
+  },
+  "StateMSG": {
+    "adjustangle_status": 0,
+    "auto_draw_waiting_state": 0,
+    "car_controller": false,
+    "charging_status": 2,
+    "en_state_led": true,
+    "en_warn_led": true,
+    "error_code": 0,
+    "machine_controller": 1,
+    "on_going_planning": 0,
+    "on_going_recharging": 0,
+    "on_going_to_start_point": 0,
+    "on_mul_points": 0,
+    "planning_paused": 3,
+    "robot_follow_state": false,
+    "schedule_cancel": 0,
+    "vision_auto_draw_state": 0,
+    "working_state": 1
+  },
+  "base_status": 7,
+  "bds": "4432406252545",
+  "bs": "0",
+  "combined_odom_confidence": 0.9150000214576721,
+  "green_grass_update_switch": 1,
+  "ipcamera_ota_switch": 0,
+  "led": "69666",
+  "ms": "0",
+  "route_priority": {
+    "hg0": 10,
+    "wlan0": -1,
+    "wwan0": 20000
+  },
+  "rtcm_age": 1.0,
+  "rtcm_info": {
+    "current_source_type": 3
+  },
+  "s": "67108896",
+  "sbs": "0",
+  "timestamp": 1757195175.0,
+  "tms": "0",
+  "ultrasonic_msg": {
+    "lf_dis": -3,
+    "mt_dis": 9999,
+    "rf_dis": 200
+  },
+  "wireless_recharge": {
+    "error_code": 0,
+    "output_current": 1463,
+    "state": 2
+  }
+}
+
+snowbot/25070102ATHDG219/device/DeviceMSG
+{
+  "BatteryMSG": {
+    "capacity": 44,
+    "status": 3,
+    "temp_err": 0,
+    "timestamp": 1757195176.08728
+  },
+  "BodyMsg": {
+    "recharge_state": 2
+  },
+  "CombinedOdom": {
+    "phi": -0.26,
+    "x": 8.814,
+    "y": -14.735
+  },
+  "EletricMSG": {
+    "push_pod_current": 0.0019335937686264515
+  },
+  "HeadMsg": {
+    "head_type": 5
+  },
+  "HeadSerialMsg": {
+    "head_sn": "25290503GNEVI277"
+  },
+  "RTKMSG": {
+    "gga_atn_dis": 0.3861,
+    "heading": 344.321,
+    "heading_atn_dis": 0.3961,
+    "heading_dop": 1.5771,
+    "heading_status": 1,
+    "pre4_timestamp": 1757195176.2833295,
+    "rtk_version": "",
+    "sat_num": 20,
+    "status": "4",
+    "timestamp": 1757195176.289269
+  },
+  "RunningStatusMSG": {
+    "chute_angle": 0,
+    "chute_steering_engine_info": 0,
+    "elec_navigation_front_right_sensor": 3872,
+    "elec_navigation_rear_right_sensor": 3874,
+    "head_gyro_pitch": 8.864765167236328,
+    "head_gyro_roll": 1.4125348329544067,
+    "rain_sensor_data": 3
+  },
+  "StateMSG": {
+    "adjustangle_status": 0,
+    "auto_draw_waiting_state": 0,
+    "car_controller": false,
+    "charging_status": 2,
+    "en_state_led": true,
+    "en_warn_led": true,
+    "error_code": 0,
+    "machine_controller": 1,
+    "on_going_planning": 0,
+    "on_going_recharging": 0,
+    "on_going_to_start_point": 0,
+    "on_mul_points": 0,
+    "planning_paused": 3,
+    "robot_follow_state": false,
+    "schedule_cancel": 0,
+    "vision_auto_draw_state": 0,
+    "working_state": 1
+  },
+  "base_status": 7,
+  "bds": "4432406252545",
+  "bs": "0",
+  "combined_odom_confidence": 0.9150000214576721,
+  "green_grass_update_switch": 1,
+  "ipcamera_ota_switch": 0,
+  "led": "69666",
+  "ms": "0",
+  "route_priority": {
+    "hg0": 10,
+    "wlan0": -1,
+    "wwan0": 20000
+  },
+  "rtcm_age": 1.0,
+  "rtcm_info": {
+    "current_source_type": 3
+  },
+  "s": "67108896",
+  "sbs": "0",
+  "timestamp": 1757195176.0,
+  "tms": "0",
+  "ultrasonic_msg": {
+    "lf_dis": -3,
+    "mt_dis": 9999,
+    "rf_dis": 200
+  },
+  "wireless_recharge": {
+    "error_code": 0,
+    "output_current": 1489,
+    "output_voltage": 4073,
+    "state": 2
+  }
+}
+
+snowbot/25070102ATHDG219/device/heart_beat
+{
+  "working_state": 1
+}
+
+snowbot/25070102ATHDG219/device/DeviceMSG
+{
+  "BatteryMSG": {
+    "capacity": 44,
+    "status": 3,
+    "temp_err": 0,
+    "timestamp": 1757195177.2370803
+  },
+  "BodyMsg": {
+    "recharge_state": 2
+  },
+  "CombinedOdom": {
+    "phi": -0.259,
+    "x": 8.816,
+    "y": -14.734
+  },
+  "HeadMsg": {
+    "head_type": 5
+  },
+  "HeadSerialMsg": {
+    "head_sn": "25290503GNEVI277"
+  },
+  "RTKMSG": {
+    "gga_atn_dis": 0.3847,
+    "heading": 344.9521,
+    "heading_atn_dis": 0.3966,
+    "heading_dop": 1.5773,
+    "heading_status": 1,
+    "pre4_timestamp": 1757195177.2825253,
+    "rtk_version": "",
+    "status": "4",
+    "timestamp": 1757195177.2847598
+  },
+  "RunningStatusMSG": {
+    "chute_angle": 0,
+    "chute_steering_engine_info": 0,
+    "elec_navigation_front_right_sensor": 3896,
+    "elec_navigation_rear_right_sensor": 3883,
+    "head_gyro_pitch": 8.901847839355469,
+    "head_gyro_roll": 1.4159605503082275,
+    "rain_sensor_data": 4
+  },
+  "StateMSG": {
+    "adjustangle_status": 0,
+    "auto_draw_waiting_state": 0,
+    "car_controller": false,
+    "charging_status": 2,
+    "en_state_led": true,
+    "en_warn_led": true,
+    "error_code": 0,
+    "machine_controller": 1,
+    "on_going_planning": 0,
+    "on_going_recharging": 0,
+    "on_going_to_start_point": 0,
+    "on_mul_points": 0,
+    "planning_paused": 3,
+    "robot_follow_state": false,
+    "schedule_cancel": 0,
+    "vision_auto_draw_state": 0,
+    "working_state": 1
+  },
+  "base_status": 7,
+  "bds": "4432406252545",
+  "bs": "0",
+  "combined_odom_confidence": 0.9150000214576721,
+  "green_grass_update_switch": 1,
+  "ipcamera_ota_switch": 0,
+  "led": "69666",
+  "ms": "0",
+  "route_priority": {
+    "hg0": 10,
+    "wlan0": -1,
+    "wwan0": 20000
+  },
+  "rtcm_age": 1.0,
+  "rtcm_info": {
+    "current_source_type": 3
+  },
+  "s": "67108896",
+  "sbs": "0",
+  "system_info": {
+    "cpu.Frequency": "1608000",
+    "cpu.Temperature": "58.230000 °C",
+    "cpu.Usage": 36.6,
+    "mem.Buffers": 103192,
+    "mem.Cached": 2142356,
+    "mem.MemAvailable": 4721512,
+    "mem.MemFree": 2929400,
+    "topProc": [
+      {
+        "command": "yarbo_p+",
+        "cpuUsage": 88.2,
+        "pid": 20309
+      },
+      {
+        "command": "edge_sm+",
+        "cpuUsage": 88.2,
+        "pid": 20314
+      },
+      {
+        "command": "data_re+",
+        "cpuUsage": 29.4,
+        "pid": 24925
+      },
+      {
+        "command": "state_m+",
+        "cpuUsage": 17.6,
+        "pid": 20307
+      },
+      {
+        "command": "timing_+",
+        "cpuUsage": 11.8,
+        "pid": 20896
+      }
+    ],
+    "userdata.disk.availableSize": 23329630208,
+    "userdata.disk.usedSize": 16461717504
+  },
+  "timestamp": 1757195177.0,
+  "tms": "0",
+  "ultrasonic_msg": {
+    "lf_dis": -3,
+    "mt_dis": 9999,
+    "rf_dis": 200
+  },
+  "wireless_recharge": {
+    "error_code": 0,
+    "output_current": 1498,
+    "output_voltage": 4068,
+    "state": 2
+  }
+}
+
+snowbot/25070102ATHDG219/device/DeviceMSG
+{
+  "BatteryMSG": {
+    "capacity": 44,
+    "status": 3,
+    "temp_err": 0,
+    "timestamp": 1757195178.0057478
+  },
+  "BodyMsg": {
+    "recharge_state": 2
+  },
+  "CombinedOdom": {
+    "phi": -0.259,
+    "x": 8.815,
+    "y": -14.731
+  },
+  "HeadMsg": {
+    "head_type": 5
+  },
+  "HeadSerialMsg": {
+    "head_sn": "25290503GNEVI277"
+  },
+  "RTKMSG": {
+    "gga_atn_dis": 0.3827,
+    "heading": 345.095,
+    "heading_atn_dis": 0.3945,
+    "heading_dop": 1.584,
+    "heading_status": 1,
+    "pre4_timestamp": 1757195178.1802068,
+    "rtk_version": "",
+    "status": "4",
+    "timestamp": 1757195178.1826935
+  },
+  "RunningStatusMSG": {
+    "chute_angle": 0,
+    "chute_steering_engine_info": 0,
+    "elec_navigation_front_right_sensor": 3898,
+    "elec_navigation_rear_right_sensor": 3884,
+    "head_gyro_pitch": 8.88506031036377,
+    "head_gyro_roll": 1.387938141822815,
+    "rain_sensor_data": 4
+  },
+  "StateMSG": {
+    "adjustangle_status": 0,
+    "auto_draw_waiting_state": 0,
+    "car_controller": false,
+    "charging_status": 2,
+    "en_state_led": true,
+    "en_warn_led": true,
+    "error_code": 0,
+    "machine_controller": 1,
+    "on_going_planning": 0,
+    "on_going_recharging": 0,
+    "on_going_to_start_point": 0,
+    "on_mul_points": 0,
+    "planning_paused": 3,
+    "robot_follow_state": false,
+    "schedule_cancel": 0,
+    "vision_auto_draw_state": 0,
+    "working_state": 1
+  },
+  "base_status": 7,
+  "bds": "4432406252545",
+  "bs": "0",
+  "combined_odom_confidence": 0.9150000214576721,
+  "green_grass_update_switch": 1,
+  "ipcamera_ota_switch": 0,
+  "led": "69666",
+  "ms": "0",
+  "route_priority": {
+    "hg0": 10,
+    "wlan0": -1,
+    "wwan0": 20000
+  },
+  "rtcm_age": 1.0,
+  "rtcm_info": {
+    "current_source_type": 3
+  },
+  "s": "67108896",
+  "sbs": "0",
+  "timestamp": 1757195178.0,
+  "tms": "0",
+  "ultrasonic_msg": {
+    "lf_dis": -3,
+    "mt_dis": 9999,
+    "rf_dis": 200
+  },
+  "wireless_recharge": {
+    "error_code": 0,
+    "output_current": 1468,
+    "output_voltage": 4073,
+    "state": 2
+  }
+}
+
+snowbot/25070102ATHDG219/device/heart_beat
+{
+  "working_state": 1
+}
+
+snowbot/25070102ATHDG219/device/DeviceMSG
+{
+  "BatteryMSG": {
+    "capacity": 44,
+    "status": 3,
+    "temp_err": 0,
+    "timestamp": 1757195179.1712768
+  },
+  "BodyMsg": {
+    "recharge_state": 2
+  },
+  "CombinedOdom": {
+    "phi": -0.259,
+    "x": 8.821,
+    "y": -14.736
+  },
+  "EletricMSG": {
+    "rwheel_current": 0.01600000075995922
+  },
+  "HeadMsg": {
+    "head_type": 5
+  },
+  "HeadSerialMsg": {
+    "head_sn": "25290503GNEVI277"
+  },
+  "RTKMSG": {
+    "gga_atn_dis": 0.3802,
+    "heading": 343.4818,
+    "heading_atn_dis": 0.3911,
+    "heading_dop": 1.5876,
+    "heading_status": 1,
+    "pre4_timestamp": 1757195179.2801833,
+    "rtk_version": "",
+    "sat_num": 22,
+    "status": "4",
+    "timestamp": 1757195179.2825222
+  },
+  "RunningStatusMSG": {
+    "chute_angle": 0,
+    "chute_steering_engine_info": 0,
+    "elec_navigation_front_right_sensor": 3894,
+    "elec_navigation_rear_right_sensor": 3862,
+    "head_gyro_pitch": 8.887528419494629,
+    "head_gyro_roll": 1.397633671760559,
+    "rain_sensor_data": 4
+  },
+  "StateMSG": {
+    "adjustangle_status": 0,
+    "auto_draw_waiting_state": 0,
+    "car_controller": false,
+    "charging_status": 2,
+    "en_state_led": true,
+    "en_warn_led": true,
+    "error_code": 0,
+    "machine_controller": 1,
+    "on_going_planning": 0,
+    "on_going_recharging": 0,
+    "on_going_to_start_point": 0,
+    "on_mul_points": 0,
+    "planning_paused": 3,
+    "robot_follow_state": false,
+    "schedule_cancel": 0,
+    "vision_auto_draw_state": 0,
+    "working_state": 1
+  },
+  "base_status": 7,
+  "bds": "4432406252545",
+  "bs": "0",
+  "combined_odom_confidence": 0.9150000214576721,
+  "green_grass_update_switch": 1,
+  "ipcamera_ota_switch": 0,
+  "led": "69666",
+  "ms": "0",
+  "route_priority": {
+    "hg0": 10,
+    "wlan0": -1,
+    "wwan0": 20000
+  },
+  "rtcm_age": 1.0,
+  "rtcm_info": {
+    "current_source_type": 3
+  },
+  "s": "67108896",
+  "sbs": "0",
+  "timestamp": 1757195179.0,
+  "tms": "0",
+  "ultrasonic_msg": {
+    "lf_dis": -3,
+    "mt_dis": 9999,
+    "rf_dis": 200
+  },
+  "wireless_recharge": {
+    "error_code": 0,
+    "output_current": 1486,
+    "state": 2
+  }
+}
+
+snowbot/25070102ATHDG219/device/DeviceMSG
+{
+  "BatteryMSG": {
+    "capacity": 44,
+    "status": 3,
+    "temp_err": 0,
+    "timestamp": 1757195180.321882
+  },
+  "BodyMsg": {
+    "recharge_state": 2
+  },
+  "CombinedOdom": {
+    "phi": -0.287,
+    "x": 8.818,
+    "y": -14.739
+  },
+  "HeadMsg": {
+    "head_type": 5
+  },
+  "HeadSerialMsg": {
+    "head_sn": "25290503GNEVI277"
+  },
+  "RTKMSG": {
+    "gga_atn_dis": 0.3907,
+    "heading": 343.0103,
+    "heading_atn_dis": 0.3918,
+    "heading_dop": 1.5827,
+    "heading_status": 1,
+    "pre4_timestamp": 1757195180.2883768,
+    "rtk_version": "",
+    "sat_num": 21,
+    "status": "4",
+    "timestamp": 1757195180.2884552
+  },
+  "RunningStatusMSG": {
+    "chute_angle": 0,
+    "chute_steering_engine_info": 0,
+    "elec_navigation_front_right_sensor": 3868,
+    "elec_navigation_rear_right_sensor": 3869,
+    "head_gyro_pitch": 8.872882843017578,
+    "head_gyro_roll": 1.413248896598816,
+    "rain_sensor_data": 3
+  },
+  "StateMSG": {
+    "adjustangle_status": 0,
+    "auto_draw_waiting_state": 0,
+    "car_controller": false,
+    "charging_status": 2,
+    "en_state_led": true,
+    "en_warn_led": true,
+    "error_code": 0,
+    "machine_controller": 1,
+    "on_going_planning": 0,
+    "on_going_recharging": 0,
+    "on_going_to_start_point": 0,
+    "on_mul_points": 0,
+    "planning_paused": 3,
+    "robot_follow_state": false,
+    "schedule_cancel": 0,
+    "vision_auto_draw_state": 0,
+    "working_state": 1
+  },
+  "base_status": 7,
+  "bds": "4432406252545",
+  "bs": "0",
+  "combined_odom_confidence": 0.9150000214576721,
+  "green_grass_update_switch": 1,
+  "ipcamera_ota_switch": 0,
+  "led": "69666",
+  "ms": "0",
+  "route_priority": {
+    "hg0": 10,
+    "wlan0": -1,
+    "wwan0": 20000
+  },
+  "rtcm_age": 1.0,
+  "rtcm_info": {
+    "current_source_type": 3
+  },
+  "s": "67108896",
+  "sbs": "0",
+  "timestamp": 1757195180.0,
+  "tms": "0",
+  "ultrasonic_msg": {
+    "lf_dis": 200,
+    "mt_dis": 9999,
+    "rf_dis": 200
+  },
+  "wireless_recharge": {
+    "error_code": 0,
+    "output_current": 1473,
+    "output_voltage": 4063,
+    "state": 2
+  }
+}
+
+snowbot/25070102ATHDG219/device/heart_beat
+{
+  "working_state": 1
+}
+
+snowbot/25070102ATHDG219/device/DeviceMSG
+{
+  "BatteryMSG": {
+    "capacity": 44,
+    "status": 3,
+    "temp_err": 0,
+    "timestamp": 1757195181.078101
+  },
+  "BodyMsg": {
+    "recharge_state": 2
+  },
+  "CombinedOdom": {
+    "phi": -0.287,
+    "x": 8.823,
+    "y": -14.738
+  },
+  "EletricMSG": {
+    "rwheel_current": 0.024000000208616257
+  },
+  "HeadMsg": {
+    "head_type": 5
+  },
+  "HeadSerialMsg": {
+    "head_sn": "25290503GNEVI277"
+  },
+  "RTKMSG": {
+    "gga_atn_dis": 0.3925,
+    "heading": 343.285,
+    "heading_atn_dis": 0.3903,
+    "heading_dop": 1.5916,
+    "heading_status": 1,
+    "pre4_timestamp": 1757195181.2820487,
+    "rtk_version": "",
+    "status": "4",
+    "timestamp": 1757195181.2844217
+  },
+  "RunningStatusMSG": {
+    "chute_angle": 0,
+    "chute_steering_engine_info": 0,
+    "elec_navigation_front_right_sensor": 3897,
+    "elec_navigation_rear_right_sensor": 3877,
+    "head_gyro_pitch": 8.907638549804688,
+    "head_gyro_roll": 1.407368779182434,
+    "rain_sensor_data": 4
+  },
+  "StateMSG": {
+    "adjustangle_status": 0,
+    "auto_draw_waiting_state": 0,
+    "car_controller": false,
+    "charging_status": 2,
+    "en_state_led": true,
+    "en_warn_led": true,
+    "error_code": 0,
+    "machine_controller": 1,
+    "on_going_planning": 0,
+    "on_going_recharging": 0,
+    "on_going_to_start_point": 0,
+    "on_mul_points": 0,
+    "planning_paused": 3,
+    "robot_follow_state": false,
+    "schedule_cancel": 0,
+    "vision_auto_draw_state": 0,
+    "working_state": 1
+  },
+  "base_status": 7,
+  "bds": "4432406252545",
+  "bs": "0",
+  "combined_odom_confidence": 0.9150000214576721,
+  "green_grass_update_switch": 1,
+  "ipcamera_ota_switch": 0,
+  "led": "69666",
+  "ms": "0",
+  "route_priority": {
+    "hg0": 10,
+    "wlan0": -1,
+    "wwan0": 20000
+  },
+  "rtcm_age": 1.0,
+  "rtcm_info": {
+    "current_source_type": 2
+  },
+  "s": "67108896",
+  "sbs": "0",
+  "timestamp": 1757195181.0,
+  "tms": "0",
+  "ultrasonic_msg": {
+    "lf_dis": 200,
+    "mt_dis": 9999,
+    "rf_dis": 200
+  },
+  "wireless_recharge": {
+    "error_code": 0,
+    "output_current": 1502,
+    "output_voltage": 4073,
+    "state": 2
+  }
+}
+
+snowbot/25070102ATHDG219/device/DeviceMSG
+{
+  "BatteryMSG": {
+    "capacity": 44,
+    "current": 13600,
+    "status": 3,
+    "temp_err": 0,
+    "timestamp": 1757195182.2376487
+  },
+  "BodyMsg": {
+    "recharge_state": 2
+  },
+  "CombinedOdom": {
+    "phi": -0.287,
+    "x": 8.824,
+    "y": -14.737
+  },
+  "EletricMSG": {
+    "push_pod_current": 0.0012890625512227416
+  },
+  "HeadMsg": {
+    "head_type": 5
+  },
+  "HeadSerialMsg": {
+    "head_sn": "25290503GNEVI277"
+  },
+  "RTKMSG": {
+    "gga_atn_dis": 0.3943,
+    "heading": 343.4747,
+    "heading_atn_dis": 0.3894,
+    "heading_dop": 1.5903,
+    "heading_status": 1,
+    "pre4_timestamp": 1757195182.2825787,
+    "rtk_version": "",
+    "status": "4",
+    "timestamp": 1757195182.2848155
+  },
+  "RunningStatusMSG": {
+    "chute_angle": 0,
+    "chute_steering_engine_info": 0,
+    "elec_navigation_front_right_sensor": 3896,
+    "elec_navigation_rear_right_sensor": 3876,
+    "head_gyro_pitch": 8.868027687072754,
+    "head_gyro_roll": 1.4097397327423096,
+    "rain_sensor_data": 4
+  },
+  "StateMSG": {
+    "adjustangle_status": 0,
+    "auto_draw_waiting_state": 0,
+    "car_controller": false,
+    "charging_status": 2,
+    "en_state_led": true,
+    "en_warn_led": true,
+    "error_code": 0,
+    "machine_controller": 1,
+    "on_going_planning": 0,
+    "on_going_recharging": 0,
+    "on_going_to_start_point": 0,
+    "on_mul_points": 0,
+    "planning_paused": 3,
+    "robot_follow_state": false,
+    "schedule_cancel": 0,
+    "vision_auto_draw_state": 0,
+    "working_state": 1
+  },
+  "base_status": 7,
+  "bds": "4432406252545",
+  "bs": "0",
+  "combined_odom_confidence": 0.9150000214576721,
+  "green_grass_update_switch": 1,
+  "ipcamera_ota_switch": 0,
+  "led": "69666",
+  "ms": "0",
+  "route_priority": {
+    "hg0": 10,
+    "wlan0": -1,
+    "wwan0": 20000
+  },
+  "rtcm_age": 1.0,
+  "rtcm_info": {
+    "current_source_type": 3
+  },
+  "s": "67108896",
+  "sbs": "0",
+  "timestamp": 1757195182.0,
+  "tms": "0",
+  "ultrasonic_msg": {
+    "lf_dis": -3,
+    "mt_dis": 9999,
+    "rf_dis": 200
+  },
+  "wireless_recharge": {
+    "error_code": 0,
+    "output_current": 1477,
+    "state": 2
+  }
+}
+
+snowbot/25070102ATHDG219/device/heart_beat
+{
+  "working_state": 1
+}
+
+snowbot/25070102ATHDG219/device/DeviceMSG
+{
+  "BatteryMSG": {
+    "capacity": 44,
+    "status": 3,
+    "temp_err": 0,
+    "timestamp": 1757195183.0016685
+  },
+  "BodyMsg": {
+    "recharge_state": 2
+  },
+  "CombinedOdom": {
+    "phi": -0.287,
+    "x": 8.821,
+    "y": -14.734
+  },
+  "EletricMSG": {
+    "rwheel_current": 0.01600000075995922
+  },
+  "HeadMsg": {
+    "head_type": 5
+  },
+  "HeadSerialMsg": {
+    "head_sn": "25290503GNEVI277"
+  },
+  "RTKMSG": {
+    "gga_atn_dis": 0.3963,
+    "heading": 343.6228,
+    "heading_atn_dis": 0.3931,
+    "heading_dop": 1.6148,
+    "heading_obs": 17,
+    "heading_status": 1,
+    "pre4_timestamp": 1757195183.282596,
+    "rtk_version": "",
+    "sat_num": 22,
+    "status": "4",
+    "timestamp": 1757195183.2849104
+  },
+  "RunningStatusMSG": {
+    "chute_angle": 0,
+    "chute_steering_engine_info": 0,
+    "elec_navigation_front_right_sensor": 3892,
+    "elec_navigation_rear_right_sensor": 3869,
+    "head_gyro_pitch": 8.884984016418457,
+    "head_gyro_roll": 1.4029195308685303,
+    "rain_sensor_data": 4
+  },
+  "StateMSG": {
+    "adjustangle_status": 0,
+    "auto_draw_waiting_state": 0,
+    "car_controller": false,
+    "charging_status": 2,
+    "en_state_led": true,
+    "en_warn_led": true,
+    "error_code": 0,
+    "machine_controller": 1,
+    "on_going_planning": 0,
+    "on_going_recharging": 0,
+    "on_going_to_start_point": 0,
+    "on_mul_points": 0,
+    "planning_paused": 3,
+    "robot_follow_state": false,
+    "schedule_cancel": 0,
+    "vision_auto_draw_state": 0,
+    "working_state": 1
+  },
+  "base_status": 7,
+  "bds": "4432406252545",
+  "bs": "0",
+  "combined_odom_confidence": 0.9150000214576721,
+  "green_grass_update_switch": 1,
+  "ipcamera_ota_switch": 0,
+  "led": "69666",
+  "ms": "0",
+  "route_priority": {
+    "hg0": 10,
+    "wlan0": -1,
+    "wwan0": 20000
+  },
+  "rtcm_age": 1.0,
+  "rtcm_info": {
+    "current_source_type": 3
+  },
+  "s": "67108896",
+  "sbs": "0",
+  "timestamp": 1757195183.0,
+  "tms": "0",
+  "ultrasonic_msg": {
+    "lf_dis": 200,
+    "mt_dis": 9999,
+    "rf_dis": 200
+  },
+  "wireless_recharge": {
+    "error_code": 0,
+    "output_current": 1471,
+    "state": 2
+  }
+}
+
+snowbot/25070102ATHDG219/device/DeviceMSG
+{
+  "BatteryMSG": {
+    "capacity": 44,
+    "current": 13500,
+    "status": 3,
+    "temp_err": 0,
+    "timestamp": 1757195184.187847
+  },
+  "BodyMsg": {
+    "recharge_state": 2
+  },
+  "CombinedOdom": {
+    "phi": -0.287,
+    "x": 8.822,
+    "y": -14.736
+  },
+  "EletricMSG": {
+    "push_pod_current": 0.0019335937686264515,
+    "rwheel_current": 0.024000000208616257
+  },
+  "HeadMsg": {
+    "head_type": 5
+  },
+  "HeadSerialMsg": {
+    "head_sn": "25290503GNEVI277"
+  },
+  "RTKMSG": {
+    "gga_atn_dis": 0.3988,
+    "heading": 344.6077,
+    "heading_atn_dis": 0.3945,
+    "heading_dop": 1.5865,
+    "heading_obs": 18,
+    "heading_status": 1,
+    "pre4_timestamp": 1757195184.282297,
+    "rtk_version": "",
+    "status": "4",
+    "timestamp": 1757195184.2845101
+  },
+  "RunningStatusMSG": {
+    "chute_angle": 0,
+    "chute_steering_engine_info": 0,
+    "elec_navigation_front_right_sensor": 3899,
+    "elec_navigation_rear_right_sensor": 3896,
+    "head_gyro_pitch": 8.882911682128906,
+    "head_gyro_roll": 1.405426263809204,
+    "rain_sensor_data": 4
+  },
+  "StateMSG": {
+    "adjustangle_status": 0,
+    "auto_draw_waiting_state": 0,
+    "car_controller": false,
+    "charging_status": 2,
+    "en_state_led": true,
+    "en_warn_led": true,
+    "error_code": 0,
+    "machine_controller": 1,
+    "on_going_planning": 0,
+    "on_going_recharging": 0,
+    "on_going_to_start_point": 0,
+    "on_mul_points": 0,
+    "planning_paused": 3,
+    "robot_follow_state": false,
+    "schedule_cancel": 0,
+    "vision_auto_draw_state": 0,
+    "working_state": 1
+  },
+  "base_status": 7,
+  "bds": "4432406252545",
+  "bs": "0",
+  "combined_odom_confidence": 0.9150000214576721,
+  "green_grass_update_switch": 1,
+  "ipcamera_ota_switch": 0,
+  "led": "69666",
+  "ms": "0",
+  "route_priority": {
+    "hg0": 10,
+    "wlan0": -1,
+    "wwan0": 20000
+  },
+  "rtcm_age": 1.0,
+  "rtcm_info": {
+    "current_source_type": 2
+  },
+  "s": "67108896",
+  "sbs": "0",
+  "system_info": {
+    "cpu.Frequency": "1416000",
+    "cpu.Usage": 31.3,
+    "mem.Buffers": 103200,
+    "mem.Cached": 2142660,
+    "mem.MemAvailable": 4721864,
+    "mem.MemFree": 2929444,
+    "topProc": [
+      {
+        "command": "yarbo_p+",
+        "cpuUsage": 100.0,
+        "pid": 20309
+      },
+      {
+        "command": "edge_sm+",
+        "cpuUsage": 93.8,
+        "pid": 20314
+      },
+      {
+        "command": "data_re+",
+        "cpuUsage": 50.0,
+        "pid": 24925
+      },
+      {
+        "command": "state_m+",
+        "cpuUsage": 18.8,
+        "pid": 20307
+      },
+      {
+        "command": "timing_+",
+        "cpuUsage": 12.5,
+        "pid": 20896
+      }
+    ],
+    "userdata.disk.availableSize": 23329316864,
+    "userdata.disk.usedSize": 16462030848
+  },
+  "timestamp": 1757195184.0,
+  "tms": "0",
+  "ultrasonic_msg": {
+    "lf_dis": 200,
+    "mt_dis": 9999,
+    "rf_dis": 200
+  },
+  "wireless_recharge": {
+    "error_code": 0,
+    "output_current": 1475,
+    "state": 2
+  }
+}
+
+snowbot/25070102ATHDG219/device/heart_beat
+{
+  "working_state": 1
+}
+
+snowbot/25070102ATHDG219/device/DeviceMSG
+{
+  "BatteryMSG": {
+    "capacity": 44,
+    "status": 3,
+    "temp_err": 0,
+    "timestamp": 1757195185.31813
+  },
+  "BodyMsg": {
+    "recharge_state": 2
+  },
+  "CombinedOdom": {
+    "phi": -0.287,
+    "x": 8.821,
+    "y": -14.735
+  },
+  "HeadMsg": {
+    "head_type": 5
+  },
+  "HeadSerialMsg": {
+    "head_sn": "25290503GNEVI277"
+  },
+  "RTKMSG": {
+    "gga_atn_dis": 0.3962,
+    "heading": 343.6945,
+    "heading_atn_dis": 0.3917,
+    "heading_dop": 1.5674,
+    "heading_status": 1,
+    "pre4_timestamp": 1757195185.2821991,
+    "rtk_version": "",
+    "status": "4",
+    "timestamp": 1757195185.284638
+  },
+  "RunningStatusMSG": {
+    "chute_angle": 0,
+    "chute_steering_engine_info": 0,
+    "elec_navigation_front_right_sensor": 3867,
+    "elec_navigation_rear_right_sensor": 3887,
+    "head_gyro_pitch": 8.87220287322998,
+    "head_gyro_roll": 1.3975398540496826,
+    "rain_sensor_data": 4
+  },
+  "StateMSG": {
+    "adjustangle_status": 0,
+    "auto_draw_waiting_state": 0,
+    "car_controller": false,
+    "charging_status": 2,
+    "en_state_led": true,
+    "en_warn_led": true,
+    "error_code": 0,
+    "machine_controller": 1,
+    "on_going_planning": 0,
+    "on_going_recharging": 0,
+    "on_going_to_start_point": 0,
+    "on_mul_points": 0,
+    "planning_paused": 3,
+    "robot_follow_state": false,
+    "schedule_cancel": 0,
+    "vision_auto_draw_state": 0,
+    "working_state": 1
+  },
+  "base_status": 7,
+  "bds": "4432406252545",
+  "bs": "0",
+  "combined_odom_confidence": 0.9150000214576721,
+  "green_grass_update_switch": 1,
+  "ipcamera_ota_switch": 0,
+  "led": "69666",
+  "ms": "0",
+  "route_priority": {
+    "hg0": 10,
+    "wlan0": -1,
+    "wwan0": 20000
+  },
+  "rtcm_age": 1.0,
+  "rtcm_info": {
+    "current_source_type": 3
+  },
+  "s": "67108896",
+  "sbs": "0",
+  "timestamp": 1757195185.0,
+  "tms": "0",
+  "ultrasonic_msg": {
+    "lf_dis": 200,
+    "mt_dis": 9999,
+    "rf_dis": 200
+  },
+  "wireless_recharge": {
+    "error_code": 0,
+    "output_current": 1496,
+    "state": 2
+  }
+}
+
+snowbot/25070102ATHDG219/device/DeviceMSG
+{
+  "BatteryMSG": {
+    "capacity": 44,
+    "status": 3,
+    "temp_err": 0,
+    "timestamp": 1757195186.0778234
+  },
+  "BodyMsg": {
+    "recharge_state": 2
+  },
+  "CombinedOdom": {
+    "phi": -0.287,
+    "x": 8.815,
+    "y": -14.732
+  },
+  "EletricMSG": {
+    "push_pod_current": 0.0012890625512227416,
+    "rwheel_current": 0.01600000075995922
+  },
+  "HeadMsg": {
+    "head_type": 5
+  },
+  "HeadSerialMsg": {
+    "head_sn": "25290503GNEVI277"
+  },
+  "RTKMSG": {
+    "gga_atn_dis": 0.4038,
+    "heading": 344.7834,
+    "heading_atn_dis": 0.3963,
+    "heading_dop": 1.5654,
+    "heading_obs": 17,
+    "heading_status": 1,
+    "pre4_timestamp": 1757195186.283967,
+    "rtk_version": "",
+    "status": "4",
+    "timestamp": 1757195186.2846327
+  },
+  "RunningStatusMSG": {
+    "chute_angle": 0,
+    "chute_steering_engine_info": 0,
+    "elec_navigation_front_right_sensor": 3885,
+    "elec_navigation_rear_right_sensor": 3891,
+    "head_gyro_pitch": 8.90189266204834,
+    "head_gyro_roll": 1.3994057178497314,
+    "rain_sensor_data": 4
+  },
+  "StateMSG": {
+    "adjustangle_status": 0,
+    "auto_draw_waiting_state": 0,
+    "car_controller": false,
+    "charging_status": 2,
+    "en_state_led": true,
+    "en_warn_led": true,
+    "error_code": 0,
+    "machine_controller": 1,
+    "on_going_planning": 0,
+    "on_going_recharging": 0,
+    "on_going_to_start_point": 0,
+    "on_mul_points": 0,
+    "planning_paused": 3,
+    "robot_follow_state": false,
+    "schedule_cancel": 0,
+    "vision_auto_draw_state": 0,
+    "working_state": 1
+  },
+  "base_status": 7,
+  "bds": "4432406252545",
+  "bs": "0",
+  "combined_odom_confidence": 0.9150000214576721,
+  "green_grass_update_switch": 1,
+  "ipcamera_ota_switch": 0,
+  "led": "69666",
+  "ms": "0",
+  "route_priority": {
+    "hg0": 10,
+    "wlan0": -1,
+    "wwan0": 20000
+  },
+  "rtcm_age": 1.0,
+  "rtcm_info": {
+    "current_source_type": 3
+  },
+  "s": "67108896",
+  "sbs": "0",
+  "timestamp": 1757195186.0,
+  "tms": "0",
+  "ultrasonic_msg": {
+    "lf_dis": 200,
+    "mt_dis": 9999,
+    "rf_dis": 200
+  },
+  "wireless_recharge": {
+    "error_code": 0,
+    "output_current": 1491,
+    "state": 2
+  }
+}
+
+snowbot/25070102ATHDG219/device/heart_beat
+{
+  "working_state": 1
+}
+
+snowbot/25070102ATHDG219/device/DeviceMSG
+{
+  "BatteryMSG": {
+    "capacity": 44,
+    "status": 3,
+    "temp_err": 0,
+    "timestamp": 1757195187.2563553
+  },
+  "BodyMsg": {
+    "recharge_state": 2
+  },
+  "CombinedOdom": {
+    "phi": -0.287,
+    "x": 8.818,
+    "y": -14.73
+  },
+  "EletricMSG": {
+    "push_pod_current": 0.0019335937686264515,
+    "rwheel_current": 0.024000000208616257
+  },
+  "HeadMsg": {
+    "head_type": 5
+  },
+  "HeadSerialMsg": {
+    "head_sn": "25290503GNEVI277"
+  },
+  "RTKMSG": {
+    "gga_atn_dis": 0.3924,
+    "heading": 344.344,
+    "heading_atn_dis": 0.3939,
+    "heading_dop": 1.5723,
+    "heading_status": 1,
+    "pre4_timestamp": 1757195187.2833269,
+    "rtk_version": "",
+    "status": "4",
+    "timestamp": 1757195187.2943861
+  },
+  "RunningStatusMSG": {
+    "chute_angle": 0,
+    "chute_steering_engine_info": 0,
+    "elec_navigation_front_right_sensor": 3867,
+    "elec_navigation_rear_right_sensor": 3870,
+    "head_gyro_pitch": 8.902454376220703,
+    "head_gyro_roll": 1.3910691738128662,
+    "rain_sensor_data": 4
+  },
+  "StateMSG": {
+    "adjustangle_status": 0,
+    "auto_draw_waiting_state": 0,
+    "car_controller": false,
+    "charging_status": 2,
+    "en_state_led": true,
+    "en_warn_led": true,
+    "error_code": 0,
+    "machine_controller": 1,
+    "on_going_planning": 0,
+    "on_going_recharging": 0,
+    "on_going_to_start_point": 0,
+    "on_mul_points": 0,
+    "planning_paused": 3,
+    "robot_follow_state": false,
+    "schedule_cancel": 0,
+    "vision_auto_draw_state": 0,
+    "working_state": 1
+  },
+  "base_status": 7,
+  "bds": "4432406252545",
+  "bs": "0",
+  "combined_odom_confidence": 0.9150000214576721,
+  "green_grass_update_switch": 1,
+  "ipcamera_ota_switch": 0,
+  "led": "69666",
+  "ms": "0",
+  "route_priority": {
+    "hg0": 10,
+    "wlan0": -1,
+    "wwan0": 20000
+  },
+  "rtcm_age": 1.0,
+  "rtcm_info": {
+    "current_source_type": 3
+  },
+  "s": "67108896",
+  "sbs": "0",
+  "timestamp": 1757195187.0,
+  "tms": "0",
+  "ultrasonic_msg": {
+    "lf_dis": 200,
+    "mt_dis": 9999,
+    "rf_dis": 200
+  },
+  "wireless_recharge": {
+    "error_code": 0,
+    "output_current": 1471,
+    "output_voltage": 4068,
+    "state": 2
+  }
+}
+
+snowbot/25070102ATHDG219/device/DeviceMSG
+{
+  "BatteryMSG": {
+    "capacity": 44,
+    "current": 13600,
+    "status": 3,
+    "temp_err": 0,
+    "temperature6": 45,
+    "timestamp": 1757195188.3773727
+  },
+  "BodyMsg": {
+    "recharge_state": 2
+  },
+  "CombinedOdom": {
+    "phi": -0.286,
+    "x": 8.819,
+    "y": -14.73
+  },
+  "EletricMSG": {
+    "push_pod_current": 0.0012890625512227416,
+    "rwheel_current": 0.01600000075995922
+  },
+  "HeadMsg": {
+    "head_type": 5
+  },
+  "HeadSerialMsg": {
+    "head_sn": "25290503GNEVI277"
+  },
+  "RTKMSG": {
+    "gga_atn_dis": 0.394,
+    "heading": 344.3081,
+    "heading_atn_dis": 0.3966,
+    "heading_dop": 1.6171,
+    "heading_multi": 13,
+    "heading_status": 1,
+    "pre4_timestamp": 1757195188.2806733,
+    "rtk_version": "",
+    "status": "4",
+    "timestamp": 1757195188.2828941
+  },
+  "RunningStatusMSG": {
+    "chute_angle": 0,
+    "chute_steering_engine_info": 0,
+    "elec_navigation_front_right_sensor": 3862,
+    "elec_navigation_rear_right_sensor": 3894,
+    "head_gyro_pitch": 8.903250694274902,
+    "head_gyro_roll": 1.4080705642700195,
+    "rain_sensor_data": 4
+  },
+  "StateMSG": {
+    "adjustangle_status": 0,
+    "auto_draw_waiting_state": 0,
+    "car_controller": false,
+    "charging_status": 2,
+    "en_state_led": true,
+    "en_warn_led": true,
+    "error_code": 0,
+    "machine_controller": 1,
+    "on_going_planning": 0,
+    "on_going_recharging": 0,
+    "on_going_to_start_point": 0,
+    "on_mul_points": 0,
+    "planning_paused": 3,
+    "robot_follow_state": false,
+    "schedule_cancel": 0,
+    "vision_auto_draw_state": 0,
+    "working_state": 1
+  },
+  "base_status": 7,
+  "bds": "4432406252545",
+  "bs": "0",
+  "combined_odom_confidence": 0.9150000214576721,
+  "green_grass_update_switch": 1,
+  "ipcamera_ota_switch": 0,
+  "led": "69666",
+  "ms": "0",
+  "route_priority": {
+    "hg0": 10,
+    "wlan0": -1,
+    "wwan0": 20000
+  },
+  "rtcm_age": 1.0,
+  "rtcm_info": {
+    "current_source_type": 3
+  },
+  "s": "67108896",
+  "sbs": "0",
+  "timestamp": 1757195188.0,
+  "tms": "0",
+  "ultrasonic_msg": {
+    "lf_dis": 200,
+    "mt_dis": 9999,
+    "rf_dis": 200
+  },
+  "wireless_recharge": {
+    "error_code": 0,
+    "output_current": 1488,
+    "output_voltage": 4079,
+    "state": 2
+  }
+}
+
+snowbot/25070102ATHDG219/device/heart_beat
+{
+  "working_state": 1
+}
+
+snowbot/25070102ATHDG219/device/DeviceMSG
+{
+  "BatteryMSG": {
+    "capacity": 44,
+    "current": 13500,
+    "status": 3,
+    "temp_err": 0,
+    "temperature6": 44,
+    "timestamp": 1757195189.1571572
+  },
+  "BodyMsg": {
+    "recharge_state": 2
+  },
+  "CombinedOdom": {
+    "phi": -0.287,
+    "x": 8.819,
+    "y": -14.735
+  },
+  "EletricMSG": {
+    "push_pod_current": 0.0019335937686264515,
+    "rwheel_current": 0.024000000208616257
+  },
+  "HeadMsg": {
+    "head_type": 5
+  },
+  "HeadSerialMsg": {
+    "head_sn": "25290503GNEVI277"
+  },
+  "RTKMSG": {
+    "gga_atn_dis": 0.3988,
+    "heading": 343.455,
+    "heading_atn_dis": 0.3936,
+    "heading_dop": 1.6344,
+    "heading_status": 1,
+    "pre4_timestamp": 1757195189.2805882,
+    "rtk_version": "",
+    "status": "4",
+    "timestamp": 1757195189.2861896
+  },
+  "RunningStatusMSG": {
+    "chute_angle": 0,
+    "chute_steering_engine_info": 0,
+    "elec_navigation_front_right_sensor": 3864,
+    "elec_navigation_rear_right_sensor": 3884,
+    "head_gyro_pitch": 8.882275581359863,
+    "head_gyro_roll": 1.4011285305023193,
+    "rain_sensor_data": 4
+  },
+  "StateMSG": {
+    "adjustangle_status": 0,
+    "auto_draw_waiting_state": 0,
+    "car_controller": false,
+    "charging_status": 2,
+    "en_state_led": true,
+    "en_warn_led": true,
+    "error_code": 0,
+    "machine_controller": 1,
+    "on_going_planning": 0,
+    "on_going_recharging": 0,
+    "on_going_to_start_point": 0,
+    "on_mul_points": 0,
+    "planning_paused": 3,
+    "robot_follow_state": false,
+    "schedule_cancel": 0,
+    "vision_auto_draw_state": 0,
+    "working_state": 1
+  },
+  "base_status": 7,
+  "bds": "4432406252545",
+  "bs": "0",
+  "combined_odom_confidence": 0.9150000214576721,
+  "green_grass_update_switch": 1,
+  "ipcamera_ota_switch": 0,
+  "led": "69666",
+  "ms": "0",
+  "route_priority": {
+    "hg0": 10,
+    "wlan0": -1,
+    "wwan0": 20000
+  },
+  "rtcm_age": 1.0,
+  "rtcm_info": {
+    "current_source_type": 3
+  },
+  "s": "67108896",
+  "sbs": "0",
+  "timestamp": 1757195189.0,
+  "tms": "0",
+  "ultrasonic_msg": {
+    "lf_dis": -3,
+    "mt_dis": 9999,
+    "rf_dis": 200
+  },
+  "wireless_recharge": {
+    "error_code": 0,
+    "output_current": 1507,
+    "output_voltage": 4073,
+    "state": 2
+  }
+}
+
+snowbot/25070102ATHDG219/device/DeviceMSG
+{
+  "BatteryMSG": {
+    "capacity": 44,
+    "status": 3,
+    "temp_err": 0,
+    "timestamp": 1757195190.3185072
+  },
+  "BodyMsg": {
+    "recharge_state": 2
+  },
+  "CombinedOdom": {
+    "phi": -0.286,
+    "x": 8.817,
+    "y": -14.737
+  },
+  "HeadMsg": {
+    "head_type": 5
+  },
+  "HeadSerialMsg": {
+    "head_sn": "25290503GNEVI277"
+  },
+  "RTKMSG": {
+    "gga_atn_dis": 0.4019,
+    "heading": 343.7583,
+    "heading_atn_dis": 0.3947,
+    "heading_dop": 1.6138,
+    "heading_status": 1,
+    "pre4_timestamp": 1757195190.380667,
+    "rtk_version": "",
+    "status": "4",
+    "timestamp": 1757195190.385201
+  },
+  "RunningStatusMSG": {
+    "chute_angle": 0,
+    "chute_steering_engine_info": 0,
+    "elec_navigation_front_right_sensor": 3902,
+    "elec_navigation_rear_right_sensor": 3878,
+    "head_gyro_pitch": 8.897852897644043,
+    "head_gyro_roll": 1.4202662706375122,
+    "rain_sensor_data": 4
+  },
+  "StateMSG": {
+    "adjustangle_status": 0,
+    "auto_draw_waiting_state": 0,
+    "car_controller": false,
+    "charging_status": 2,
+    "en_state_led": true,
+    "en_warn_led": true,
+    "error_code": 0,
+    "machine_controller": 1,
+    "on_going_planning": 0,
+    "on_going_recharging": 0,
+    "on_going_to_start_point": 0,
+    "on_mul_points": 0,
+    "planning_paused": 3,
+    "robot_follow_state": false,
+    "schedule_cancel": 0,
+    "vision_auto_draw_state": 0,
+    "working_state": 1
+  },
+  "base_status": 7,
+  "bds": "4432406252545",
+  "bs": "0",
+  "combined_odom_confidence": 0.9150000214576721,
+  "green_grass_update_switch": 1,
+  "ipcamera_ota_switch": 0,
+  "led": "69666",
+  "ms": "0",
+  "route_priority": {
+    "hg0": 10,
+    "wlan0": -1,
+    "wwan0": 20000
+  },
+  "rtcm_age": 1.0,
+  "rtcm_info": {
+    "current_source_type": 3
+  },
+  "s": "67108896",
+  "sbs": "0",
+  "system_info": {
+    "cpu.Frequency": "1800000",
+    "cpu.Usage": 29.9,
+    "mem.Buffers": 103208,
+    "mem.Cached": 2142968,
+    "mem.MemAvailable": 4723036,
+    "mem.MemFree": 2930292,
+    "topProc": [
+      {
+        "command": "edge_sm+",
+        "cpuUsage": 94.4,
+        "pid": 20314
+      },
+      {
+        "command": "yarbo_p+",
+        "cpuUsage": 77.8,
+        "pid": 20309
+      },
+      {
+        "command": "data_re+",
+        "cpuUsage": 22.2,
+        "pid": 24925
+      },
+      {
+        "command": "state_m+",
+        "cpuUsage": 16.7,
+        "pid": 20307
+      },
+      {
+        "command": "snowbot+",
+        "cpuUsage": 11.1,
+        "pid": 20324
+      }
+    ],
+    "userdata.disk.availableSize": 23328970752,
+    "userdata.disk.usedSize": 16462376960
+  },
+  "timestamp": 1757195190.0,
+  "tms": "0",
+  "ultrasonic_msg": {
+    "lf_dis": 200,
+    "mt_dis": 9999,
+    "rf_dis": 200
+  },
+  "wireless_recharge": {
+    "error_code": 0,
+    "output_current": 1479,
+    "output_voltage": 4068,
+    "state": 2
+  }
+}
+
+snowbot/25070102ATHDG219/device/heart_beat
+{
+  "working_state": 1
+}
+
+snowbot/25070102ATHDG219/device/DeviceMSG
+{
+  "BatteryMSG": {
+    "capacity": 44,
+    "status": 3,
+    "temp_err": 0,
+    "timestamp": 1757195191.0973487
+  },
+  "BodyMsg": {
+    "recharge_state": 2
+  },
+  "CombinedOdom": {
+    "phi": -0.286,
+    "x": 8.819,
+    "y": -14.729
+  },
+  "HeadMsg": {
+    "head_type": 5
+  },
+  "HeadSerialMsg": {
+    "head_sn": "25290503GNEVI277"
+  },
+  "RTKMSG": {
+    "gga_atn_dis": 0.3929,
+    "heading": 343.5567,
+    "heading_atn_dis": 0.3921,
+    "heading_dop": 1.6217,
+    "heading_multi": 14,
+    "heading_status": 1,
+    "pre4_timestamp": 1757195191.3816273,
+    "rtk_version": "",
+    "status": "4",
+    "timestamp": 1757195191.3818629
+  },
+  "RunningStatusMSG": {
+    "chute_angle": 0,
+    "chute_steering_engine_info": 0,
+    "elec_navigation_front_right_sensor": 3878,
+    "elec_navigation_rear_right_sensor": 3902,
+    "head_gyro_pitch": 8.910415649414062,
+    "head_gyro_roll": 1.3989591598510742,
+    "rain_sensor_data": 4
+  },
+  "StateMSG": {
+    "adjustangle_status": 0,
+    "auto_draw_waiting_state": 0,
+    "car_controller": false,
+    "charging_status": 2,
+    "en_state_led": true,
+    "en_warn_led": true,
+    "error_code": 0,
+    "machine_controller": 1,
+    "on_going_planning": 0,
+    "on_going_recharging": 0,
+    "on_going_to_start_point": 0,
+    "on_mul_points": 0,
+    "planning_paused": 3,
+    "robot_follow_state": false,
+    "schedule_cancel": 0,
+    "vision_auto_draw_state": 0,
+    "working_state": 1
+  },
+  "base_status": 7,
+  "bds": "4432406252545",
+  "bs": "0",
+  "combined_odom_confidence": 0.9150000214576721,
+  "green_grass_update_switch": 1,
+  "ipcamera_ota_switch": 0,
+  "led": "69666",
+  "ms": "0",
+  "route_priority": {
+    "hg0": 10,
+    "wlan0": -1,
+    "wwan0": 20000
+  },
+  "rtcm_age": 1.0,
+  "rtcm_info": {
+    "current_source_type": 2
+  },
+  "s": "67108896",
+  "sbs": "0",
+  "timestamp": 1757195191.0,
+  "tms": "0",
+  "ultrasonic_msg": {
+    "lf_dis": 200,
+    "mt_dis": 9999,
+    "rf_dis": 200
+  },
+  "wireless_recharge": {
+    "error_code": 0,
+    "output_current": 1480,
+    "output_voltage": 4073,
+    "state": 2
+  }
+}
+
+snowbot/25070102ATHDG219/device/DeviceMSG
+{
+  "BatteryMSG": {
+    "capacity": 44,
+    "status": 3,
+    "temp_err": 0,
+    "timestamp": 1757195192.244975
+  },
+  "BodyMsg": {
+    "recharge_state": 2
+  },
+  "CombinedOdom": {
+    "phi": -0.286,
+    "x": 8.816,
+    "y": -14.731
+  },
+  "EletricMSG": {
+    "push_pod_current": 0.0012890625512227416
+  },
+  "HeadMsg": {
+    "head_type": 5
+  },
+  "HeadSerialMsg": {
+    "head_sn": "25290503GNEVI277"
+  },
+  "RTKMSG": {
+    "gga_atn_dis": 0.3944,
+    "heading": 343.6533,
+    "heading_atn_dis": 0.3897,
+    "heading_dop": 1.6348,
+    "heading_status": 1,
+    "pre4_timestamp": 1757195192.3819838,
+    "rtk_version": "",
+    "sat_num": 23,
+    "status": "4",
+    "timestamp": 1757195192.3831744
+  },
+  "RunningStatusMSG": {
+    "chute_angle": 0,
+    "chute_steering_engine_info": 0,
+    "elec_navigation_front_right_sensor": 3891,
+    "elec_navigation_rear_right_sensor": 3862,
+    "head_gyro_pitch": 8.890144348144531,
+    "head_gyro_roll": 1.4198139905929565,
+    "rain_sensor_data": 4
+  },
+  "StateMSG": {
+    "adjustangle_status": 0,
+    "auto_draw_waiting_state": 0,
+    "car_controller": false,
+    "charging_status": 2,
+    "en_state_led": true,
+    "en_warn_led": true,
+    "error_code": 0,
+    "machine_controller": 1,
+    "on_going_planning": 0,
+    "on_going_recharging": 0,
+    "on_going_to_start_point": 0,
+    "on_mul_points": 0,
+    "planning_paused": 3,
+    "robot_follow_state": false,
+    "schedule_cancel": 0,
+    "vision_auto_draw_state": 0,
+    "working_state": 1
+  },
+  "base_status": 7,
+  "bds": "4432406252545",
+  "bs": "0",
+  "combined_odom_confidence": 0.9150000214576721,
+  "green_grass_update_switch": 1,
+  "ipcamera_ota_switch": 0,
+  "led": "69666",
+  "ms": "0",
+  "route_priority": {
+    "hg0": 10,
+    "wlan0": -1,
+    "wwan0": 20000
+  },
+  "rtcm_age": 1.0,
+  "rtcm_info": {
+    "current_source_type": 2
+  },
+  "s": "67108896",
+  "sbs": "0",
+  "timestamp": 1757195192.0,
+  "tms": "0",
+  "ultrasonic_msg": {
+    "lf_dis": 200,
+    "mt_dis": 9999,
+    "rf_dis": 200
+  },
+  "wireless_recharge": {
+    "error_code": 0,
+    "output_current": 1500,
+    "output_voltage": 4084,
+    "state": 2
+  }
+}
+
+snowbot/25070102ATHDG219/device/heart_beat
+{
+  "working_state": 1
+}
+
+snowbot/25070102ATHDG219/device/DeviceMSG
+{
+  "BatteryMSG": {
+    "capacity": 44,
+    "status": 3,
+    "temp_err": 0,
+    "timestamp": 1757195193.0182903
+  },
+  "BodyMsg": {
+    "recharge_state": 2
+  },
+  "CombinedOdom": {
+    "phi": -0.286,
+    "x": 8.818,
+    "y": -14.729
+  },
+  "EletricMSG": {
+    "push_pod_current": 0.0019335937686264515
+  },
+  "HeadMsg": {
+    "head_type": 5
+  },
+  "HeadSerialMsg": {
+    "head_sn": "25290503GNEVI277"
+  },
+  "RTKMSG": {
+    "gga_atn_dis": 0.3924,
+    "heading": 343.3627,
+    "heading_atn_dis": 0.3918,
+    "heading_dop": 1.6158,
+    "heading_status": 1,
+    "pre4_timestamp": 1757195193.3841984,
+    "rtk_version": "",
+    "sat_num": 22,
+    "status": "4",
+    "timestamp": 1757195193.3848305
+  },
+  "RunningStatusMSG": {
+    "chute_angle": 0,
+    "chute_steering_engine_info": 0,
+    "elec_navigation_front_right_sensor": 3885,
+    "elec_navigation_rear_right_sensor": 3861,
+    "head_gyro_pitch": 8.901628494262695,
+    "head_gyro_roll": 1.4047497510910034,
+    "rain_sensor_data": 4
+  },
+  "StateMSG": {
+    "adjustangle_status": 0,
+    "auto_draw_waiting_state": 0,
+    "car_controller": false,
+    "charging_status": 2,
+    "en_state_led": true,
+    "en_warn_led": true,
+    "error_code": 0,
+    "machine_controller": 1,
+    "on_going_planning": 0,
+    "on_going_recharging": 0,
+    "on_going_to_start_point": 0,
+    "on_mul_points": 0,
+    "planning_paused": 3,
+    "robot_follow_state": false,
+    "schedule_cancel": 0,
+    "vision_auto_draw_state": 0,
+    "working_state": 1
+  },
+  "base_status": 7,
+  "bds": "4432406252545",
+  "bs": "0",
+  "combined_odom_confidence": 0.9150000214576721,
+  "green_grass_update_switch": 1,
+  "ipcamera_ota_switch": 0,
+  "led": "69666",
+  "ms": "0",
+  "route_priority": {
+    "hg0": 10,
+    "wlan0": -1,
+    "wwan0": 20000
+  },
+  "rtcm_age": 1.0,
+  "rtcm_info": {
+    "current_source_type": 3
+  },
+  "s": "67108896",
+  "sbs": "0",
+  "timestamp": 1757195193.0,
+  "tms": "0",
+  "ultrasonic_msg": {
+    "lf_dis": -3,
+    "mt_dis": 9999,
+    "rf_dis": 200
+  },
+  "wireless_recharge": {
+    "error_code": 0,
+    "output_current": 1511,
+    "output_voltage": 4073,
+    "state": 2
+  }
+}
+
+snowbot/25070102ATHDG219/device/DeviceMSG
+{
+  "BatteryMSG": {
+    "capacity": 44,
+    "status": 3,
+    "temp_err": 0,
+    "timestamp": 1757195194.1788914
+  },
+  "BodyMsg": {
+    "recharge_state": 2
+  },
+  "CombinedOdom": {
+    "phi": -0.286,
+    "x": 8.819,
+    "y": -14.732
+  },
+  "HeadMsg": {
+    "head_type": 5
+  },
+  "HeadSerialMsg": {
+    "head_sn": "25290503GNEVI277"
+  },
+  "RTKMSG": {
+    "gga_atn_dis": 0.4034,
+    "heading": 342.4637,
+    "heading_atn_dis": 0.3935,
+    "heading_dop": 1.6069,
+    "heading_status": 1,
+    "pre4_timestamp": 1757195194.3791957,
+    "rtk_version": "",
+    "status": "4",
+    "timestamp": 1757195194.3809607
+  },
+  "RunningStatusMSG": {
+    "chute_angle": 0,
+    "chute_steering_engine_info": 0,
+    "elec_navigation_front_right_sensor": 3880,
+    "elec_navigation_rear_right_sensor": 3871,
+    "head_gyro_pitch": 8.90412712097168,
+    "head_gyro_roll": 1.395488977432251,
+    "rain_sensor_data": 4
+  },
+  "StateMSG": {
+    "adjustangle_status": 0,
+    "auto_draw_waiting_state": 0,
+    "car_controller": false,
+    "charging_status": 2,
+    "en_state_led": true,
+    "en_warn_led": true,
+    "error_code": 0,
+    "machine_controller": 1,
+    "on_going_planning": 0,
+    "on_going_recharging": 0,
+    "on_going_to_start_point": 0,
+    "on_mul_points": 0,
+    "planning_paused": 3,
+    "robot_follow_state": false,
+    "schedule_cancel": 0,
+    "vision_auto_draw_state": 0,
+    "working_state": 1
+  },
+  "base_status": 7,
+  "bds": "4432406252545",
+  "bs": "0",
+  "combined_odom_confidence": 0.9150000214576721,
+  "green_grass_update_switch": 1,
+  "ipcamera_ota_switch": 0,
+  "led": "69666",
+  "mower_head_info04": {
+    "right_blade_motor_temp": 80
+  },
+  "ms": "0",
+  "route_priority": {
+    "hg0": 10,
+    "wlan0": -1,
+    "wwan0": 20000
+  },
+  "rtcm_age": 1.0,
+  "rtcm_info": {
+    "current_source_type": 3
+  },
+  "s": "67108896",
+  "sbs": "0",
+  "timestamp": 1757195194.0,
+  "tms": "0",
+  "ultrasonic_msg": {
+    "lf_dis": 200,
+    "mt_dis": 9999,
+    "rf_dis": 200
+  },
+  "wireless_recharge": {
+    "error_code": 0,
+    "output_current": 1468,
+    "output_voltage": 4068,
+    "state": 2
+  }
+}
+
+snowbot/25070102ATHDG219/device/heart_beat
+{
+  "working_state": 1
+}
