@@ -99,3 +99,14 @@ Note: 4.0"
 Topic: snowbot/25070102ATHDG219/app/mower_target_cmd
 Message: 7801ab562a492c4a4f2d51b2323430a8050024a3048f
 Note: 0.8"
+
+Topic: snowbot/25070102ATHDG219/app/cmd_vel
+Message: 7801ab562a4bcd51b232d033d0512a4a2d03b36a01424905d1
+Note: Happened on unlock - prob low speed
+
+Topic: snowbot/25070102ATHDG219/app/cmd_roller
+Message: 7801ab562a4bcd51b232343030a80500183b037f
+
+Topic: snowbot/25070102ATHDG219/app/stop
+Message: 7801abae0500017500f9
+Note: End Plan
