@@ -4,8 +4,10 @@ import argparse
 
 def on_connect(client, userdata, flags, reason_code, properties):
     print("Connected rc=", reason_code)
+    client.subscribe(("+/bridge/#", 0))
+    client.subscribe(("mqtt_bridge/#", 0))
+    client.subscribe(("ros/#", 0))
     client.subscribe(("snowbot/+/device/#", 0))
-    client.subscribe(("snowbot/+/device/DeviceMSGF", 0))
 
 def on_subscribe(client, userdata, mid, granted_qos, properties):
     print("SUBACK mid=", mid, "granted=", granted_qos)
