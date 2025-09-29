@@ -7,6 +7,7 @@ def on_connect(client, userdata, flags, reason_code, properties):
     client.subscribe(("+/bridge/#", 0))
     client.subscribe(("mqtt_bridge/#", 0))
     client.subscribe(("ros/#", 0))
+    client.subscribe(("snowbot/+/app/#", 0))
     client.subscribe(("snowbot/+/device/#", 0))
 
 def on_subscribe(client, userdata, mid, granted_qos, properties):

@@ -187,3 +187,16 @@ Topic:   snowbot/25070102ATHDG219/app/save_global_params
 Message: 78016d53dbaeda3010fc179edb285c42e1fc8ce5d80bb1ead8a92f505af5df3beb84102e47e8489e998c7767d77f5746afbed6df56bdfc2d2e64575f75f50327e3eea77a3792812e1056cd489613c8c3447a6b29883810c16e53d7f5247bc201c6e48717745dd4aacb89047b4977b6544c66144e130a6c3049754be56e3383cfc21c3b31785db483950af07eb7c4219f70c803a94e86338956a644e1c625bca36cb6fada7e648c43370d3331f70b9f43fd8a8d2e9f70f668b873eb23dd939a9dd83d26e9747b13c9f4c4959454656b67b5ca21904b08a6a9406aaf7e1a77161025e39d5096a42b5f47b488382c8ef70955fb86ef6645eff518ccab41ca61c1922b775f8c268fb5503ee8254e96943891e3904fd2469a992bc9d4f11aa88e74b66fbcf3f825c31fa690816b3ac96c932805f3da7e5fbf17179dbf8ad405fcd726f07635b32373ad4fa2bd0d32c6d7fba2ec6766bc70225aebaf3c84274eba64c42910fd21a1929dcd644e5e5854d4a59291300e0d8efd8d5f0689b54bc19ccf30ddecb8588a9db7fc1478f2cffc76c96f1b9e36b8bee782ac84ff34b9fd83e2387a7f29a9dcc78a35e1bff5fab8a98f9bc371ffb041b1840991e6767e658c0a8bf6084dea8bc4f4c0e68880ef5d44eb0774eefb815c9478a4f1ca4ff0914320591e1ec213eaa4310d64b7afb6b879c0e0dfb963551f31cf20afe2b300dbfcef3f7a2da81c
 Decoded: {"id":1,"max_vel":0.7,"min_vel":0.04,"max_rev":1.5,"min_rev":0.08,"max_roller_speed":2000,"min_roller_speed":0,"stop_roller_speed":1000,"chute_max_angle":200,"chute_min_angle":0,"pitch_max_angle":42,"pitch_min_angle":0,"push_pod_max_place":64,"push_pod_min_place":0,"recharge_battery":20,"recharge_battery_max":30,"recharge_battery_min":15,"resume_battery":80,"resume_battery_max":80,"resume_battery_min":50,"close_roller_battery":15,"standby_time":300,"stable_roller_current":45.0,"docking_station_clean_times":2,"plan_speed":0.65,"clean_mode":0,"docking_station_turn_mode":0,"enable_video_record":0,"enable_elec_fence":false,"enable_weather_schedule":false,"enable_no_notice":true,"default_plan_id":-1,"docking_station_snow_throw_dir":105,"enable_snowbot_bypass":false,"enable_sam_bypass":true,"enable_blower_bypass":true,"anti_freeze_ctl":false,"auto_linght_mode_inschdule":true,"rain_trigger_24_threshold":150,"rain_trigger_23_threshold":3500,"trimmer_blade_speed":6500,"trimming_moving_speed":0.30000001192092896,"trimmer_line_feed_frequency":5,"enable_advanced_fusion":true,"slope_compensate_switch":false,"area_max_low_cfd_dis":6.36,"path_max_low_cfd_dis":9.09,"draw_path_max_low_cfd_dis":5.0}
 ------------------------------------------------------------
+Topic:   snowbot/25070102ATHDG219/app/check_map_connectivity
+Message: 7801ab56ca4c2956b28a3637b6d4313733d031b730d2b13032d5b13031d7b1b0348aad05008ecd0811
+Decoded: {"ids":[739,760,782,825,847,892]}
+------------------------------------------------------------
+Topic:   snowbot/25070102ATHDG219/app/get_map
+Message: 7801abae0500017500f9
+Decoded: {}
+------------------------------------------------------------
+Topic:   snowbot/25070102ATHDG219/app/start_plan
+Message: 7801ab56ca4c51b232d4512a482d4a4ecd2b51b232a805003fce0640
+Note:    App does check_map_connectivity, then get_map, then start_plan, then read_all_plan, then a bunch of set_working_state=1
+Decoded: {"id":1,"percent":0}
+------------------------------------------------------------
