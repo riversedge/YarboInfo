@@ -4,6 +4,9 @@ Message: 7801ab562a2e492c4955b232a8050017be03c8
 Topic: snowbot/25070102ATHDG219/app/cmd_roller
 Message: 7801ab562a4bcd51b232343030a80500183b037f
 
+Topic: snowbot/25070102ATHDG219/app/cmd_roller
+Message: 7801ab562a4bcd51b232343030a80500183b037f
+
 Topic: snowbot/25070102ATHDG219/app/cmd_vel
 Message: 7801ab562a4bcd51b232d033d0512a4a2d03b36a01424905d1
 
@@ -157,3 +160,27 @@ Message: 78da6d54ed8ee3200c7c177eef4534dbf4b6791944c049d011c881d35e6f75ef7e867c2
 Topic: snowbot/25070102ATHDG219/app/ctrl_net_module_4G
 Message: 7801ab562a2e492c4955b232ac050017c003c9
 Note: Enable 4G
+
+Topic: snowbot/25070102ATHDG219/app/read_gps_ref
+Message: 7801abae0500017500f9
+
+Topic: snowbot/25070102ATHDG219/app/bag_record
+Message: 7801ab564a492c4954b2d2b5b4ac0500191a03b0
+Note: No real idea what this does.   Returns data, message, and a state but it's basically all empty
+
+Topic: snowbot/25070102ATHDG219/app/get_device_msg
+Message: 7801abae0500017500f9
+Note: Retrieves everything that's part of the DeviceMSG
+
+Topic: snowbot/25070102ATHDG219/app/read_no_charge_period
+Message: 7801abae0500017500f9
+Note: Seems to read the time when there's no charging
+
+Topic: snowbot/25070102ATHDG219/app/read_schedules
+Message: 7801abae0500017500f9
+
+Topic: snowbot/25070102ATHDG219/app/save_plan
+
+Topic: snowbot/25070102ATHDG219/app/preview_plan_path
+
+Topic: snowbot/25070102ATHDG219/app/read_tow_params
