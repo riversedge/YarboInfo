@@ -14,4 +14,3 @@ Findings summary:
   and that you base64-encode the raw RSA ciphertext (no extra headers). Also ensure the plaintext string matches exactly
   (no extra whitespace, unicode normalization, or character encoding differences).
 
-Note: I did not include the asset PEM(s) because they were not present in dart.zip. Use the rsa_public_key.pem from your apktool_out assets.
