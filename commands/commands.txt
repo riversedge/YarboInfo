@@ -163,6 +163,7 @@ Note: Enable 4G
 
 Topic: snowbot/25070102ATHDG219/app/read_gps_ref
 Message: 7801abae0500017500f9
+Note: Related to the data center (reference) location
 
 Topic: snowbot/25070102ATHDG219/app/bag_record
 Message: 7801ab564a492c4954b2d2b5b4ac0500191a03b0
