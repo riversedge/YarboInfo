@@ -7,7 +7,7 @@ Reads user and device information from testServerInfo.json in the same directory
 Generates a random accessToken for login and uses a timestamp of one week ago for gmtCreate fields.
 Stores access tokens in a shared dictionary keyed by client IP to persist across requests.
 Uses keep-alive headers and response flushing to prevent ConnectionResetError.
-Logs unsupported requests (unrecognized paths or methods).
+Logs unsupported requests (unrecognized paths or methods) and TLS connection events (success and failure).
 
 Requirements:
 - Python 3.7+ (uses stdlib)
@@ -32,6 +32,7 @@ import time
 import socketserver
 import os
 import sys
+import socket
 
 class YarboRequestHandler(http.server.BaseHTTPRequestHandler):
     # Shared dictionary to store access tokens by client IP
@@ -72,8 +73,11 @@ class YarboRequestHandler(http.server.BaseHTTPRequestHandler):
             self.wfile.write(response.encode('utf-8'))
             self.wfile.flush()  # Ensure response is sent
             print(f"Sent response for {self.path}: Status {status}, Client IP: {self.client_address[0]}")
+        except ssl.SSLEOFError as e:
+            print(f"TLS error sending response for {self.path}: {e}, Client IP: {self.client_address[0]}")
+            self.close_connection = True
         except Exception as e:
-            print(f"Error sending response for {self.path}: {e}")
+            print(f"Error sending response for {self.path}: {e}, Client IP: {self.client_address[0]}")
             self.close_connection = True
 
     def do_GET(self):
@@ -98,7 +102,7 @@ class YarboRequestHandler(http.server.BaseHTTPRequestHandler):
 
         elif path == 'Stage/yarbo/robot-service/robot/commonUser/getUesrInfo':
             if not self.headers.get('Authorization') or self.headers.get('Authorization') != f'Bearer {access_token}':
-                print(f"GET getUesrInfo: Client IP: {client_ip}, Received Authorization: {self.headers.get('Authorization')}, Expected: Bearer {access_token}")
+                print(f"GET getUesrInfo: Client IP: {client_ip}, Received Authorization: {self.headers.get('Authorization')}, Expected: Bearer {access_token[:64]}...")
                 self.send_json_response(401, {
                     'code': '401',
                     'data': None,
@@ -140,7 +144,7 @@ class YarboRequestHandler(http.server.BaseHTTPRequestHandler):
 
         elif path == 'Stage/yarbo/commonUser/getLatestPubVersion':
             if not self.headers.get('Authorization') or self.headers.get('Authorization') != f'Bearer {access_token}':
-                print(f"GET getLatestPubVersion: Client IP: {client_ip}, Received Authorization: {self.headers.get('Authorization')}, Expected: Bearer {access_token}")
+                print(f"GET getLatestPubVersion: Client IP: {client_ip}, Received Authorization: {self.headers.get('Authorization')}, Expected: Bearer {access_token[:64]}...")
                 self.send_json_response(401, {
                     'code': '401',
                     'data': None,
@@ -165,7 +169,7 @@ class YarboRequestHandler(http.server.BaseHTTPRequestHandler):
 
         elif path == 'Stage/yarbo/robot-service/commonUser/userRobotBind/getUserRobotBindVos':
             if not self.headers.get('Authorization') or self.headers.get('Authorization') != f'Bearer {access_token}':
-                print(f"GET getUserRobotBindVos: Client IP: {client_ip}, Received Authorization: {self.headers.get('Authorization')}, Expected: Bearer {access_token}")
+                print(f"GET getUserRobotBindVos: Client IP: {client_ip}, Received Authorization: {self.headers.get('Authorization')}, Expected: Bearer {access_token[:64]}...")
                 self.send_json_response(401, {
                     'code': '401',
                     'data': None,
@@ -245,11 +249,8 @@ class YarboRequestHandler(http.server.BaseHTTPRequestHandler):
         # --- End: universal body read ---
 
         if path == 'Stage/yarbo/robot-service/robot/commonUser/login':
-            #content_length = int(self.headers.get('Content-Length', 0))
-            #body = self.rfile.read(content_length).decode('utf-8')
             print(f"POST login: Client IP: {client_ip}, Body: {body}")
             try:
-                #data = json.loads(body)
                 data = parsed_json if parsed_json is not None else json.loads(body)
                 username = data.get('username')
                 password = data.get('password')
@@ -263,14 +264,14 @@ class YarboRequestHandler(http.server.BaseHTTPRequestHandler):
                     })
                     return
                 # Store access token for this client IP
-                access_token = secrets.token_hex(1079)
+                access_token = secrets.token_hex(1079)  # 1079 bytes = 2158 hex chars for JWT
                 self.access_tokens[client_ip] = access_token
-                print(f"POST login: Client IP: {client_ip}, Generated access_token: {access_token}")
+                print(f"POST login: Client IP: {client_ip}, Generated access_token: {access_token[:64]}... (length: {len(access_token)})")
                 response = {
                     'code': '00000',
                     'data': {
                         'accessToken': access_token,
-                        'refreshToken': secrets.token_hex(91),
+                        'refreshToken': secrets.token_hex(91),  # 91 bytes = 182 hex chars
                         'expiresIn': 86400000,
                         'gmtCreate': one_week_ago * 1000,
                         'gmtModified': one_week_ago * 1000
@@ -293,7 +294,7 @@ class YarboRequestHandler(http.server.BaseHTTPRequestHandler):
         elif path == 'Stage/yarbo/robot-service/commonUser/notification/getNotificationVos':
             access_token = self.access_tokens.get(client_ip)
             if not self.headers.get('Authorization') or self.headers.get('Authorization') != f'Bearer {access_token}':
-                print(f"POST getNotificationVos: Client IP: {client_ip}, Received Authorization: {self.headers.get('Authorization')}, Expected: Bearer {access_token}")
+                print(f"POST getNotificationVos: Client IP: {client_ip}, Received Authorization: {self.headers.get('Authorization')}, Expected: Bearer {access_token[:64]}...")
                 self.send_json_response(401, {
                     'code': '401',
                     'data': None,
@@ -314,7 +315,7 @@ class YarboRequestHandler(http.server.BaseHTTPRequestHandler):
         elif path == 'Stage/yarbo/robot-service/robot/commonUser/logout':
             access_token = self.access_tokens.get(client_ip)
             if not self.headers.get('Authorization') or self.headers.get('Authorization') != f'Bearer {access_token}':
-                print(f"POST logout: Client IP: {client_ip}, Received Authorization: {self.headers.get('Authorization')}, Expected: Bearer {access_token}")
+                print(f"POST logout: Client IP: {client_ip}, Received Authorization: {self.headers.get('Authorization')}, Expected: Bearer {access_token[:64]}...")
                 self.send_json_response(401, {
                     'code': '401',
                     'data': None,
@@ -399,6 +400,30 @@ class YarboRequestHandler(http.server.BaseHTTPRequestHandler):
             'timestamp': self.get_timestamp()
         })
 
+class TLSServer(socketserver.ThreadingTCPServer):
+    """Custom TCPServer to log TLS connection attempts."""
+    def __init__(self, server_address, RequestHandlerClass):
+        super().__init__(server_address, RequestHandlerClass)
+        self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+
+    def get_request(self):
+        """Override to log connection attempts and TLS handshake."""
+        client_socket, client_address = self.socket.accept()
+        print(f"TLS connection attempt from Client IP: {client_address[0]}:{client_address[1]}")
+        try:
+            # Perform TLS handshake
+            ssl_socket = self.ssl_context.wrap_socket(client_socket, server_side=True)
+            print(f"TLS connection successful from Client IP: {client_address[0]}:{client_address[1]}")
+            return ssl_socket, client_address
+        except ssl.SSLError as e:
+            print(f"TLS connection failed from Client IP: {client_address[0]}:{client_address[1]}: {e}")
+            client_socket.close()
+            raise
+        except Exception as e:
+            print(f"Connection error from Client IP: {client_address[0]}:{client_address[1]}: {e}")
+            client_socket.close()
+            raise
+
 def main():
     parser = argparse.ArgumentParser(description='Yarbo test server mimicking API endpoints with TLS.')
     parser.add_argument('--port', type=int, default=8081, help='Port to listen on (default: 8081)')
@@ -415,16 +440,27 @@ def main():
         print("Error: testServerInfo.json not found in current directory.")
         sys.exit(1)
 
-    server = http.server.HTTPServer(('localhost', args.port), YarboRequestHandler)
-    context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
-    context.minimum_version = ssl.TLSVersion.TLSv1_3
-    context.load_cert_chain(certfile=args.cert, keyfile=args.key)
-    server.socket = context.wrap_socket(server.socket, server_side=True)
+    # Create SSL context
+    ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
+    ssl_context.minimum_version = ssl.TLSVersion.TLSv1_3
+    try:
+        ssl_context.load_cert_chain(certfile=args.cert, keyfile=args.key)
+    except Exception as e:
+        print(f"Error loading SSL certificate/key: {e}")
+        sys.exit(1)
+
+    # Create server with custom TLSServer
+    server = TLSServer(('localhost', args.port), YarboRequestHandler)
+    server.ssl_context = ssl_context  # Attach SSL context to server
+
     print(f"Starting Yarbo test server on https://localhost:{args.port}")
     try:
         server.serve_forever()
     except KeyboardInterrupt:
         print("\nShutting down server...")
+        server.server_close()
+    except Exception as e:
+        print(f"Server error: {e}")
         server.server_close()
 
 if __name__ == '__main__':
