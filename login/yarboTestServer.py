@@ -35,6 +35,32 @@ import sys
 import socket
 
 class YarboRequestHandler(http.server.BaseHTTPRequestHandler):
+    
+    def auth_matches_or_adopt(self, client_ip, access_token, auth_header):
+        """
+        Accept any bearer token if expected token is "None" or not set.
+        If expected is empty/None/"None", adopt the incoming bearer token for this client and pass auth.
+        Returns (auth_ok: bool, access_token_after: str or None, expected_header: str).
+        """
+        expected_token = access_token
+        # Normalize string forms of none
+        if expected_token is None or (isinstance(expected_token, str) and expected_token.strip().lower() in ("none", "", "null" )):
+            # If header present and looks like Bearer, adopt it
+            if isinstance(auth_header, str) and auth_header.startswith("Bearer "):
+                expected_token = auth_header.split(" ", 1)[1]
+                # Persist adopted token for this client for subsequent calls
+                try:
+                    if not hasattr(self, "access_tokens") or self.access_tokens is None:
+                        self.access_tokens = {}
+                    self.access_tokens[client_ip] = expected_token
+                except Exception:
+                    pass
+                return True, expected_token, f"Bearer {expected_token}"
+            # No header to adopt -> not ok
+            return False, expected_token, "Bearer None"
+        # If we had a concrete expected token, compare exact header
+        expected_header = f"Bearer {expected_token}"
+        return (auth_header == expected_header), expected_token, expected_header
     # Shared dictionary to store access tokens by client IP
     access_tokens = {}
 
@@ -101,8 +127,9 @@ class YarboRequestHandler(http.server.BaseHTTPRequestHandler):
             self.send_json_response(200, response)
 
         elif path == 'Stage/yarbo/robot-service/robot/commonUser/getUesrInfo':
-            if not self.headers.get('authorization') or self.headers.get('authorization') != f'Bearer {access_token}':
-                print(f"GET getUesrInfo: Client IP: {client_ip}, Received authorization: {self.headers.get('authorization')}, Expected: Bearer {access_token}...")
+            auth_ok, access_token, expected_header = self.auth_matches_or_adopt(client_ip, access_token, self.headers.get('authorization'))
+            if not auth_ok:
+                print(f"GET getUesrInfo: Client IP: {client_ip}, Received authorization: {self.headers.get('authorization')}, Expected: {expected_header}...")
                 self.send_json_response(401, {
                     'code': '401',
                     'data': None,
@@ -143,8 +170,9 @@ class YarboRequestHandler(http.server.BaseHTTPRequestHandler):
             self.send_json_response(200, response)
 
         elif path == 'Stage/yarbo/commonUser/getLatestPubVersion':
-            if not self.headers.get('authorization') or self.headers.get('authorization') != f'Bearer {access_token}':
-                print(f"GET getLatestPubVersion: Client IP: {client_ip}, Received authorization: {self.headers.get('authorization')}, Expected: Bearer {access_token}...")
+            auth_ok, access_token, expected_header = self.auth_matches_or_adopt(client_ip, access_token, self.headers.get('authorization'))
+            if not auth_ok:
+                print(f"GET getLatestPubVersion: Client IP: {client_ip}, Received authorization: {self.headers.get('authorization')}, Expected: {expected_header}...")
                 self.send_json_response(401, {
                     'code': '401',
                     'data': None,
@@ -168,8 +196,9 @@ class YarboRequestHandler(http.server.BaseHTTPRequestHandler):
             self.send_json_response(200, response)
 
         elif path == 'Stage/yarbo/robot-service/commonUser/userRobotBind/getUserRobotBindVos':
-            if not self.headers.get('authorization') or self.headers.get('authorization') != f'Bearer {access_token}':
-                print(f"GET getUserRobotBindVos: Client IP: {client_ip}, Received authorization: {self.headers.get('authorization')}, Expected: Bearer {access_token}...")
+            auth_ok, access_token, expected_header = self.auth_matches_or_adopt(client_ip, access_token, self.headers.get('authorization'))
+            if not auth_ok:
+                print(f"GET getUserRobotBindVos: Client IP: {client_ip}, Received authorization: {self.headers.get('authorization')}, Expected: {expected_header}...")
                 self.send_json_response(401, {
                     'code': '401',
                     'data': None,
@@ -293,8 +322,9 @@ class YarboRequestHandler(http.server.BaseHTTPRequestHandler):
 
         elif path == 'Stage/yarbo/robot-service/commonUser/notification/getNotificationVos':
             access_token = self.access_tokens.get(client_ip)
-            if not self.headers.get('authorization') or self.headers.get('authorization') != f'Bearer {access_token}':
-                print(f"POST getNotificationVos: Client IP: {client_ip}, Received authorization: {self.headers.get('authorization')}, Expected: Bearer {access_token}...")
+            auth_ok, access_token, expected_header = self.auth_matches_or_adopt(client_ip, access_token, self.headers.get('authorization'))
+            if not auth_ok:
+                print(f"POST getNotificationVos: Client IP: {client_ip}, Received authorization: {self.headers.get('authorization')}, Expected: {expected_header}...")
                 self.send_json_response(401, {
                     'code': '401',
                     'data': None,
@@ -314,8 +344,9 @@ class YarboRequestHandler(http.server.BaseHTTPRequestHandler):
 
         elif path == 'Stage/yarbo/robot-service/robot/commonUser/logout':
             access_token = self.access_tokens.get(client_ip)
-            if not self.headers.get('authorization') or self.headers.get('authorization') != f'Bearer {access_token}':
-                print(f"POST logout: Client IP: {client_ip}, Received authorization: {self.headers.get('authorization')}, Expected: Bearer {access_token}...")
+            auth_ok, access_token, expected_header = self.auth_matches_or_adopt(client_ip, access_token, self.headers.get('authorization'))
+            if not auth_ok:
+                print(f"POST logout: Client IP: {client_ip}, Received authorization: {self.headers.get('authorization')}, Expected: {expected_header}...")
                 self.send_json_response(401, {
                     'code': '401',
                     'data': None,
