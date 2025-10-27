@@ -1,0 +1,17 @@
+{
+   "userId": "wewright@wesleyacoustics.com",
+   "username": "wewright@wesleyacoustics.com",
+   "nickName": "wewright",
+   "deviceList": [
+      {
+         "serialNum": "25070102ATHDG219",
+         "headType": 5,
+         "deviceNickname": "Wright Yarbo"
+      },
+      {
+         "serialNum": "25070102ATHDG218",
+         "headType": 5,
+         "deviceNickname": "Fake Yarbo"
+      }
+   ]
+}
