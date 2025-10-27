@@ -1,20 +1,20 @@
 [req]
+default_bits       = 2048
 distinguished_name = req_distinguished_name
+default_md         = sha256
+req_extensions     = v3_req
 x509_extensions = v3_req
 prompt = no
+
 [req_distinguished_name]
 CN = 4zx17x5q7l.execute-api.us-east-1.amazonaws.com
+
 [v3_req]
-keyUsage = keyEncipherment, dataEncipherment
+basicConstraints = CA:FALSE
+keyUsage = digitalSignature, keyEncipherment
 extendedKeyUsage = serverAuth
 subjectAltName = @alt_names
 authorityKeyIdentifier = keyid,issuer
+
 [alt_names]
 DNS.1 = 4zx17x5q7l.execute-api.us-east-1.amazonaws.com
-DNS.2 = localhost
-DNS.3 = yarboTestServer.local
-IP.1 = 127.0.0.1
-IP.2 = 99.84.237.33
-IP.3 = 99.84.237.55
-IP.4 = 99.84.237.56
-IP.5 = 99.84.237.113
