@@ -31,6 +31,7 @@ import urllib.error
 import datetime
 import gzip
 import time
+import ssl
 
 def ensure_pem(pubkey_path):
     """Return a path to a PEM file. If the provided file already contains a PEM header,
@@ -89,11 +90,19 @@ def main():
     p.add_argument('--pubkey', default='rsa_public_key.pem', help='Path to rsa_public_key.pem (PEM or base64 body)')
     p.add_argument('--username', required=True, help='Username for login')
     p.add_argument('--password', required=True, help='Password for login')
-    p.add_argument('--url', default='https://4zx17x5q7l.execute-api.us-east-1.amazonaws.com/Stage/yarbo/robot-service/robot/commonUser/login', help='Login endpoint URL')
+    p.add_argument('--url', default='https://4zx17x5q7l.execute-api.us-east-1.amazonaws.com', help='Login endpoint URL')
+    p.add_argument('--ca-cert', default='CA/ca.crt', help='Path to CA certificate for server verification (default: ca.crt)')
     p.add_argument('--dry-run', action='store_true', help='Do not POST; just print the base64 ciphertext')
     p.add_argument('--show-cipher', action='store_true', help='Print base64 ciphertext')
     p.add_argument('--show-requests', action='store_true', help='Show full request headers')
     args = p.parse_args()
+
+    # Create SSL context and load CA certificate
+    ssl_context = ssl.create_default_context()
+    if not os.path.exists(args.ca_cert):
+        print(f"Error: CA certificate {args.ca_cert} not found.", file=sys.stderr)
+        sys.exit(1)
+    ssl_context.load_verify_locations(args.ca_cert)
 
     # exact byte representation used by the client: UTF-8 encoding of the password string as-is
     plaintext_bytes = args.password.encode('utf-8')
@@ -174,14 +183,11 @@ def main():
         },
     ]
 
-    # Verify the URL matches the first endpoint
-    login_endpoint = actions[0]['endpoint']
-    if not args.url.endswith(login_endpoint):
-        print('Error: Provided URL does not end with expected login endpoint.', file=sys.stderr)
-        sys.exit(1)
-
     # Base URL is everything before the login endpoint
-    base_url = args.url[:-len(login_endpoint)]
+    base_url = args.url
+    if not base_url.endswith('/'):
+          base_url += '/'
+    base_url += 'Stage/'
 
     access_token = None
 
@@ -226,7 +232,7 @@ def main():
 
         # Send the request
         try:
-            with _urllib_request.urlopen(req, timeout=30) as r:
+            with _urllib_request.urlopen(req, timeout=30, context=ssl_context) as r:
                 status = r.status
                 reason = r.reason
                 resp_headers = dict(r.getheaders())
