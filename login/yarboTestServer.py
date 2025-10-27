@@ -35,33 +35,32 @@ import sys
 import socket
 
 class YarboRequestHandler(http.server.BaseHTTPRequestHandler):
-    
+    show_responses = False
     def auth_matches_or_adopt(self, client_ip, access_token, auth_header):
-        """
-        Accept any bearer token if expected token is "None" or not set.
-        If expected is empty/None/"None", adopt the incoming bearer token for this client and pass auth.
-        Returns (auth_ok: bool, access_token_after: str or None, expected_header: str).
-        """
-        expected_token = access_token
-        # Normalize string forms of none
-        if expected_token is None or (isinstance(expected_token, str) and expected_token.strip().lower() in ("none", "", "null" )):
-            # If header present and looks like Bearer, adopt it
-            if isinstance(auth_header, str) and auth_header.startswith("Bearer "):
-                expected_token = auth_header.split(" ", 1)[1]
-                # Persist adopted token for this client for subsequent calls
-                try:
-                    if not hasattr(self, "access_tokens") or self.access_tokens is None:
-                        self.access_tokens = {}
-                    self.access_tokens[client_ip] = expected_token
-                except Exception:
-                    pass
-                return True, expected_token, f"Bearer {expected_token}"
-            # No header to adopt -> not ok
-            return False, expected_token, "Bearer None"
-        # If we had a concrete expected token, compare exact header
-        expected_header = f"Bearer {expected_token}"
-        return (auth_header == expected_header), expected_token, expected_header
-    # Shared dictionary to store access tokens by client IP
+            """
+            Accept any bearer token if expected token is "None" or not set.
+            If expected is empty/None/"None", adopt the incoming bearer token for this client and pass auth.
+            Returns (auth_ok: bool, access_token_after: str or None, expected_header: str).
+            """
+            expected_token = access_token
+            # Normalize string forms of none
+            if expected_token is None or (isinstance(expected_token, str) and expected_token.strip().lower() in ("none", "", "null" )):
+                # If header present and looks like Bearer, adopt it
+                if isinstance(auth_header, str) and auth_header.startswith("Bearer "):
+                    expected_token = auth_header.split(" ", 1)[1]
+                    # Persist adopted token for this client for subsequent calls
+                    try:
+                        if not hasattr(self, "access_tokens") or self.access_tokens is None:
+                            self.access_tokens = {}
+                        self.access_tokens[client_ip] = expected_token
+                    except Exception:
+                        pass
+                    return True, expected_token, f"Bearer {expected_token}"
+                # No header to adopt -> not ok
+                return False, expected_token, "Bearer None"
+            # If we had a concrete expected token, compare exact header
+            expected_header = f"Bearer {expected_token}"
+            return (auth_header == expected_header), expected_token, expected_header    # Shared dictionary to store access tokens by client IP
     access_tokens = {}
 
     def load_test_server_info(self):
@@ -96,6 +95,14 @@ class YarboRequestHandler(http.server.BaseHTTPRequestHandler):
             self.send_header('Content-Length', len(response.encode('utf-8')))
             self.end_headers()
             time.sleep(0.1)  # Small delay to mimic real server timing
+                        # Optionally print responses if enabled
+            try:
+                if getattr(self, 'show_responses', False):
+                    # Log path, status and compact json
+                    compact = json.dumps(data, separators=(',', ':'))
+                    print(f"SENDING [{status}] {self.path} -> {compact}")
+            except Exception:
+                pass
             self.wfile.write(response.encode('utf-8'))
             self.wfile.flush()  # Ensure response is sent
             print(f"Sent response for {self.path}: Status {status}, Client IP: {self.client_address[0]}")
@@ -230,7 +237,7 @@ class YarboRequestHandler(http.server.BaseHTTPRequestHandler):
             ]
             response = {
                 'code': '00000',
-                'data': {'robotBindVoList': device_list},
+                'data': {'deviceList': device_list},
                 'message': 'ok',
                 'success': True,
                 'timestamp': self.get_timestamp()
@@ -473,7 +480,9 @@ def main():
     parser.add_argument('--cert', default='CA/server.crt', help='Path to SSL certificate file (default: CA/server.crt)')
     parser.add_argument('--key', default='CA/server.key', help='Path to SSL private key file (default: CA/server.key)')
     parser.add_argument('--tls-version', default='TLSv1.3', choices=['TLSv1.2', 'TLSv1.3'], help='TLS protocol version (default: TLSv1.3)')
+    parser.add_argument('--showResponses', action='store_true', help='Print each JSON response sent')
     args = parser.parse_args()
+    YarboRequestHandler.show_responses = bool(getattr(args, 'showResponses', False))
 
     if not os.path.exists(args.cert) or not os.path.exists(args.key):
         print("Error: Certificate (--cert) or key (--key) file not found. Generate with:")
