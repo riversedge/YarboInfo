@@ -1,7 +1,7 @@
 {
-   "userId": "wewright@wesleyacoustics.com",
-   "username": "wewright@wesleyacoustics.com",
-   "nickName": "wewright",
+   "userId": "bigsecurityhole@china.com",
+   "username": "sechole@big.hole",
+   "nickName": "sechole",
    "deviceList": [
       {
          "serialNum": "25070102ATHDG219",
@@ -9,9 +9,9 @@
          "deviceNickname": "Wright Yarbo"
       },
       {
-         "serialNum": "25070102ATHDG218",
-         "headType": 5,
-         "deviceNickname": "Fake Yarbo"
+         "serialNum": "25010305ATHDG141",
+         "headType": 4,
+         "deviceNickname": "Fake Yarbo 2"
       }
    ]
 }
