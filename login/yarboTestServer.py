@@ -536,6 +536,72 @@ class YarboRequestHandler(http.server.BaseHTTPRequestHandler):
             }
             self.send_json_response(200, response)
 
+        # --------------------------------------------------------------
+        #  POST  /Stage/admin/listPlanHistoryBySn
+        # --------------------------------------------------------------
+        elif path == 'Stage/admin/listPlanHistoryBySn':
+            print(f"POST listPlanHistoryBySn: Client IP: {client_ip}, Body: {body[:200]}...")
+            stored_token = self.access_tokens.get(client_ip)
+            auth_ok, _, expected_header = self.auth_matches_or_adopt(
+                client_ip, stored_token, self.headers.get('authorization')
+            )
+            if not auth_ok:
+                self.send_json_response(401, {
+                    "code": "401",
+                    "data": None,
+                    "message": "Invalid token",
+                    "success": False,
+                    "timestamp": self.get_timestamp()
+                })
+                return
+
+            # The real server does **not** look at the request body – it just returns an empty list.
+            # We keep the same behaviour.
+            response = {
+                "code": "00000",
+                "data": {
+                    "planHistory": []
+                },
+                "success": True,
+                "message": "ok",
+                "timestamp": self.get_timestamp()
+            }
+            self.send_json_response(200, response)
+
+        # --------------------------------------------------------------
+        #  GET   /Stage/admin/getUsedFlowBySn
+        # --------------------------------------------------------------
+        elif path.startswith('Stage/admin/getUsedFlowBySn'):
+            print(f"GET getUsedFlowBySn: Client IP: {client_ip}")
+            stored_token = self.access_tokens.get(client_ip)
+            auth_ok, _, expected_header = self.auth_matches_or_adopt(
+                client_ip, stored_token, self.headers.get('authorization')
+            )
+            if not auth_ok:
+                self.send_json_response(401, {
+                    "code": "401",
+                    "data": None,
+                    "message": "Invalid token",
+                    "success": False,
+                    "timestamp": self.get_timestamp()
+                })
+                return
+
+            # The real server always returns the same static values.
+            response = {
+                "code": "00000",
+                "data": {
+                    "usedFlow": {
+                        "roverUsedFlow": "0",
+                        "baseUsedFlow": None
+                    }
+                },
+                "message": "ok",
+                "success": True,
+                "timestamp": self.get_timestamp()
+            }
+            self.send_json_response(200, response)
+
         else:
             print(f"Unsupported POST request: Path {self.path}, Client IP: {self.client_address[0]}")
             self.send_json_response(404, {
