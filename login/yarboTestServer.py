@@ -1,806 +1,707 @@
 #!/usr/bin/env python3
 """
-yarboTestServer.py – test server for the Yarbo mobile app
+yarboTestServer.py – Local TLS test server for Yarbo mobile app
 
-New in this version
--------------------
-* --realLogin: On first /login, proxy to real Yarbo cloud, capture tokens into
-  testServerInfo.json, then reuse cached tokens for all later logins.
-* --showRequests: log incoming requests (method, path, headers, body).
+Features:
+- RSA signs only response["data"]
+- RS256 JWTs (kid: yarbo-test-key)
+- All original + new endpoints (getUserRobotBindVos, questionnaire → 403)
+- TLS 1.2/1.3
+- --rsa-dir <path> (default: ./custom/)
+- --showRequests / --showResponses
 """
 
 import argparse
-import http.server
-import ssl
-import json
-import secrets
-import datetime
-import time
-import socketserver
-import os
-import sys
-import socket
 import base64
-import hashlib
-import requests  # used when --realLogin is enabled
+import json
+import os
+import secrets
+import socket
+import socketserver
+import ssl
+import sys
+import time
+from datetime import datetime, timedelta, timezone
+from http.server import BaseHTTPRequestHandler
+from typing import Any, Dict, Tuple
+
 from cryptography.hazmat.primitives import hashes, serialization
-from cryptography.hazmat.primitives.asymmetric import rsa, padding
-from agora_token_builder import RtcTokenBuilder
+from cryptography.hazmat.primitives.asymmetric import padding, rsa
+
 
 # ----------------------------------------------------------------------
-# Global caches / constants
+# RSA key loader (configurable via --rsa-dir)
 # ----------------------------------------------------------------------
-_rsa_private_key = None
-_rsa_public_pem = None
-_agora_tokens = {}                     # serialNum → {token, key, salt}
-SIGN_SECRET = "Yarbo@2023"             # verified from production traffic
-
-# Real AWS base for login passthrough when --realLogin is used
-REAL_LOGIN_BASE = "https://4zx17x5q7l.execute-api.us-east-1.amazonaws.com"
-
-# ----------------------------------------------------------------------
-# JWT helpers
-# ----------------------------------------------------------------------
-def _base64url_encode(data: bytes) -> str:
-    return base64.urlsafe_b64encode(data).rstrip(b'=').decode('ascii')
+_RSA_PRIVATE: rsa.RSAPrivateKey | None = None
+_RSA_PUBLIC: rsa.RSAPublicKey | None = None
+_RSA_DIR: str = "custom"
 
 
-def _get_rsa_key():
-    global _rsa_private_key, _rsa_public_pem
-    if _rsa_private_key is None:
-        _rsa_private_key = rsa.generate_private_key(
-            public_exponent=65537,
-            key_size=2048
-        )
-        public_key = _rsa_private_key.public_key()
-        _rsa_public_pem = public_key.public_bytes(
-            encoding=serialization.Encoding.PEM,
-            format=serialization.PublicFormat.SubjectPublicKeyInfo
-        )
-    return _rsa_private_key, _rsa_public_pem
+def _load_rsa_keys() -> Tuple[rsa.RSAPrivateKey, rsa.RSAPublicKey]:
+    """Load private (standard) and public (custom-wrapped OK) keys."""
+    global _RSA_PRIVATE, _RSA_PUBLIC
+    if _RSA_PRIVATE is not None and _RSA_PUBLIC is not None:
+        return _RSA_PRIVATE, _RSA_PUBLIC
 
+    priv_path = os.path.join(_RSA_DIR, "rsa_private_key.pem")
+    pub_path = os.path.join(_RSA_DIR, "rsa_public_key.pem")
 
-def create_jwt(payload: dict, iat: int, exp: int) -> str:
-    header = {
-        "alg": "RS256",
-        "typ": "JWT",
-        "kid": "xAZNn4-ZW-t4hBO8p3YDO"
-    }
-    header_enc = _base64url_encode(json.dumps(header, separators=(',', ':')).encode())
-    payload_enc = _base64url_encode(json.dumps(payload, separators=(',', ':')).encode())
-    signing_input = f"{header_enc}.{payload_enc}".encode()
-    priv_key, _ = _get_rsa_key()
-    signature = priv_key.sign(signing_input, padding.PKCS1v15(), hashes.SHA256())
-    sig_enc = _base64url_encode(signature)
-    return f"{header_enc}.{payload_enc}.{sig_enc}"
+    # --- Private key ---
+    if not os.path.isfile(priv_path):
+        print(f"ERROR: RSA private key not found: {priv_path}")
+        sys.exit(1)
+    with open(priv_path, "rb") as f:
+        priv_pem = f.read()
+    try:
+        _RSA_PRIVATE = serialization.load_pem_private_key(priv_pem, password=None)
+    except Exception as e:
+        print(f"ERROR: Failed to load private key: {e}")
+        sys.exit(1)
 
-# ----------------------------------------------------------------------
-# Agora token helper
-# ----------------------------------------------------------------------
-def generate_agora_token(app_id: str, app_certificate: str, channel_name: str, uid: str):
-    """
-    Generate a fake Agora token structure similar to production.
-    """
-    role = 1  # publisher
-    expire_seconds = 3600
+    # --- Public key (handles custom YARBO wrapper) ---
+    if not os.path.isfile(pub_path):
+        print(f"ERROR: RSA public key not found: {pub_path}")
+        sys.exit(1)
+    with open(pub_path, "rb") as f:
+        raw_pub = f.read()
 
     try:
-        uid_int = int(uid)
-    except ValueError:
-        uid_int = int(hashlib.sha256(uid.encode()).hexdigest(), 16) & 0x7fffffff
+        pub_str = raw_pub.decode("utf-8", errors="ignore")
+        lines = [l.strip() for l in pub_str.splitlines() if l.strip() and not l.startswith("-----")]
+        b64_str = "".join(lines)
+        der_bytes = base64.b64decode(b64_str)
+        temp_key = serialization.load_der_public_key(der_bytes)
+        _RSA_PUBLIC = rsa.RSAPublicNumbers(
+            e=temp_key.public_numbers().e,
+            n=temp_key.public_numbers().n,
+        ).public_key()
+    except Exception as e:
+        print(f"ERROR: Failed to parse public key: {e}")
+        print("HINT: Check rsa_public_key.pem – base64 between -----BEGIN PUBLIC KEY----- and -----END PUBLIC KEY-----")
+        sys.exit(1)
 
-    token = RtcTokenBuilder.buildTokenWithUid(
-        app_id, app_certificate, channel_name, uid_int, role, expire_seconds
-    )
+    return _RSA_PRIVATE, _RSA_PUBLIC
 
-    key = secrets.token_hex(16)
-    combined = f"{channel_name}:{uid}:{key}"
-    salt = base64.b64encode(combined.encode()).decode()
-    return {"token": token, "key": key, "salt": salt}
 
-# ----------------------------------------------------------------------
-# Response signing
-# ----------------------------------------------------------------------
-def add_sign_to_response(response: dict) -> dict:
-    """Add `sign` only to successful responses."""
-    if not response.get("success", False):
+def _canonical_json(value: Any) -> str:
+    return json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
+
+
+def add_sign_to_response(response: Dict[str, Any]) -> Dict[str, Any]:
+    if not response.get("success", False) or "data" not in response:
         return response
-    resp_copy = json.loads(json.dumps(response))
-    resp_copy.pop("sign", None)
-    body_str = json.dumps(resp_copy, sort_keys=True, separators=(',', ':'))
-    sign_input = body_str + SIGN_SECRET
-    signature = base64.b64encode(
-        hashlib.sha256(sign_input.encode('utf-8')).digest()
-    ).decode('ascii')
-    response["sign"] = signature
+
+    try:
+        priv, _ = _load_rsa_keys()
+    except Exception as e:
+        print(f"WARNING: Failed to load RSA key for signing: {e}")
+        return response
+
+    canon = _canonical_json(response["data"]).encode("utf-8")
+    signature = priv.sign(canon, padding.PKCS1v15(), hashes.SHA256())
+    response["sign"] = base64.b64encode(signature).decode("ascii")
     return response
 
+
+def _urlsafe_b64(data: bytes) -> str:
+    return base64.urlsafe_b64encode(data).rstrip(b"=").decode("ascii")
+
+
+def create_jwt(payload: Dict[str, Any]) -> str:
+    header = {"alg": "RS256", "typ": "JWT", "kid": "yarbo-test-key"}
+    header_b64 = _urlsafe_b64(json.dumps(header, separators=(",", ":")).encode())
+    payload_b64 = _urlsafe_b64(json.dumps(payload, separators=(",", ":")).encode())
+    signing_input = f"{header_b64}.{payload_b64}".encode()
+
+    priv, _ = _load_rsa_keys()
+    sig = priv.sign(signing_input, padding.PKCS1v15(), hashes.SHA256())
+    sig_b64 = _urlsafe_b64(sig)
+    return f"{header_b64}.{payload_b64}.{sig_b64}"
+
+
 # ----------------------------------------------------------------------
-# Static Play-Store JSON
+# Dummy data
 # ----------------------------------------------------------------------
 _PLAY_STORE_JSON = {
     "code": "00000",
     "data": {
+        "version": "3.16.4",
         "packageName": "com.hanyang.yarbo",
-        "versionName": "1.0.0",
-        "versionCode": 1,
-        "track": "production",
-        "updateInfo": {
-            "title": "Yarbo",
-            "message": "Test-server fake Play-Store response",
-            "forceUpdate": False,
-            "downloadUrl": "https://example.com/yarbo.apk"
-        }
+        "updateAvailable": False,
     },
     "message": "ok",
     "success": True,
-    "timestamp": 0   # overwritten at runtime
+    "timestamp": 0,
 }
 
+_agora_tokens: Dict[str, Dict[str, Any]] = {}
+
+
+def generate_agora_token(app_id: str, app_cert: str, channel: str, uid: str) -> Dict[str, Any]:
+    now = int(time.time())
+    expire = now + 3600
+    return {
+        "appId": app_id,
+        "channelName": channel,
+        "uid": uid,
+        "token": f"dummy-agora-{channel}-{uid}-{expire}",
+        "expireTs": expire,
+    }
+
+
 # ----------------------------------------------------------------------
-# HTTP request handler
+# Request handler
 # ----------------------------------------------------------------------
-class YarboRequestHandler(http.server.BaseHTTPRequestHandler):
-    show_responses = False
-    show_requests = False
-    real_login = False
-    access_tokens = {}                     # client_ip → current Bearer token
-    user_ids = {}                          # client_ip → last logged-in username
+class YarboRequestHandler(BaseHTTPRequestHandler):
+    show_requests: bool = False
+    show_responses: bool = False
+    access_tokens: Dict[str, str] = {}
+    user_ids: Dict[str, str] = {}
 
     # ------------------------------------------------------------------
     # Helpers
     # ------------------------------------------------------------------
-    def log_message(self, format, *args):
-        # Silence default logging
-        return
-
-    def get_timestamp(self):
+    def _ts(self) -> int:
         return int(time.time() * 1000)
 
-    def get_one_week_ago(self):
-        return int((time.time() - 7 * 24 * 3600))
+    def _week_ago(self) -> int:
+        dt = datetime.now(timezone.utc) - timedelta(days=7)
+        return int(dt.timestamp())
 
-    def load_test_server_info(self):
+    def _send_json(self, status: int, body: Dict[str, Any]):
+        signed = add_sign_to_response(body)
+        if self.show_responses:
+            print(f"RESPONSE {status} {self.path}")
+            print(json.dumps(signed, ensure_ascii=False, indent=2))
+        data = json.dumps(signed, ensure_ascii=False).encode("utf-8")
+        self.send_response(status)
+        self.send_header("Content-Type", "application/json")
+        self.send_header("Content-Length", str(len(data)))
+        self.end_headers()
+        self.wfile.write(data)
+
+    def _load_info(self) -> Dict[str, Any]:
         try:
-            with open('testServerInfo.json', 'r', encoding='utf-8') as f:
+            with open("testServerInfo.json", "r", encoding="utf-8") as f:
                 return json.load(f)
         except FileNotFoundError:
-            return None
+            return {}
         except Exception as e:
-            print(f"Error loading testServerInfo.json: {e}")
-            return None
+            print(f"load testServerInfo.json error: {e}")
+            return {}
 
-    def save_test_server_info(self, info: dict):
-        try:
-            with open('testServerInfo.json', 'w', encoding='utf-8') as f:
-                json.dump(info, f, indent=2)
-        except Exception as e:
-            print(f"Error saving testServerInfo.json: {e}")
+    def _auth_check(self, client_ip: str, auth_header: str | None) -> Tuple[bool, str | None]:
+        stored = self.access_tokens.get(client_ip)
+        token = None
+        if auth_header and auth_header.lower().startswith("bearer "):
+            token = auth_header.split(None, 1)[1].strip()
 
-    # ------------------------------------------------------------------
-    # Auth helpers
-    # ------------------------------------------------------------------
-    def auth_matches_or_adopt(self, client_ip, stored_token, auth_header):
-        """
-        * If there is no stored token for this IP, adopt the first valid Bearer token.
-        * After that, the incoming token must match exactly.
-        * If header is malformed or missing → unauthorized.
-        """
-        if not isinstance(auth_header, str) or not auth_header.startswith("Bearer "):
-            return False, stored_token, "Bearer None"
-        incoming = auth_header.split(" ", 1)[1].strip()
-        if not incoming:
-            return False, stored_token, "Bearer None"
+        if token and stored is None:
+            self.access_tokens[client_ip] = token
+            print(f"Adopted token for {client_ip}: {token[:40]}...")
+            return True, token
 
-        if stored_token is None or str(stored_token).strip().lower() in ("none", "", "null"):
-            self.access_tokens[client_ip] = incoming
-            print(f"WARNING: Adopted new token for {client_ip}: {incoming[:10]}...")
-            return True, incoming, f"Bearer {incoming}"
+        if token and stored:
+            return token == stored, stored
 
-        if stored_token != incoming:
-            print(f"Token mismatch for {client_ip}: stored={stored_token[:10]}..., incoming={incoming[:10]}...")
-            return False, stored_token, f"Bearer {stored_token}"
+        return bool(stored), stored
 
-        return True, stored_token, f"Bearer {stored_token}"
-
-    # ------------------------------------------------------------------
-    # JSON response helper
-    # ------------------------------------------------------------------
-    def send_json_response(self, status, data):
-        try:
-            self.send_response(status)
-            self.send_header('Content-Type', 'application/json')
-            if status == 200:
-                self.send_header('Connection', 'keep-alive')
-                self.send_header('Keep-Alive', 'timeout=5, max=100')
-            else:
-                self.send_header('Connection', 'close')
-            payload = json.dumps(data, indent=2)
-            self.send_header('Content-Length', len(payload.encode('utf-8')))
-            self.end_headers()
-            time.sleep(0.07)
-            if getattr(self, 'show_responses', False):
-                compact = json.dumps(data, separators=(',', ':'))
-                print(f"SENDING [{status}] {self.path} → {compact}")
-            self.wfile.write(payload.encode('utf-8'))
-            self.wfile.flush()
-            print(f"Sent {status} for {self.path} (IP: {self.client_address[0]})")
-        except Exception as e:
-            print(f"Error sending response: {e}")
-            self.close_connection = True
+    def reject_unauthorized(self):
+        self._send_json(
+            401,
+            {
+                "code": "401",
+                "data": None,
+                "message": "Invalid token",
+                "success": False,
+                "timestamp": self._ts(),
+            },
+        )
 
     # ------------------------------------------------------------------
     # GET
     # ------------------------------------------------------------------
     def do_GET(self):
-        path = self.path.lstrip('/')
+        path = self.path.lstrip("/")
         client_ip = self.client_address[0]
-        stored_token = self.access_tokens.get(client_ip)
 
-        if getattr(self, 'show_requests', False):
-            print(f"RECV GET {self.path} from {client_ip}")
+        if self.show_requests:
+            print(f"GET {self.path} from {client_ip}")
             for k, v in self.headers.items():
                 print(f"  {k}: {v}")
 
-        # Play-Store lookup (no auth)
-        if path.startswith('store/apps/details?id=com.hanyang.yarbo'):
-            print(f"GET Play-Store lookup from {client_ip}")
+        # Play Store – no auth
+        if path.startswith("store/apps/details?id=com.hanyang.yarbo"):
             resp = json.loads(json.dumps(_PLAY_STORE_JSON))
-            resp["timestamp"] = self.get_timestamp()
-            self.send_json_response(200, add_sign_to_response(resp))
+            resp["timestamp"] = self._ts()
+            self._send_json(200, resp)
             return
 
-        auth_ok, _, _ = self.auth_matches_or_adopt(
-            client_ip, stored_token, self.headers.get('authorization')
-        )
+        # Auth check
+        auth_ok, _ = self._auth_check(client_ip, self.headers.get("Authorization"))
+        if not auth_ok:
+            self.reject_unauthorized()
+            return
 
-        def reject_unauthorized():
-            self.send_json_response(401, add_sign_to_response({
-                'code': '401', 'data': None, 'message': 'Invalid token',
-                'success': False, 'timestamp': self.get_timestamp()
-            }))
+        server_info = self._load_info()
+        one_week_ago = self._week_ago()
 
-        server_info = self.load_test_server_info()
-        one_week_ago = self.get_one_week_ago()
+        # Known endpoints
+        if path == "Stage/app/getPolicyKey":
+            self._send_json(
+                200,
+                {
+                    "code": "00000",
+                    "success": True,
+                    "timestamp": self._ts(),
+                    "data": {"policyKey": "test-policy-key"},
+                    "message": "ok",
+                },
+            )
+            return
 
-        if path == 'Stage/app/getPolicyKey':
-            resp = {
-                'code': '00000',
-                'data': {'policyKey': 'test-policy-key'},
-                'message': 'ok',
-                'success': True,
-                'timestamp': self.get_timestamp()
-            }
-            self.send_json_response(200, add_sign_to_response(resp))
-
-        elif path == 'Stage/yarbo/dict/getCommonDictVos':
-            if not auth_ok: reject_unauthorized(); return
-            resp = {'code': '00000', 'data': [], 'message': 'ok',
-                    'success': True, 'timestamp': self.get_timestamp()}
-            self.send_json_response(200, add_sign_to_response(resp))
-
-        elif path == 'Stage/yarbo/robot-service/commonUser/getCountryList':
-            if not auth_ok: reject_unauthorized(); return
-            resp = {'code': '00000', 'data': [], 'message': 'ok',
-                    'success': True, 'timestamp': self.get_timestamp()}
-            self.send_json_response(200, add_sign_to_response(resp))
-
-        elif path == 'Stage/yarbo/robot-service/robot/commonUser/getUesrInfo':
-            if not auth_ok: reject_unauthorized(); return
+        if path == "Stage/yarbo/robot-service/robot/commonUser/getUesrInfo":
             if not server_info:
-                resp = {
-                    'code': '00000', 'data': None,
-                    'message': 'No testServerInfo.json',
-                    'success': True,
-                    'timestamp': self.get_timestamp()
-                }
-            else:
-                resp = {
-                    'code': '00000',
-                    'data': {
-                        'userId': server_info.get('userId', 'test-user'),
-                        'nickname': server_info.get('nickname', 'Test User'),
-                        'avatar': '',
-                        'phone': '',
-                        'email': server_info.get('userId', 'test-user@example.com'),
-                        'country': '', 'state': '', 'city': '',
-                        'address': '', 'zipCode': '',
-                        'gmtCreate': one_week_ago * 1000,
-                        'gmtModified': one_week_ago * 1000
+                self._send_json(
+                    500,
+                    {
+                        "code": "500",
+                        "data": None,
+                        "message": "Server configuration error",
+                        "success": False,
+                        "timestamp": self._ts(),
                     },
-                    'message': 'ok',
-                    'success': True,
-                    'timestamp': self.get_timestamp()
-                }
-            self.send_json_response(200, add_sign_to_response(resp))
+                )
+                return
 
-        elif path == 'Stage/yarbo/commonUser/getLatestPubVersion':
-            if not auth_ok: reject_unauthorized(); return
-            resp = {
-                'code': '00000',
-                'data': {'id': 0, 'version': '',
-                         'gmtCreate': one_week_ago * 1000,
-                         'gmtModified': one_week_ago * 1000},
-                'message': 'ok', 'success': True,
-                'timestamp': self.get_timestamp()
+            data = {
+                "userId": server_info.get("userId", "test-user"),
+                "nickname": server_info.get("nickName", "Test User"),
+                "avatar": "",
+                "phone": "",
+                "email": server_info.get("userId", "test-user@example.com"),
+                "country": "",
+                "state": "",
+                "city": "",
+                "address": "",
+                "zipCode": "",
+                "gmtCreate": one_week_ago * 1000,
+                "gmtModified": one_week_ago * 1000,
             }
-            self.send_json_response(200, add_sign_to_response(resp))
+            self._send_json(
+                200,
+                {
+                    "code": "00000",
+                    "success": True,
+                    "timestamp": self._ts(),
+                    "data": data,
+                    "message": "ok",
+                },
+            )
+            return
 
-        elif path == 'Stage/yarbo/robot-service/robot/commonUser/downloadUserAvatar':
-            if not auth_ok: reject_unauthorized(); return
-            resp = {'code': '00000', 'data': {}, 'message': 'ok',
-                    'success': True, 'timestamp': self.get_timestamp()}
-            self.send_json_response(200, add_sign_to_response(resp))
-
-        elif path.startswith('Stage/yarbo/robot/rasterBackground/get'):
-            if not auth_ok: reject_unauthorized(); return
-            resp = {'code': '00000', 'data': {}, 'message': 'ok',
-                    'success': True, 'timestamp': self.get_timestamp()}
-            self.send_json_response(200, add_sign_to_response(resp))
-
-        elif path == 'Stage/yarbo/robot-service/robot/commonUser/getUserDeviceList':
-            if not auth_ok: reject_unauthorized(); return
+        # NEW: getUserRobotBindVos
+        if path == "Stage/yarbo/robot-service/commonUser/userRobotBind/getUserRobotBindVos":
             if not server_info:
-                resp = {
-                    'code': '00000',
-                    'data': [],
-                    'message': 'No testServerInfo.json',
-                    'success': True,
-                    'timestamp': self.get_timestamp()
+                self._send_json(
+                    500,
+                    {
+                        "code": "500",
+                        "data": None,
+                        "message": "Server configuration error",
+                        "success": False,
+                        "timestamp": self._ts(),
+                    },
+                )
+                return
+
+            device_list = [
+                {
+                    "master": 1,
+                    "masterUsername": server_info.get("username", ""),
+                    "masterNickname": server_info.get("nickName", ""),
+                    "serialNum": device["serialNum"],
+                    "headType": device["headType"],
+                    "deviceNickname": device.get("deviceNickname", ""),
+                    "gmtCreate": one_week_ago * 1000,
+                    "gmtModified": one_week_ago * 1000,
                 }
-            else:
-                resp = {
-                    'code': '00000',
-                    'data': server_info.get('deviceList', []),
-                    'message': 'ok',
-                    'success': True,
-                    'timestamp': self.get_timestamp()
-                }
-            self.send_json_response(200, add_sign_to_response(resp))
+                for device in server_info.get("deviceList", [])
+            ]
 
-        elif path.startswith('Stage/yarbo/robot-service/commonUser/getBleDeviceService'):
-            if not auth_ok: reject_unauthorized(); return
-            resp = {'code': '00000', 'data': [], 'message': 'ok',
-                    'success': True, 'timestamp': self.get_timestamp()}
-            self.send_json_response(200, add_sign_to_response(resp))
-
-        elif path.startswith('Stage/yarbo/robot-service/robot/commonUser/getDeviceOnlineStatusBySn'):
-            if not auth_ok: reject_unauthorized(); return
-            resp = {'code': '00000', 'data': [], 'message': 'ok',
-                    'success': True, 'timestamp': self.get_timestamp()}
-            self.send_json_response(200, add_sign_to_response(resp))
-
-        elif path.startswith('Stage/yarbo/robot-service/robot/commonUser/getDeviceFlowBySn'):
-            if not auth_ok: reject_unauthorized(); return
-            resp = {'code': '00000', 'data': [], 'message': 'ok',
-                    'success': True, 'timestamp': self.get_timestamp()}
-            self.send_json_response(200, add_sign_to_response(resp))
-
-        elif path.startswith('Stage/yarbo/robot-service/robot/commonUser/getDeviceBatteryBySn'):
-            if not auth_ok: reject_unauthorized(); return
-            resp = {'code': '00000', 'data': [], 'message': 'ok',
-                    'success': True, 'timestamp': self.get_timestamp()}
-            self.send_json_response(200, add_sign_to_response(resp))
-
-        elif path.startswith('Stage/admin/getUsedFlowBySn'):
-            if not auth_ok: reject_unauthorized(); return
-            resp = {
+            response = {
                 "code": "00000",
-                "data": {"usedFlow": {"roverUsedFlow": "0", "baseUsedFlow": None}},
-                "message": "ok", "success": True,
-                "timestamp": self.get_timestamp()
+                "data": {"deviceList": device_list},
+                "message": "ok",
+                "success": True,
+                "timestamp": self._ts(),
             }
-            self.send_json_response(200, add_sign_to_response(resp))
+            self._send_json(200, response)
+            return
 
-        else:
-            print(f"Unsupported GET: {path}")
-            self.send_json_response(404, add_sign_to_response({
-                'code': '404', 'data': None, 'message': 'Not Found',
-                'success': False, 'timestamp': self.get_timestamp()
-            }))
+        # questionnaire → 403
+        if path == "Stage/yarbo/commonUser/questionnaire":
+            self._send_json(
+                403,
+                {
+                    "code": "403",
+                    "data": None,
+                    "message": "Invalid authorization header",
+                    "success": False,
+                    "timestamp": self._ts(),
+                },
+            )
+            return
+
+        # Other known (empty data)
+        known_get = {
+            "Stage/yarbo/dict/getCommonDictVos": {"data": [], "message": "ok"},
+            "Stage/yarbo/robot-service/commonUser/getCountryList": {"data": [], "message": "ok"},
+            "Stage/yarbo/commonUser/getLatestPubVersion": {
+                "data": {"id": 0, "version": "", "gmtCreate": one_week_ago * 1000, "gmtModified": one_week_ago * 1000},
+                "message": "ok",
+            },
+            "Stage/yarbo/robot-service/robot/commonUser/downloadUserAvatar": {"data": {}, "message": "ok"},
+            "Stage/yarbo/robot/rasterBackground/get": {"data": {}, "message": "ok"},
+            "Stage/yarbo/robot-service/robot/commonUser/getUserDeviceList": {
+                "data": server_info.get("deviceList", []) if server_info else [],
+                "message": "ok",
+            },
+            "Stage/yarbo/robot-service/commonUser/getBleDeviceService": {"data": [], "message": "ok"},
+            "Stage/yarbo/robot-service/robot/commonUser/getDeviceOnlineStatusBySn": {"data": [], "message": "ok"},
+            "Stage/yarbo/robot-service/robot/commonUser/getDeviceFlowBySn": {"data": [], "message": "ok"},
+            "Stage/yarbo/robot-service/robot/commonUser/getDeviceBatteryBySn": {"data": [], "message": "ok"},
+            "Stage/admin/getUsedFlowBySn": {
+                "data": {"usedFlow": {"roverUsedFlow": "0", "baseUsedFlow": None}},
+                "message": "ok",
+            },
+        }
+
+        if path in known_get:
+            base = {"code": "00000", "success": True, "timestamp": self._ts()}
+            base.update(known_get[path])
+            self._send_json(200, base)
+            return
+
+        print(f"Unsupported GET: {path}")
+        self._send_json(
+            404,
+            {
+                "code": "404",
+                "data": None,
+                "message": "Not Found",
+                "success": False,
+                "timestamp": self._ts(),
+            },
+        )
 
     # ------------------------------------------------------------------
     # POST
     # ------------------------------------------------------------------
     def do_POST(self):
-        path = self.path.lstrip('/')
+        path = self.path.lstrip("/")
         client_ip = self.client_address[0]
+        length = int(self.headers.get("Content-Length", 0))
+        body_bytes = self.rfile.read(length) if length else b""
+        body_str = body_bytes.decode("utf-8", errors="replace")
+        try:
+            payload = json.loads(body_str) if body_str else {}
+        except json.JSONDecodeError:
+            payload = {}
 
-        content_length = int(self.headers.get('Content-Length', 0))
-        body_bytes = self.rfile.read(content_length) if content_length > 0 else b''
-        body = body_bytes.decode('utf-8', errors='replace')
-        parsed_json = None
-        if body:
-            try:
-                parsed_json = json.loads(body)
-            except json.JSONDecodeError:
-                parsed_json = None
-
-        if getattr(self, 'show_requests', False):
-            print(f"RECV POST {self.path} from {client_ip}")
+        if self.show_requests:
+            print(f"POST {self.path} from {client_ip}")
             for k, v in self.headers.items():
                 print(f"  {k}: {v}")
-            print(f"  Body: {body}")
+            print(f"  Body: {body_str}")
 
-        stored_token = self.access_tokens.get(client_ip)
-        auth_ok, _, _ = self.auth_matches_or_adopt(
-            client_ip, stored_token, self.headers.get('authorization')
-        )
+        auth_ok, _ = self._auth_check(client_ip, self.headers.get("Authorization"))
 
-        def reject_unauthorized():
-            self.send_json_response(401, add_sign_to_response({
-                'code': '401', 'data': None, 'message': 'Invalid token',
-                'success': False, 'timestamp': self.get_timestamp()
-            }))
-
-        # /dev/app (no auth)
-        if path == 'dev/app':
-            print(f"POST /dev/app from {client_ip}")
+        # /dev/app – no auth
+        if path == "dev/app":
             resp = {
                 "code": "00000",
-                "data": {
-                    "appId": "com.hanyang.yarbo",
-                    "channel": "test",
-                    "config": {}
-                },
+                "data": {"appId": "com.hanyang.yarbo", "channel": "test", "config": {}},
                 "message": "ok",
                 "success": True,
-                "timestamp": self.get_timestamp()
+                "timestamp": self._ts(),
             }
-            self.send_json_response(200, add_sign_to_response(resp))
+            self._send_json(200, resp)
             return
 
-        # ------------------- /login ---------------------------------
-        if path == 'Stage/yarbo/robot-service/robot/commonUser/login':
-            print(f"POST login: {client_ip}")
-            try:
-                data = parsed_json or json.loads(body or "{}")
-            except Exception:
-                data = {}
-
-            username = data.get('username') or 'test-user'
-            password = data.get('password')
-
+        # login → local JWT
+        if path == "Stage/yarbo/robot-service/robot/commonUser/login":
+            username = payload.get("username") or "test-user"
+            password = payload.get("password")
             if not username or not password:
-                self.send_json_response(400, add_sign_to_response({
-                    'code': '400',
-                    'data': None,
-                    'message': 'Missing username or password',
-                    'success': False,
-                    'timestamp': self.get_timestamp()
-                }))
+                self._send_json(
+                    400,
+                    {
+                        "code": "400",
+                        "data": None,
+                        "message": "Missing username or password",
+                        "success": False,
+                        "timestamp": self._ts(),
+                    },
+                )
                 return
-
-            server_info = self.load_test_server_info() or {}
-            login_resp = server_info.get('loginResponse')  # full JSON from real server
-
-            #
-            # If --realLogin and no cached login yet → proxy ONCE to real cloud
-            #
-            if getattr(self, 'real_login', False) and login_resp is None:
-                try:
-                    real_url = REAL_LOGIN_BASE.rstrip('/') + '/' + path
-                    print(f"Proxying real login to {real_url}")
-
-                    real_headers = {
-                        'Content-Type': self.headers.get('Content-Type', 'application/json')
-                    }
-                    real_resp = requests.post(
-                        real_url,
-                        data=body_bytes,
-                        headers=real_headers,
-                        timeout=15
-                    )
-                    status_code = real_resp.status_code
-                    real_json = real_resp.json()
-
-                    if status_code != 200 or real_json.get('code') != '00000':
-                        print(f"Real login failed: status={status_code}, body={real_json}")
-                        # Just forward the failure as-is
-                        self.send_json_response(status_code, real_json)
-                        return
-
-                    data_section = real_json.get('data') or {}
-                    if not data_section.get('accessToken'):
-                        print(f"Real login missing accessToken: {real_json}")
-                        self.send_json_response(status_code, real_json)
-                        return
-
-                    # Cache full response and data
-                    server_info['loginResponse'] = real_json
-                    server_info['loginData'] = data_section
-                    server_info['userId'] = data_section.get('userId', username)
-                    self.save_test_server_info(server_info)
-                    login_resp = real_json
-                    print("Captured real login response into testServerInfo.json")
-
-                except Exception as e:
-                    print(f"Error proxying real login: {e}")
-                    self.send_json_response(500, add_sign_to_response({
-                        'code': '500',
-                        'data': None,
-                        'message': f'Error proxying real login: {e}',
-                        'success': False,
-                        'timestamp': self.get_timestamp()
-                    }))
-                    return
-
-            #
-            # If we still don't have a cached loginResponse at this point
-            # AND realLogin is not active → tell user to run with --realLogin once.
-            #
-            if login_resp is None:
-                self.send_json_response(500, add_sign_to_response({
-                    'code': '500',
-                    'data': None,
-                    'message': 'No cached loginResponse. Start server once with --realLogin to capture real tokens.',
-                    'success': False,
-                    'timestamp': self.get_timestamp()
-                }))
-                return
-
-            # Use cached full response unchanged – "pass through the same values"
-            data_section = login_resp.get('data') or {}
-            access_token = data_section.get('accessToken', '')
-            if not access_token:
-                self.send_json_response(500, add_sign_to_response({
-                    'code': '500',
-                    'data': None,
-                    'message': 'Cached loginResponse missing accessToken.',
-                    'success': False,
-                    'timestamp': self.get_timestamp()
-                }))
-                return
-
-            # Track token per client IP for later auth checks
-            self.access_tokens[client_ip] = access_token
-            self.user_ids[client_ip] = data_section.get('userId', username)
-
-            # IMPORTANT: do NOT re-sign or rebuild; just send as-is
-            self.send_json_response(200, login_resp)
-            return
-
-        # ------------------- /refreshToken ---------------------------
-        if path == 'Stage/yarbo/robot-service/robot/commonUser/refreshToken':
-            print(f"POST refreshToken: {client_ip}")
-            try:
-                data = parsed_json or json.loads(body or "{}")
-            except Exception:
-                data = {}
-
-            incoming_refresh = (
-                data.get('refresh_token')
-                or data.get('refreshToken')
-                or secrets.token_hex(91)
-            )
 
             iat = int(time.time())
             exp = iat + 30 * 24 * 60 * 60
-            username = self.user_ids.get(client_ip, 'test-user')
-
-            payload = {
-                'userId': username,
-                'permissionGroup': '',
-                'https://auth0.yarbo.com/roles': [],
-                'https://auth0.yarbo.com/email': username,
-                'iss': 'https://dev-6ubfuqym1d3m0mq1.us.auth0.com/',
-                'sub': 'auth0|67e9930075b689b7db2688df',
-                'aud': [
-                    'https://auth0-jwt-authorizer',
-                    'https://dev-6ubfuqym1d3m0mq1.us.auth0.com/userinfo'
-                ],
-                'iat': iat,
-                'exp': exp,
-                'scope': 'openid profile offline_access',
-                'gty': 'refresh_token',
-                'azp': 'SL1GSNy3VmCLTMl01qPkwqjY4xm66i0',
-                'permissions': []
+            jwt_payload = {
+                "sub": username,
+                "iat": iat,
+                "exp": exp,
+                "scope": "openid profile offline_access",
             }
+            access_token = create_jwt(jwt_payload)
+            refresh_token = secrets.token_hex(32)
 
-            access_token = create_jwt(payload, iat, exp)
             self.access_tokens[client_ip] = access_token
             self.user_ids[client_ip] = username
 
             resp = {
-                'code': '00000',
-                'data': {
-                    'accessToken': access_token,
-                    'refreshToken': incoming_refresh,
-                    'expiresIn': 2592000,
-                    'jti': '',
-                    'snList': [],
-                    'userId': username
+                "code": "00000",
+                "data": {
+                    "accessToken": access_token,
+                    "refreshToken": refresh_token,
+                    "expiresIn": 2592000,
+                    "jti": "",
+                    "snList": [],
+                    "userId": username,
                 },
-                'message': 'ok',
-                'success': True,
-                'timestamp': self.get_timestamp()
-            }
-            self.send_json_response(200, add_sign_to_response(resp))
-            return
-
-        # ------------------- /getAgoraToken -------------------------
-        if path == 'Stage/yarbo/robot-service/robot/commonUser/getAgoraToken':
-            if not auth_ok: reject_unauthorized(); return
-            if not parsed_json or not all(k in parsed_json for k in ['uid', 'channel_name', 'sn']):
-                self.send_json_response(400, add_sign_to_response({
-                    'code': '400', 'data': None,
-                    'message': 'Missing uid/channel_name/sn',
-                    'success': False, 'timestamp': self.get_timestamp()
-                }))
-                return
-
-            sn = parsed_json['sn']
-            uid = parsed_json['uid']
-            channel = parsed_json['channel_name']
-            update_key = parsed_json.get('update_key', False)
-            server_info = self.load_test_server_info()
-            if not server_info or not any(d.get('serialNum') == sn for d in server_info.get('deviceList', [])):
-                self.send_json_response(400, add_sign_to_response({
-                    'code': '400', 'data': None,
-                    'message': f"Invalid serialNum: {sn}",
-                    'success': False, 'timestamp': self.get_timestamp()
-                }))
-                return
-
-            if sn in _agora_tokens and not update_key:
-                agora_data = _agora_tokens[sn]
-            else:
-                app_id = '4zx17x5q7l'
-                app_cert = '0123456789abcdef0123456789abcdef'
-                agora_data = generate_agora_token(app_id, app_cert, channel, uid)
-                _agora_tokens[sn] = agora_data
-
-            resp = {
-                'code': '00000', 'data': agora_data,
-                'message': 'success', 'success': True,
-                'timestamp': self.get_timestamp()
-            }
-            self.send_json_response(200, add_sign_to_response(resp))
-            return
-
-        # ------------------- other known POSTs ----------------------
-        if path == 'Stage/yarbo/robot-service/commonUser/notification/getNotificationVos':
-            if not auth_ok: reject_unauthorized(); return
-            resp = {'code': '00000', 'data': {}, 'message': 'ok',
-                    'success': True, 'timestamp': self.get_timestamp()}
-            self.send_json_response(200, add_sign_to_response(resp))
-            return
-
-        if path == 'Stage/yarbo/robot-service/robot/commonUser/logout':
-            if not auth_ok: reject_unauthorized(); return
-            self.access_tokens.pop(client_ip, None)
-            resp = {'code': '00000', 'data': None, 'message': 'ok',
-                    'success': True, 'timestamp': self.get_timestamp()}
-            self.send_json_response(200, add_sign_to_response(resp))
-            return
-
-        if path == 'Stage/admin/listPlanHistoryBySn':
-            if not auth_ok: reject_unauthorized(); return
-            resp = {
-                "code": "00000",
-                "data": {"planHistory": []},
-                "success": True,
                 "message": "ok",
-                "timestamp": self.get_timestamp()
+                "success": True,
+                "timestamp": self._ts(),
             }
-            self.send_json_response(200, add_sign_to_response(resp))
+            self._send_json(200, resp)
             return
 
-        # ------------------- /dev/iot (telemetry/logging) -------------------
-        if path == 'dev/iot':
-            # This is just telemetry from the app; we don't need to do anything
-            # with it other than return success so the client doesn't see errors.
-            try:
-                logs = parsed_json or json.loads(body or "[]")
-            except Exception:
-                logs = []
-
-            # Optional: print a compact summary when showRequests is on
-            if getattr(self, 'show_requests', False):
-                try:
-                    print(f"Received /dev/iot telemetry ({len(logs)} entries)")
-                except Exception:
-                    pass
+        # refreshToken
+        if path == "Stage/yarbo/robot-service/robot/commonUser/refreshToken":
+            username = self.user_ids.get(client_ip, "test-user")
+            iat = int(time.time())
+            exp = iat + 30 * 24 * 60 * 60
+            jwt_payload = {
+                "sub": username,
+                "iat": iat,
+                "exp": exp,
+                "scope": "openid profile offline_access",
+            }
+            access_token = create_jwt(jwt_payload)
+            self.access_tokens[client_ip] = access_token
 
             resp = {
                 "code": "00000",
+                "data": {
+                    "accessToken": access_token,
+                    "refreshToken": payload.get("refreshToken") or secrets.token_hex(32),
+                    "expiresIn": 2592000,
+                    "jti": "",
+                    "snList": [],
+                    "userId": username,
+                },
+                "message": "ok",
+                "success": True,
+                "timestamp": self._ts(),
+            }
+            self._send_json(200, resp)
+            return
+
+        # getAgoraToken
+        if path == "Stage/yarbo/robot-service/robot/commonUser/getAgoraToken":
+            if not auth_ok:
+                self.reject_unauthorized()
+                return
+            if not all(k in payload for k in ("uid", "channel_name", "sn")):
+                self._send_json(
+                    400,
+                    {
+                        "code": "400",
+                        "data": None,
+                        "message": "Missing uid/channel_name/sn",
+                        "success": False,
+                        "timestamp": self._ts(),
+                    },
+                )
+                return
+
+            sn = payload["sn"]
+            uid = str(payload["uid"])
+            channel = payload["channel_name"]
+            update = payload.get("update_key", False)
+
+            info = self._load_info()
+            if not any(d.get("serialNum") == sn for d in info.get("deviceList", [])):
+                self._send_json(
+                    400,
+                    {
+                        "code": "400",
+                        "data": None,
+                        "message": f"Invalid serialNum: {sn}",
+                        "success": False,
+                        "timestamp": self._ts(),
+                    },
+                )
+                return
+
+            if sn in _agora_tokens and not update:
+                agora = _agora_tokens[sn]
+            else:
+                agora = generate_agora_token(
+                    "4zx17x5q7l",
+                    "0123456789abcdef0123456789abcdef",
+                    channel,
+                    uid,
+                )
+                _agora_tokens[sn] = agora
+
+            resp = {
+                "code": "00000",
+                "data": agora,
+                "message": "success",
+                "success": True,
+                "timestamp": self._ts(),
+            }
+            self._send_json(200, resp)
+            return
+
+        # Known POSTs
+        known = {
+            "Stage/yarbo/robot-service/commonUser/notification/getNotificationVos": {
+                "data": {},
+                "message": "ok",
+            },
+            "Stage/yarbo/robot-service/commonUser/userRobotBind/getUserRobotBindVos": {
+                "data": {"records": [], "total": 0},
+                "message": "ok",
+            },
+            "Stage/yarbo/robot-service/robot/commonUser/logout": {
                 "data": None,
                 "message": "ok",
-                "success": True,
-                "timestamp": self.get_timestamp()
-            }
-            self.send_json_response(200, add_sign_to_response(resp))
+            },
+            "Stage/admin/listPlanHistoryBySn": {
+                "data": {"planHistory": []},
+                "message": "ok",
+            },
+            "dev/iot": {"data": None, "message": "ok"},
+        }
+
+        if path in known:
+            if path != "dev/iot" and not auth_ok:
+                self.reject_unauthorized()
+                return
+            if path == "Stage/yarbo/robot-service/robot/commonUser/logout":
+                self.access_tokens.pop(client_ip, None)
+            resp = {"code": "00000", "success": True, "timestamp": self._ts()}
+            resp.update(known[path])
+            self._send_json(200, resp)
             return
 
-        # ------------------- fallback -------------------------------
         print(f"Unsupported POST: {path}")
-        self.send_json_response(404, add_sign_to_response({
-            'code': '404', 'data': None, 'message': 'Not Found',
-            'success': False, 'timestamp': self.get_timestamp()
-        }))
+        self._send_json(
+            404,
+            {
+                "code": "404",
+                "data": None,
+                "message": "Not Found",
+                "success": False,
+                "timestamp": self._ts(),
+            },
+        )
 
-    # ------------------------------------------------------------------
-    # Unsupported methods
-    # ------------------------------------------------------------------
-    def do_HEAD(self):   self._method_not_allowed()
-    def do_PUT(self):    self._method_not_allowed()
-    def do_DELETE(self): self._method_not_allowed()
-    def do_PATCH(self):  self._method_not_allowed()
-    def do_OPTIONS(self):self._method_not_allowed()
-
-    def _method_not_allowed(self):
-        self.send_json_response(405, add_sign_to_response({
-            'code': '405', 'data': None,
-            'message': 'Method Not Allowed',
-            'success': False, 'timestamp': self.get_timestamp()
-        }))
 
 # ----------------------------------------------------------------------
-# TLS-aware server
+# TLS Server
 # ----------------------------------------------------------------------
 class TLSServer(socketserver.ThreadingTCPServer):
-    def __init__(self, server_address, RequestHandlerClass):
-        super().__init__(server_address, RequestHandlerClass)
+    allow_reuse_address = True
+
+    def __init__(self, server_address, handler):
+        super().__init__(server_address, handler)
         self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 
     def get_request(self):
-        client_socket, client_address = self.socket.accept()
-        print(f"TLS connection attempt from {client_address[0]}:{client_address[1]}")
+        sock, addr = self.socket.accept()
+        print(f"TLS attempt {addr[0]}:{addr[1]}")
         try:
-            ssl_socket = self.ssl_context.wrap_socket(client_socket, server_side=True)
-            ver = ssl_socket.version() or "?"
-            cip = ssl_socket.cipher()[0] if ssl_socket.cipher() else "?"
+            ssl_sock = self.ssl_context.wrap_socket(sock, server_side=True)
+            ver = ssl_sock.version() or "?"
+            cip = ssl_sock.cipher()[0] if ssl_sock.cipher() else "?"
             print(f"TLS OK – {ver} {cip}")
-            return ssl_socket, client_address
+            return ssl_sock, addr
+        except ssl.SSLEOFError:
+            sock.close()
+            raise
         except Exception as e:
             print(f"TLS failed: {e}")
-            client_socket.close()
+            sock.close()
             raise
 
+
 # ----------------------------------------------------------------------
-# Main entry point
+# Main
 # ----------------------------------------------------------------------
 def main():
-    parser = argparse.ArgumentParser(description='Yarbo test API server (TLS + sign + optional real login capture)')
-    parser.add_argument('--host', default='localhost')
-    parser.add_argument('--port', type=int, default=8081)
-    parser.add_argument('--cert', default='CA/server.crt')
-    parser.add_argument('--key',  default='CA/server.key')
-    parser.add_argument('--tls-version', default='TLSv1.3', choices=['TLSv1.2', 'TLSv1.3'])
-    parser.add_argument('--showResponses', action='store_true')
-    parser.add_argument('--showRequests', action='store_true')
-    parser.add_argument('--realLogin', action='store_true',
-                        help='On first /login, proxy to real Yarbo cloud, capture tokens into testServerInfo.json, then use cached tokens thereafter.')
+    parser = argparse.ArgumentParser(
+        description="Yarbo local TLS test server – RSA-signed + local JWTs"
+    )
+    parser.add_argument("--host", default="localhost")
+    parser.add_argument("--port", type=int, default=8081)
+    parser.add_argument("--cert", default="CA/server.crt", help="TLS server certificate")
+    parser.add_argument("--key", default="CA/server.key", help="TLS server private key")
+    parser.add_argument(
+        "--tls-version",
+        default="TLSv1.3",
+        choices=["TLSv1.2", "TLSv1.3"],
+        help="Minimum TLS version",
+    )
+    parser.add_argument(
+        "--rsa-dir",
+        default="custom",
+        help="Directory containing rsa_private_key.pem and rsa_public_key.pem",
+    )
+    parser.add_argument("--showRequests", action="store_true")
+    parser.add_argument("--showResponses", action="store_true")
+
     args = parser.parse_args()
 
-    YarboRequestHandler.show_responses = args.showResponses
-    YarboRequestHandler.show_requests = args.showRequests
-    YarboRequestHandler.real_login = args.realLogin
+    global _RSA_DIR
+    _RSA_DIR = args.rsa_dir
 
+    YarboRequestHandler.show_requests = args.showRequests
+    YarboRequestHandler.show_responses = args.showResponses
+
+    # Validate TLS files
     for f in (args.cert, args.key):
-        if not os.path.exists(f):
-            print(f"Missing required file: {f}")
+        if not os.path.isfile(f):
+            print(f"ERROR: Missing TLS file: {f}")
             sys.exit(1)
 
+    # Validate RSA keys
+    try:
+        _load_rsa_keys()
+        print(f"RSA keys loaded from: {_RSA_DIR}")
+    except Exception as e:
+        print(f"ERROR: Failed to load RSA keys: {e}")
+        sys.exit(1)
+
+    # TLS context
     ctx = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
-    ctx.minimum_version = ssl.TLSVersion.TLSv1_3 if args.tls_version == 'TLSv1.3' else ssl.TLSVersion.TLSv1_2
+    ctx.minimum_version = (
+        ssl.TLSVersion.TLSv1_3 if args.tls_version == "TLSv1.3" else ssl.TLSVersion.TLSv1_2
+    )
     ctx.load_cert_chain(certfile=args.cert, keyfile=args.key)
 
-    server_address = (args.host, args.port)
-    httpd = TLSServer(server_address, YarboRequestHandler)
+    # Start server
+    httpd = TLSServer((args.host, args.port), YarboRequestHandler)
     httpd.ssl_context = ctx
 
-    print(f"Yarbo test server running on https://{args.host}:{args.port}")
-    print("Certificates:")
-    print(f"  cert: {args.cert}")
-    print(f"  key : {args.key}")
-    print("\nFlags:")
-    print(f"  --realLogin     : {args.realLogin}")
-    print(f"  --showRequests  : {args.showRequests}")
-    print(f"  --showResponses : {args.showResponses}")
-    print("\nNotes:")
-    print("  • First run with --realLogin to capture real access/refresh tokens into testServerInfo.json")
-    print("  • Later runs can omit --realLogin and will reuse cached tokens\n")
+    print(f"\nYarbo test server → https://{args.host}:{args.port}")
+    print(f"  TLS cert: {args.cert}")
+    print(f"  TLS key : {args.key}")
+    print(f"  RSA dir : {_RSA_DIR}")
+    print(f"  Logging : requests={'ON' if args.showRequests else 'off'}, responses={'ON' if args.showResponses else 'off'}\n")
 
     try:
         httpd.serve_forever()
@@ -809,6 +710,6 @@ def main():
     finally:
         httpd.server_close()
 
-if __name__ == '__main__':
-    main()
 
+if __name__ == "__main__":
+    main()

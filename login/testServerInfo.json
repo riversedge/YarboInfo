@@ -1,7 +1,7 @@
 {
-  "userId": "wewright@wesleyacoustics.com",
-  "username": "wewright@wesleyacoustics.com",
-  "nickName": "Test User",
+  "userId": "big@security.hole",
+  "username": "big@security.hole",
+  "nickName": "SecHole",
   "deviceList": [
     {
       "serialNum": "25070102ATHDG219",
@@ -13,28 +13,5 @@
       "headType": 4,
       "deviceNickname": "Fake Yarbo 2"
     }
-  ],
-  "loginData": {
-    "accessToken": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InhBWk5uNC1aVy10NGhCTzhwM1lETyJ9.eyJ1c2VySWQiOiJhdXRoMHw2N2U5OTMwMDc1YjY4OWI3ZGIyNjg4ZGYiLCJwZXJtaXNzaW9uR3JvdXAiOiIiLCJodHRwczovL2F1dGgwLnlhcmJvLmNvbS9yb2xlcyI6W10sImh0dHBzOi8vYXV0aDAueWFyYm8uY29tL2VtYWlsIjoid2V3cmlnaHRAd2VzbGV5YWNvdXN0aWNzLmNvbSIsImlzcyI6Imh0dHBzOi8vZGV2LTZ1YmZ1cXltMWQzbTBtcTEudXMuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDY3ZTk5MzAwNzViNjg5YjdkYjI2ODhkZiIsImF1ZCI6WyJodHRwczovL2F1dGgwLWp3dC1hdXRob3JpemVyIiwiaHR0cHM6Ly9kZXYtNnViZnVxeW0xZDNtMG1xMS51cy5hdXRoMC5jb20vdXNlcmluZm8iXSwiaWF0IjoxNzYzMDY4MjIyLCJleHAiOjE3NjU2NjAyMjIsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgb2ZmbGluZV9hY2Nlc3MiLCJndHkiOiJwYXNzd29yZCIsImF6cCI6IlNMMUdTTnkzVm1DTFRNTDAxcVBrd3FqZ1k0eG02NmkwIiwicGVybWlzc2lvbnMiOltdfQ.sgQ_qdHSrOiNW24kEmSvU9EZ-9T3XuzYlmMFZRDjpGez7hW6Af45RxDuDPQ92LIqzIkPw5z5BYXclzUgtVlO_qyF2Gy51PrkDXlwh06atZOQcl_noXYheV1-VYAQ9Pmpv-2WYGkontnyRPF4QVMsz7U8BPlWlFTbJld7SIK4iFkVAj0GV2Cs7_HvGL8qs3TZnrbSXhgdrVQDqaaSsJSf9OBOzoZLuWfq-DWLgCW2-BczEugQcO22CxLBER8vNKU2zvtrSH_iKhXiXVD6PGWMHLILH4jowpS0s2uhGk8M2Kvo0L5eRYLrZcd-VOqZDiYxuHK5eIdvV2a1V-DhTaVv8g",
-    "expiresIn": 2592000,
-    "jti": "",
-    "refreshToken": "v1.MVXdc8MUIVHWzlVlLjDHmIDjUo8DXSzqaPfaxzg-BA0mWNEhxypmhUmI4980Y6ZSU9ec89FY5PqwVXaG2AaHl9M",
-    "snList": [],
-    "userId": "wewright@wesleyacoustics.com"
-  },
-  "loginResponse": {
-    "code": "00000",
-    "data": {
-      "accessToken": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InhBWk5uNC1aVy10NGhCTzhwM1lETyJ9.eyJ1c2VySWQiOiJhdXRoMHw2N2U5OTMwMDc1YjY4OWI3ZGIyNjg4ZGYiLCJwZXJtaXNzaW9uR3JvdXAiOiIiLCJodHRwczovL2F1dGgwLnlhcmJvLmNvbS9yb2xlcyI6W10sImh0dHBzOi8vYXV0aDAueWFyYm8uY29tL2VtYWlsIjoid2V3cmlnaHRAd2VzbGV5YWNvdXN0aWNzLmNvbSIsImlzcyI6Imh0dHBzOi8vZGV2LTZ1YmZ1cXltMWQzbTBtcTEudXMuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDY3ZTk5MzAwNzViNjg5YjdkYjI2ODhkZiIsImF1ZCI6WyJodHRwczovL2F1dGgwLWp3dC1hdXRob3JpemVyIiwiaHR0cHM6Ly9kZXYtNnViZnVxeW0xZDNtMG1xMS51cy5hdXRoMC5jb20vdXNlcmluZm8iXSwiaWF0IjoxNzYzMDY4MjIyLCJleHAiOjE3NjU2NjAyMjIsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgb2ZmbGluZV9hY2Nlc3MiLCJndHkiOiJwYXNzd29yZCIsImF6cCI6IlNMMUdTTnkzVm1DTFRNTDAxcVBrd3FqZ1k0eG02NmkwIiwicGVybWlzc2lvbnMiOltdfQ.sgQ_qdHSrOiNW24kEmSvU9EZ-9T3XuzYlmMFZRDjpGez7hW6Af45RxDuDPQ92LIqzIkPw5z5BYXclzUgtVlO_qyF2Gy51PrkDXlwh06atZOQcl_noXYheV1-VYAQ9Pmpv-2WYGkontnyRPF4QVMsz7U8BPlWlFTbJld7SIK4iFkVAj0GV2Cs7_HvGL8qs3TZnrbSXhgdrVQDqaaSsJSf9OBOzoZLuWfq-DWLgCW2-BczEugQcO22CxLBER8vNKU2zvtrSH_iKhXiXVD6PGWMHLILH4jowpS0s2uhGk8M2Kvo0L5eRYLrZcd-VOqZDiYxuHK5eIdvV2a1V-DhTaVv8g",
-      "expiresIn": 2592000,
-      "jti": "",
-      "refreshToken": "v1.MVXdc8MUIVHWzlVlLjDHmIDjUo8DXSzqaPfaxzg-BA0mWNEhxypmhUmI4980Y6ZSU9ec89FY5PqwVXaG2AaHl9M",
-      "snList": [],
-      "userId": "wewright@wesleyacoustics.com"
-    },
-    "sign": "CAcL34YBTbDXo3bc0rMKtH4qayUOLakPcyiYLIh3VT4xCT1r2cbubrkosANRfiz3oSkvEy9LavKaEaqzssorXLWFrNrIHpRQvMtI0CaRoW5uO9/uj3nbRizINZO/ebmRW7qktFKMBqFPwun6HqN9Y+cookayg8L/6+uAKRk8xenTiwNWXTUZSEFNZS+N99fpMzvztL3oxiGXxothiYj1Xu1rCfgEBkXeLhiKovo/1ElW6+/tB23EytvgUCPvMH9RYlqzOH4P/GbMxx+euIdgRQ3RcnTAdInPVnS0xI1PSeJEVCOmUosp9zBO0fZSQhCgNDpXe059RwRYsaq82gDYIA==",
-    "message": "ok",
-    "success": true,
-    "timestamp": 1763068222652
-  }
+  ]
 }
