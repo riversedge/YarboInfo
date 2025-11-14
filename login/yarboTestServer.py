@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 """
-yarboTestServer.py – complete test server for the Yarbo mobile app
+yarboTestServer.py – test server for the Yarbo mobile app
 
 New in this version
 -------------------
-* GET /store/apps/details?id=com.hanyang.yarbo → static Play-Store JSON + sign
-* All other endpoints unchanged (JWT, /dev/app, Agora, device list, TLS, …)
+* --realLogin: On first /login, proxy to real Yarbo cloud, capture tokens into
+  testServerInfo.json, then reuse cached tokens for all later logins.
+* --showRequests: log incoming requests (method, path, headers, body).
 """
 
 import argparse
@@ -21,6 +22,7 @@ import sys
 import socket
 import base64
 import hashlib
+import requests  # used when --realLogin is enabled
 from cryptography.hazmat.primitives import hashes, serialization
 from cryptography.hazmat.primitives.asymmetric import rsa, padding
 from agora_token_builder import RtcTokenBuilder
@@ -33,11 +35,13 @@ _rsa_public_pem = None
 _agora_tokens = {}                     # serialNum → {token, key, salt}
 SIGN_SECRET = "Yarbo@2023"             # verified from production traffic
 
+# Real AWS base for login passthrough when --realLogin is used
+REAL_LOGIN_BASE = "https://4zx17x5q7l.execute-api.us-east-1.amazonaws.com"
+
 # ----------------------------------------------------------------------
 # JWT helpers
 # ----------------------------------------------------------------------
 def _base64url_encode(data: bytes) -> str:
-    import base64
     return base64.urlsafe_b64encode(data).rstrip(b'=').decode('ascii')
 
 
@@ -80,7 +84,6 @@ def generate_agora_token(app_id: str, app_certificate: str, channel_name: str, u
     role = 1  # publisher
     expire_seconds = 3600
 
-    # RtcTokenBuilder requires integer uid; if we get a non-int, hash it
     try:
         uid_int = int(uid)
     except ValueError:
@@ -90,15 +93,13 @@ def generate_agora_token(app_id: str, app_certificate: str, channel_name: str, u
         app_id, app_certificate, channel_name, uid_int, role, expire_seconds
     )
 
-    # The app expects: { "token": "...", "key": "...", "salt": "..." }
-    # Here we fabricate key/salt just for structure.
     key = secrets.token_hex(16)
     combined = f"{channel_name}:{uid}:{key}"
     salt = base64.b64encode(combined.encode()).decode()
     return {"token": token, "key": key, "salt": salt}
 
 # ----------------------------------------------------------------------
-# Response signing (real Yarbo algorithm)
+# Response signing
 # ----------------------------------------------------------------------
 def add_sign_to_response(response: dict) -> dict:
     """Add `sign` only to successful responses."""
@@ -115,7 +116,7 @@ def add_sign_to_response(response: dict) -> dict:
     return response
 
 # ----------------------------------------------------------------------
-# Static Play-Store JSON (minimal but structurally correct)
+# Static Play-Store JSON
 # ----------------------------------------------------------------------
 _PLAY_STORE_JSON = {
     "code": "00000",
@@ -133,7 +134,7 @@ _PLAY_STORE_JSON = {
     },
     "message": "ok",
     "success": True,
-    "timestamp": 0   # will be replaced with real timestamp
+    "timestamp": 0   # overwritten at runtime
 }
 
 # ----------------------------------------------------------------------
@@ -142,6 +143,7 @@ _PLAY_STORE_JSON = {
 class YarboRequestHandler(http.server.BaseHTTPRequestHandler):
     show_responses = False
     show_requests = False
+    real_login = False
     access_tokens = {}                     # client_ip → current Bearer token
     user_ids = {}                          # client_ip → last logged-in username
 
@@ -149,7 +151,7 @@ class YarboRequestHandler(http.server.BaseHTTPRequestHandler):
     # Helpers
     # ------------------------------------------------------------------
     def log_message(self, format, *args):
-        # Silence default HTTP server logging; we use custom prints
+        # Silence default logging
         return
 
     def get_timestamp(self):
@@ -162,18 +164,25 @@ class YarboRequestHandler(http.server.BaseHTTPRequestHandler):
         try:
             with open('testServerInfo.json', 'r', encoding='utf-8') as f:
                 return json.load(f)
+        except FileNotFoundError:
+            return None
         except Exception as e:
             print(f"Error loading testServerInfo.json: {e}")
             return None
+
+    def save_test_server_info(self, info: dict):
+        try:
+            with open('testServerInfo.json', 'w', encoding='utf-8') as f:
+                json.dump(info, f, indent=2)
+        except Exception as e:
+            print(f"Error saving testServerInfo.json: {e}")
 
     # ------------------------------------------------------------------
     # Auth helpers
     # ------------------------------------------------------------------
     def auth_matches_or_adopt(self, client_ip, stored_token, auth_header):
         """
-        Emulate actual Yarbo behavior:
-
-        * If there is no stored token for this IP, we adopt the first valid Bearer token.
+        * If there is no stored token for this IP, adopt the first valid Bearer token.
         * After that, the incoming token must match exactly.
         * If header is malformed or missing → unauthorized.
         """
@@ -183,13 +192,11 @@ class YarboRequestHandler(http.server.BaseHTTPRequestHandler):
         if not incoming:
             return False, stored_token, "Bearer None"
 
-        # First token from this IP → adopt it
         if stored_token is None or str(stored_token).strip().lower() in ("none", "", "null"):
             self.access_tokens[client_ip] = incoming
             print(f"WARNING: Adopted new token for {client_ip}: {incoming[:10]}...")
             return True, incoming, f"Bearer {incoming}"
 
-        # Must match exactly afterwards
         if stored_token != incoming:
             print(f"Token mismatch for {client_ip}: stored={stored_token[:10]}..., incoming={incoming[:10]}...")
             return False, stored_token, f"Bearer {stored_token}"
@@ -235,19 +242,14 @@ class YarboRequestHandler(http.server.BaseHTTPRequestHandler):
             for k, v in self.headers.items():
                 print(f"  {k}: {v}")
 
-        # ------------------------------------------------------------------
-        # Play-Store lookup – **NO AUTH REQUIRED**
-        # ------------------------------------------------------------------
+        # Play-Store lookup (no auth)
         if path.startswith('store/apps/details?id=com.hanyang.yarbo'):
             print(f"GET Play-Store lookup from {client_ip}")
-            resp = json.loads(json.dumps(_PLAY_STORE_JSON))   # deep copy
+            resp = json.loads(json.dumps(_PLAY_STORE_JSON))
             resp["timestamp"] = self.get_timestamp()
             self.send_json_response(200, add_sign_to_response(resp))
             return
 
-        # ------------------------------------------------------------------
-        # All other GETs need a token (except the one above)
-        # ------------------------------------------------------------------
         auth_ok, _, _ = self.auth_matches_or_adopt(
             client_ip, stored_token, self.headers.get('authorization')
         )
@@ -261,7 +263,6 @@ class YarboRequestHandler(http.server.BaseHTTPRequestHandler):
         server_info = self.load_test_server_info()
         one_week_ago = self.get_one_week_ago()
 
-        # ------------------- Known endpoints -------------------
         if path == 'Stage/app/getPolicyKey':
             resp = {
                 'code': '00000',
@@ -274,27 +275,17 @@ class YarboRequestHandler(http.server.BaseHTTPRequestHandler):
 
         elif path == 'Stage/yarbo/dict/getCommonDictVos':
             if not auth_ok: reject_unauthorized(); return
-            resp = {
-                'code': '00000',
-                'data': [],
-                'message': 'ok',
-                'success': True,
-                'timestamp': self.get_timestamp()
-            }
+            resp = {'code': '00000', 'data': [], 'message': 'ok',
+                    'success': True, 'timestamp': self.get_timestamp()}
             self.send_json_response(200, add_sign_to_response(resp))
 
         elif path == 'Stage/yarbo/robot-service/commonUser/getCountryList':
             if not auth_ok: reject_unauthorized(); return
-            resp = {
-                'code': '00000',
-                'data': [],
-                'message': 'ok',
-                'success': True,
-                'timestamp': self.get_timestamp()
-            }
+            resp = {'code': '00000', 'data': [], 'message': 'ok',
+                    'success': True, 'timestamp': self.get_timestamp()}
             self.send_json_response(200, add_sign_to_response(resp))
 
-        elif path == 'Stage/yarbo/robot-service/robot/commonUser/getUserInfo':
+        elif path == 'Stage/yarbo/robot-service/robot/commonUser/getUesrInfo':
             if not auth_ok: reject_unauthorized(); return
             if not server_info:
                 resp = {
@@ -307,14 +298,18 @@ class YarboRequestHandler(http.server.BaseHTTPRequestHandler):
                 resp = {
                     'code': '00000',
                     'data': {
-                        'userId': server_info['userId'],
+                        'userId': server_info.get('userId', 'test-user'),
                         'nickname': server_info.get('nickname', 'Test User'),
                         'avatar': '',
-                        'phone': '', 'email': server_info['userId'],
-                        'country': '', 'state': '', 'city': '', 'address': '', 'zipCode': '',
+                        'phone': '',
+                        'email': server_info.get('userId', 'test-user@example.com'),
+                        'country': '', 'state': '', 'city': '',
+                        'address': '', 'zipCode': '',
                         'gmtCreate': one_week_ago * 1000,
                         'gmtModified': one_week_ago * 1000
-                    }, 'message': 'ok', 'success': True,
+                    },
+                    'message': 'ok',
+                    'success': True,
                     'timestamp': self.get_timestamp()
                 }
             self.send_json_response(200, add_sign_to_response(resp))
@@ -365,46 +360,26 @@ class YarboRequestHandler(http.server.BaseHTTPRequestHandler):
 
         elif path.startswith('Stage/yarbo/robot-service/commonUser/getBleDeviceService'):
             if not auth_ok: reject_unauthorized(); return
-            resp = {
-                'code': '00000',
-                'data': [],
-                'message': 'ok',
-                'success': True,
-                'timestamp': self.get_timestamp()
-            }
+            resp = {'code': '00000', 'data': [], 'message': 'ok',
+                    'success': True, 'timestamp': self.get_timestamp()}
             self.send_json_response(200, add_sign_to_response(resp))
 
         elif path.startswith('Stage/yarbo/robot-service/robot/commonUser/getDeviceOnlineStatusBySn'):
             if not auth_ok: reject_unauthorized(); return
-            resp = {
-                'code': '00000',
-                'data': [],
-                'message': 'ok',
-                'success': True,
-                'timestamp': self.get_timestamp()
-            }
+            resp = {'code': '00000', 'data': [], 'message': 'ok',
+                    'success': True, 'timestamp': self.get_timestamp()}
             self.send_json_response(200, add_sign_to_response(resp))
 
         elif path.startswith('Stage/yarbo/robot-service/robot/commonUser/getDeviceFlowBySn'):
             if not auth_ok: reject_unauthorized(); return
-            resp = {
-                'code': '00000',
-                'data': [],
-                'message': 'ok',
-                'success': True,
-                'timestamp': self.get_timestamp()
-            }
+            resp = {'code': '00000', 'data': [], 'message': 'ok',
+                    'success': True, 'timestamp': self.get_timestamp()}
             self.send_json_response(200, add_sign_to_response(resp))
 
         elif path.startswith('Stage/yarbo/robot-service/robot/commonUser/getDeviceBatteryBySn'):
             if not auth_ok: reject_unauthorized(); return
-            resp = {
-                'code': '00000',
-                'data': [],
-                'message': 'ok',
-                'success': True,
-                'timestamp': self.get_timestamp()
-            }
+            resp = {'code': '00000', 'data': [], 'message': 'ok',
+                    'success': True, 'timestamp': self.get_timestamp()}
             self.send_json_response(200, add_sign_to_response(resp))
 
         elif path.startswith('Stage/admin/getUsedFlowBySn'):
@@ -421,8 +396,7 @@ class YarboRequestHandler(http.server.BaseHTTPRequestHandler):
             print(f"Unsupported GET: {path}")
             self.send_json_response(404, add_sign_to_response({
                 'code': '404', 'data': None, 'message': 'Not Found',
-                'success': False,
-                'timestamp': self.get_timestamp()
+                'success': False, 'timestamp': self.get_timestamp()
             }))
 
     # ------------------------------------------------------------------
@@ -432,7 +406,6 @@ class YarboRequestHandler(http.server.BaseHTTPRequestHandler):
         path = self.path.lstrip('/')
         client_ip = self.client_address[0]
 
-        # ---- read body ------------------------------------------------
         content_length = int(self.headers.get('Content-Length', 0))
         body_bytes = self.rfile.read(content_length) if content_length > 0 else b''
         body = body_bytes.decode('utf-8', errors='replace')
@@ -441,7 +414,7 @@ class YarboRequestHandler(http.server.BaseHTTPRequestHandler):
             try:
                 parsed_json = json.loads(body)
             except json.JSONDecodeError:
-                pass
+                parsed_json = None
 
         if getattr(self, 'show_requests', False):
             print(f"RECV POST {self.path} from {client_ip}")
@@ -460,7 +433,7 @@ class YarboRequestHandler(http.server.BaseHTTPRequestHandler):
                 'success': False, 'timestamp': self.get_timestamp()
             }))
 
-        # ------------------- /dev/app (no auth) --------------------
+        # /dev/app (no auth)
         if path == 'dev/app':
             print(f"POST /dev/app from {client_ip}")
             resp = {
@@ -481,63 +454,110 @@ class YarboRequestHandler(http.server.BaseHTTPRequestHandler):
         if path == 'Stage/yarbo/robot-service/robot/commonUser/login':
             print(f"POST login: {client_ip}")
             try:
-                data = parsed_json or json.loads(body)
-                username = data.get('username')
-                password = data.get('password')
-                if not username or not password:
-                    self.send_json_response(400, add_sign_to_response({
-                        'code': '400', 'data': None,
-                        'message': 'Missing username or password',
-                        'success': False, 'timestamp': self.get_timestamp()
+                data = parsed_json or json.loads(body or "{}")
+            except Exception:
+                data = {}
+
+            username = data.get('username') or 'test-user'
+            password = data.get('password')
+
+            if not username or not password:
+                self.send_json_response(400, add_sign_to_response({
+                    'code': '400',
+                    'data': None,
+                    'message': 'Missing username or password',
+                    'success': False,
+                    'timestamp': self.get_timestamp()
+                }))
+                return
+
+            server_info = self.load_test_server_info() or {}
+            login_resp = server_info.get('loginResponse')  # full JSON from real server
+
+            #
+            # If --realLogin and no cached login yet → proxy ONCE to real cloud
+            #
+            if getattr(self, 'real_login', False) and login_resp is None:
+                try:
+                    real_url = REAL_LOGIN_BASE.rstrip('/') + '/' + path
+                    print(f"Proxying real login to {real_url}")
+
+                    real_headers = {
+                        'Content-Type': self.headers.get('Content-Type', 'application/json')
+                    }
+                    real_resp = requests.post(
+                        real_url,
+                        data=body_bytes,
+                        headers=real_headers,
+                        timeout=15
+                    )
+                    status_code = real_resp.status_code
+                    real_json = real_resp.json()
+
+                    if status_code != 200 or real_json.get('code') != '00000':
+                        print(f"Real login failed: status={status_code}, body={real_json}")
+                        # Just forward the failure as-is
+                        self.send_json_response(status_code, real_json)
+                        return
+
+                    data_section = real_json.get('data') or {}
+                    if not data_section.get('accessToken'):
+                        print(f"Real login missing accessToken: {real_json}")
+                        self.send_json_response(status_code, real_json)
+                        return
+
+                    # Cache full response and data
+                    server_info['loginResponse'] = real_json
+                    server_info['loginData'] = data_section
+                    server_info['userId'] = data_section.get('userId', username)
+                    self.save_test_server_info(server_info)
+                    login_resp = real_json
+                    print("Captured real login response into testServerInfo.json")
+
+                except Exception as e:
+                    print(f"Error proxying real login: {e}")
+                    self.send_json_response(500, add_sign_to_response({
+                        'code': '500',
+                        'data': None,
+                        'message': f'Error proxying real login: {e}',
+                        'success': False,
+                        'timestamp': self.get_timestamp()
                     }))
                     return
 
-                # Build JWT payload similar to production
-                iat = int(time.time())
-                exp = iat + 30 * 24 * 60 * 60  # 30 days
-                payload = {
-                    'userId': username,
-                    'permissionGroup': '',
-                    'https://auth0.yarbo.com/roles': [],
-                    'https://auth0.yarbo.com/email': username,
-                    'iss': 'https://dev-6ubfuqym1d3m0mq1.us.auth0.com/',
-                    'sub': 'auth0|67e9930075b689b7db2688df',
-                    'aud': [
-                        'https://auth0-jwt-authorizer',
-                        'https://dev-6ubfuqym1d3m0mq1.us.auth0.com/userinfo'
-                    ],
-                    'iat': iat,
-                    'exp': exp,
-                    'scope': 'openid profile offline_access',
-                    'gty': 'password',
-                    'azp': 'SL1GSNy3VmCLTMl01qPkwqjY4xm66i0',
-                    'permissions': []
-                }
-                access_token = create_jwt(payload, iat, exp)
-                self.access_tokens[client_ip] = access_token
-                self.user_ids[client_ip] = username
-
-                response = {
-                    'code': '00000',
-                    'data': {
-                        'accessToken': access_token,
-                        'refreshToken': secrets.token_hex(91),
-                        'expiresIn': 2592000,
-                        'jti': str(uuid.uuid4()),
-                        'snList': [],
-                        'userId': username
-                    },
-                    'message': 'ok',
-                    'success': True,
+            #
+            # If we still don't have a cached loginResponse at this point
+            # AND realLogin is not active → tell user to run with --realLogin once.
+            #
+            if login_resp is None:
+                self.send_json_response(500, add_sign_to_response({
+                    'code': '500',
+                    'data': None,
+                    'message': 'No cached loginResponse. Start server once with --realLogin to capture real tokens.',
+                    'success': False,
                     'timestamp': self.get_timestamp()
-                }
-                self.send_json_response(200, add_sign_to_response(response))
-            except Exception:
-                self.send_json_response(400, add_sign_to_response({
-                    'code': '400', 'data': None,
-                    'message': 'Invalid JSON',
-                    'success': False, 'timestamp': self.get_timestamp()
                 }))
+                return
+
+            # Use cached full response unchanged – "pass through the same values"
+            data_section = login_resp.get('data') or {}
+            access_token = data_section.get('accessToken', '')
+            if not access_token:
+                self.send_json_response(500, add_sign_to_response({
+                    'code': '500',
+                    'data': None,
+                    'message': 'Cached loginResponse missing accessToken.',
+                    'success': False,
+                    'timestamp': self.get_timestamp()
+                }))
+                return
+
+            # Track token per client IP for later auth checks
+            self.access_tokens[client_ip] = access_token
+            self.user_ids[client_ip] = data_section.get('userId', username)
+
+            # IMPORTANT: do NOT re-sign or rebuild; just send as-is
+            self.send_json_response(200, login_resp)
             return
 
         # ------------------- /refreshToken ---------------------------
@@ -555,8 +575,7 @@ class YarboRequestHandler(http.server.BaseHTTPRequestHandler):
             )
 
             iat = int(time.time())
-            exp = iat + 30 * 24 * 60 * 60  # 30 days
-
+            exp = iat + 30 * 24 * 60 * 60
             username = self.user_ids.get(client_ip, 'test-user')
 
             payload = {
@@ -588,7 +607,7 @@ class YarboRequestHandler(http.server.BaseHTTPRequestHandler):
                     'accessToken': access_token,
                     'refreshToken': incoming_refresh,
                     'expiresIn': 2592000,
-                    'jti': str(uuid.uuid4()),
+                    'jti': '',
                     'snList': [],
                     'userId': username
                 },
@@ -607,19 +626,21 @@ class YarboRequestHandler(http.server.BaseHTTPRequestHandler):
                     'code': '400', 'data': None,
                     'message': 'Missing uid/channel_name/sn',
                     'success': False, 'timestamp': self.get_timestamp()
-                })); return
+                }))
+                return
 
             sn = parsed_json['sn']
             uid = parsed_json['uid']
             channel = parsed_json['channel_name']
             update_key = parsed_json.get('update_key', False)
             server_info = self.load_test_server_info()
-            if not server_info or not any(d['serialNum'] == sn for d in server_info.get('deviceList', [])):
+            if not server_info or not any(d.get('serialNum') == sn for d in server_info.get('deviceList', [])):
                 self.send_json_response(400, add_sign_to_response({
                     'code': '400', 'data': None,
                     'message': f"Invalid serialNum: {sn}",
                     'success': False, 'timestamp': self.get_timestamp()
-                })); return
+                }))
+                return
 
             if sn in _agora_tokens and not update_key:
                 agora_data = _agora_tokens[sn]
@@ -660,6 +681,32 @@ class YarboRequestHandler(http.server.BaseHTTPRequestHandler):
                 "data": {"planHistory": []},
                 "success": True,
                 "message": "ok",
+                "timestamp": self.get_timestamp()
+            }
+            self.send_json_response(200, add_sign_to_response(resp))
+            return
+
+        # ------------------- /dev/iot (telemetry/logging) -------------------
+        if path == 'dev/iot':
+            # This is just telemetry from the app; we don't need to do anything
+            # with it other than return success so the client doesn't see errors.
+            try:
+                logs = parsed_json or json.loads(body or "[]")
+            except Exception:
+                logs = []
+
+            # Optional: print a compact summary when showRequests is on
+            if getattr(self, 'show_requests', False):
+                try:
+                    print(f"Received /dev/iot telemetry ({len(logs)} entries)")
+                except Exception:
+                    pass
+
+            resp = {
+                "code": "00000",
+                "data": None,
+                "message": "ok",
+                "success": True,
                 "timestamp": self.get_timestamp()
             }
             self.send_json_response(200, add_sign_to_response(resp))
@@ -714,7 +761,7 @@ class TLSServer(socketserver.ThreadingTCPServer):
 # Main entry point
 # ----------------------------------------------------------------------
 def main():
-    parser = argparse.ArgumentParser(description='Yarbo test API server (TLS + sign + Play-Store)')
+    parser = argparse.ArgumentParser(description='Yarbo test API server (TLS + sign + optional real login capture)')
     parser.add_argument('--host', default='localhost')
     parser.add_argument('--port', type=int, default=8081)
     parser.add_argument('--cert', default='CA/server.crt')
@@ -722,11 +769,15 @@ def main():
     parser.add_argument('--tls-version', default='TLSv1.3', choices=['TLSv1.2', 'TLSv1.3'])
     parser.add_argument('--showResponses', action='store_true')
     parser.add_argument('--showRequests', action='store_true')
+    parser.add_argument('--realLogin', action='store_true',
+                        help='On first /login, proxy to real Yarbo cloud, capture tokens into testServerInfo.json, then use cached tokens thereafter.')
     args = parser.parse_args()
+
     YarboRequestHandler.show_responses = args.showResponses
     YarboRequestHandler.show_requests = args.showRequests
+    YarboRequestHandler.real_login = args.realLogin
 
-    for f in (args.cert, args.key, 'testServerInfo.json'):
+    for f in (args.cert, args.key):
         if not os.path.exists(f):
             print(f"Missing required file: {f}")
             sys.exit(1)
@@ -743,11 +794,13 @@ def main():
     print("Certificates:")
     print(f"  cert: {args.cert}")
     print(f"  key : {args.key}")
-    print("\nAvailable endpoints:")
-    print("   • GET  /store/apps/details?id=com.hanyang.yarbo → 200 OK")
-    print("   • POST /dev/app → 200 OK (no auth)")
-    print("   • All successful JSON responses contain a `sign` field")
-    print("   • JWT login valid for 30 days\n")
+    print("\nFlags:")
+    print(f"  --realLogin     : {args.realLogin}")
+    print(f"  --showRequests  : {args.showRequests}")
+    print(f"  --showResponses : {args.showResponses}")
+    print("\nNotes:")
+    print("  • First run with --realLogin to capture real access/refresh tokens into testServerInfo.json")
+    print("  • Later runs can omit --realLogin and will reuse cached tokens\n")
 
     try:
         httpd.serve_forever()
